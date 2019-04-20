@@ -1,0 +1,26 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "Chat application with Angular frontend and Node.js backend.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-server": "cd ./server && nodemon index.js",
+    "start-client": "cd ./client && ng serve -o",
+    "start": "concurrently --kill-others \"npm run start-server\" \"npm run start-client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/f4irline/chat-app.git"
+  },
+  "author": "Tommi Lepola",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/f4irline/chat-app/issues"
+  },
+  "homepage": "https://github.com/f4irline/chat-app#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "concurrently": "^4.1.0"
+  }
+}
