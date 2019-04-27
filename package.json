@@ -4,6 +4,7 @@
   "description": "Chat application with Angular frontend and Node.js backend.",
   "main": "index.js",
   "scripts": {
+    "postinstall": "echo \"Installing Angular dependencies\" && cd ./client && npm install",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start-server": "cd ./server/app && nodemon index.js",
     "start-client": "cd ./client && ng serve -o",

@@ -1,7 +1,9 @@
-const config = require('../config/config');
-const express = require('express');
-const cors = require('cors');
-const routes = require('./routes');
+'use strict'
+
+const config    = require('../config/config');
+const express   = require('express');
+const cors      = require('cors');
+const routes    = require('./routes');
 
 const app = express();
 

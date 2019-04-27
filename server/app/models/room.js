@@ -1,8 +1,12 @@
 'use strict'
 
-const sequelize = require ('./index');
-const Sequelize = require ('sequelize');
-
-const Room = {};
-
-module.exports = Room;
+module.exports = (sequelize, type) => {
+    return sequelize.define('room', {
+        id: {
+            type: type.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+        },
+        roomName: type.STRING,
+    });
+}

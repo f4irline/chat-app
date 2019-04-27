@@ -1,17 +1,22 @@
-const config = require('../../config/config');
+'use strict'
+
+const config    = require('../../config/config');
 const Sequelize = require('sequelize');
+
+const RoomModel = require('./room');
 
 const sequelize = new Sequelize(config.mysql.database, config.mysql.user, config.mysql.password, {
     host: config.mysql.host,
     dialect: 'mysql',
 });
 
-sequelize.authenticate()
-    .then(() => {
-        console.log('Connected');
-    })
-    .catch((err) => {
-        console.log(err);
-    })
+const Room = RoomModel(sequelize, Sequelize);
 
-module.exports = sequelize;
+sequelize.sync({force: true})
+    .then(() => {
+        console.log('Database and tables created.');
+    });
+
+module.exports = {
+    Room
+};

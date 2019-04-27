@@ -1,12 +1,21 @@
-const app = module.exports = require('express')();
-const bodyParser = require('body-parser');
+'use strict'
+
+const app           = module.exports = require('express')();
+const { Room }      = require('../models');
+const bodyParser    = require('body-parser');
 
 app.use(bodyParser.json());
 
 app.post('/rooms', (req, res) => {
-    console.log(req.body);
+    Room.create(req.body).then((room) => {
+        res.json(room);
+    }).catch((err) => {
+        console.log(err);
+    })
 });
 
 app.get('/rooms', (req, res) => {
-    console.log('Get rooms');
+    Room.findAll().then((rooms) => {
+        res.json(rooms);
+    });
 });
