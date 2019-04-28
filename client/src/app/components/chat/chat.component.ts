@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Message } from 'src/app/models/Message';
 import { SocketIoService } from 'src/app/services';
 import { Observable, Subscription } from 'rxjs';
+import { Typing } from 'src/app/models/Typing';
 
 @Component({
   selector: 'app-chat',
@@ -12,6 +13,8 @@ export class ChatComponent implements OnInit {
 
   @Input() userName: string;
 
+  typing: Typing;
+
   msg: Message;
   messages: Message[];
 
@@ -21,22 +24,44 @@ export class ChatComponent implements OnInit {
       msg: ''
     };
 
-    this.messages = [];
+    this.messages = [{
+      userName: 'test1',
+      msg: 'test test tset'
+    }, {
+      userName: 'test2',
+      msg: 'test test testst es'
+    }, {
+      userName: 'test1',
+      msg: 'test test tset'
+    }, {
+      userName: 'test2',
+      msg: 'test test testst es'
+    }];
+
+    this.typing = {
+      userName: undefined,
+    };
   }
 
   ngOnInit() {
+    const chatContainer = document.querySelector('.chat-container');
+    chatContainer.scrollTop = chatContainer.scrollHeight - chatContainer.clientHeight;
+
     this.msg.userName = this.userName;
     this.socketIo.message.subscribe((msg) => {
       this.messages.push(msg);
-      console.log(this.messages);
     });
 
     this.socketIo.clear.subscribe(() => {
-      console.log('Someone cleared');
+      this.typing = {
+        userName: undefined,
+      };
     });
 
     this.socketIo.typing.subscribe((name) => {
-      console.log(`${name} started typing.`);
+      this.typing = {
+        userName: name,
+      };
     });
   }
 

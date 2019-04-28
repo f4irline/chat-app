@@ -10,6 +10,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { LoginComponent } from './components/login/login.component';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { MessageComponent } from './components/message/message.component';
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @NgModule({
@@ -18,7 +19,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     ChatComponent,
     HomeComponent,
     SidebarComponent,
-    LoginComponent
+    LoginComponent,
+    MessageComponent,
   ],
   imports: [
     BrowserModule,

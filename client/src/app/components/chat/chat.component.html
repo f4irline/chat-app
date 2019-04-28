@@ -3,8 +3,13 @@
       <div class="col-sm-3 text-center vertical-divider align-self-start">
         <app-sidebar></app-sidebar>
       </div>
-      <div class="col-sm-9 text-center align-self-end">
-        <form class="form-inline">
+      <div class="col-sm-9 text-center align-self-end chat-container">
+        <app-message *ngFor="let msg of messages" [msg]="msg" [userName]="userName"></app-message>
+        <hr>
+        <div class="text-right typing-container">
+          <p class="lead" [ngClass]="{'hidden': typing.userName ? false : true}">{{typing.userName}} is typing...</p>
+        </div>  
+        <form class="form-inline chat-controls">
           <input type="text" class="form-control fill-parent" 
             name="msg" 
             [ngModel]="msg.msg"

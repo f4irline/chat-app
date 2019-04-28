@@ -17,6 +17,9 @@ export class LoginComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    if (this.localStorageService.getUserName()) {
+      this.router.navigateByUrl('/home');
+    }
   }
 
   login() {

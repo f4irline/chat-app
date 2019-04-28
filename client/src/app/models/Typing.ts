@@ -1,3 +1,3 @@
 export interface Typing {
-    name: string;
+    userName: string;
 }
