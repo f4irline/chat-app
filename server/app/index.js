@@ -10,7 +10,7 @@ const server = app.listen(config.port, config.host, () => {
     console.log(`Listening in: http://${config.host}:${config.port}/api`);
 });
 
-require('./wss/index')(server);
+require('./wss')(server);
 
 app.use(cors());
 

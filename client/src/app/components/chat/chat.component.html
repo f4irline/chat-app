@@ -5,8 +5,12 @@
       </div>
       <div class="col-sm-9 text-center align-self-end">
         <form class="form-inline">
-          <input type="text" class="form-control fill-parent" name="msg" [(ngModel)]="msgInput" placeholder="Enter text.">
-          <button type="submit" class="btn btn-primary margin-left-1">Send</button>
+          <input type="text" class="form-control fill-parent" 
+            name="msg" 
+            [ngModel]="msg.msg"
+            (ngModelChange)="msgChanged($event)"
+            placeholder="Enter text.">
+          <button type="submit" class="btn btn-primary margin-left-1" (click)="send()">Send</button>
         </form>
       </div>
   </div>
