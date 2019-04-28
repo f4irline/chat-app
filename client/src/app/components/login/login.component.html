@@ -1,0 +1,17 @@
+<div class="login-wrapper">
+  <div class="container paper elevate-1">
+    <div class="row">
+      <div class="col">
+        <h1>Login</h1>
+      </div>
+    </div>
+    <hr>
+    <form class="login-form">
+      <div class="form-group row">
+        <label for="userName" class="col-sm-3 col-form-label">Username</label>
+        <input type="text" id="userName" name="userName" placeholder="Enter username" class="form-control col-sm-9" [(ngModel)]="userName">
+      </div>
+      <button type="submit" class="btn btn-primary margin-left-1" (click)="login()">Send</button>
+    </form>      
+  </div>
+</div>

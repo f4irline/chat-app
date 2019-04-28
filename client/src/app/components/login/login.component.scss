@@ -1,0 +1,19 @@
+:host {
+    .login-wrapper {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+
+        .container {
+            padding: 5vw;
+        }
+
+        .login-form {
+            padding: 0 1vw;
+
+            input[type="text"] {
+                margin-bottom: 1vh;
+            }
+        }
+    }
+}
