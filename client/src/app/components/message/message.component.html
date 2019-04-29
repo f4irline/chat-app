@@ -1,5 +1,5 @@
-<div class="message-wrapper" [ngClass]="{'user-message': msg.userName === userName}">
-  <div class="message user-message">
-    <p>{{msg.userName}}: {{msg.msg}}</p>
+<div class="message-wrapper" [ngClass]="{'user-message-wrapper': msg.userName === userName}">
+  <div class="message" [ngClass]="{'user-message':  msg.userName === userName}">
+    <p><span>{{msg.userName}}:</span> {{msg.msg}}</p>
   </div>
 </div>
