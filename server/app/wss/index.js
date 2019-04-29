@@ -27,9 +27,14 @@ module.exports = (server) => {
             socket.broadcast.emit('clear');
         });
 
+        socket.on('userLeave', () => {
+            users = users.filter((user) => user.id !== socket.id);
+            socket.broadcast.emit('users', users);
+        });
+
         socket.on('disconnect', () => {
             users = users.filter((user) => user.id !== socket.id);
             socket.broadcast.emit('users', users);
-        })
+        });
     });
 }

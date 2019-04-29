@@ -28,4 +28,8 @@ export class SocketIoService {
   sendUserName(userName: string) {
     this.socket.emit('join', userName);
   }
+
+  disconnect() {
+    this.socket.emit('userLeave');
+  }
 }
