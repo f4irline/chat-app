@@ -1,22 +1,24 @@
 <div class="paper elevate-1 container">
   <div class="row chat-wrapper">
       <div class="col-sm-3 text-center vertical-divider align-self-start">
-        <app-sidebar></app-sidebar>
+        <app-sidebar [users]="users"></app-sidebar>
       </div>
-      <div class="col-sm-9 text-center align-self-end chat-container">
-        <app-message *ngFor="let msg of messages" [msg]="msg" [userName]="userName"></app-message>
-        <hr>
-        <div class="text-right typing-container">
-          <p class="lead" [ngClass]="{'hidden': typing.userName ? false : true}">{{typing.userName}} is typing...</p>
-        </div>  
-        <form class="form-inline chat-controls">
-          <input type="text" class="form-control fill-parent" 
-            name="msg" 
-            [ngModel]="msg.msg"
-            (ngModelChange)="msgChanged($event)"
-            placeholder="Enter text.">
-          <button type="submit" class="btn btn-primary margin-left-1" (click)="send()">Send</button>
-        </form>
+      <div class="col-sm-9 text-center align-self-end scroll-container">
+        <div class="chat-container">
+          <app-message *ngFor="let msg of messages" [msg]="msg" [userName]="userName"></app-message>
+          <hr>
+          <div class="text-right typing-container">
+            <p class="lead" [ngClass]="{'hidden': whoisTyping.userName ? false : true}">{{whoisTyping.userName}} is typing...</p>
+          </div>  
+          <form class="form-inline chat-controls">
+            <input type="text" class="form-control fill-parent" 
+              name="msg" 
+              [ngModel]="msg.msg"
+              (ngModelChange)="msgChanged($event)"
+              placeholder="Enter text.">
+            <button type="submit" class="btn btn-primary margin-left-1" (keyup.enter)="send()" (click)="send()">Send</button>
+          </form>
+        </div>
       </div>
   </div>
 </div>

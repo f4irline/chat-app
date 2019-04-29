@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, AfterViewChecked, OnDestroy } from '@angular/core';
-import { Message } from 'src/app/models/Message';
+import { Message, Typing, User } from 'src/app/models/';
 import { SocketIoService } from 'src/app/services';
-import { Typing } from 'src/app/models/Typing';
 import { Observable, Subscription } from 'rxjs';
 
 @Component({
@@ -13,13 +12,15 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   @Input() userName: string;
 
-  typing: Typing;
+  whoisTyping: Typing;
   msg: Message;
   messages: Message[];
+  users: User[];
 
   msgSubscription$: Subscription;
   clearSubscription$: Subscription;
   typingSubscription$: Subscription;
+  usersSubscription$: Subscription;
 
   constructor(private socketIo: SocketIoService) {
     this.msg = {
@@ -41,7 +42,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
       msg: 'test test testst es'
     }];
 
-    this.typing = {
+    this.whoisTyping = {
       userName: undefined,
     };
   }
@@ -57,20 +58,24 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     this.msg.userName = this.userName;
 
+    this.socketIo.sendUserName(this.userName);
+
     this.msgSubscription$ = this.socketIo.message.subscribe((msg) => {
       this.messages.push(msg);
     });
 
     this.clearSubscription$ = this.socketIo.clear.subscribe(() => {
-      this.typing = {
+      this.whoisTyping = {
         userName: undefined,
       };
     });
 
-    this.typingSubscription$ = this.socketIo.typing.subscribe((name) => {
-      this.typing = {
-        userName: name,
-      };
+    this.typingSubscription$ = this.socketIo.typing.subscribe((user) => {
+      this.whoisTyping = user;
+    });
+
+    this.usersSubscription$ = this.socketIo.users.subscribe((users) => {
+      this.users = users;
     });
   }
 
@@ -82,19 +87,21 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.msg.msg = event;
 
     if (this.msg.msg.length > 0) {
-      this.socketIo.startTyping(this.userName);
+      this.socketIo.startTyping({userName: this.userName});
     } else {
       this.socketIo.clearTyping();
     }
   }
 
   send() {
-    this.socketIo.sendMessage(this.msg);
-    this.msg.msg = '';
+    if (this.msg.msg.length > 0) {
+      this.socketIo.sendMessage(this.msg);
+      this.msg.msg = '';
+    }
   }
 
   scrollToBottom() {
-    const chatContainer = document.querySelector('.chat-container');
+    const chatContainer = document.querySelector('.scroll-container');
     chatContainer.scrollTop = chatContainer.scrollHeight - chatContainer.clientHeight;
   }
 }

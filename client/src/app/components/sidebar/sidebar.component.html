@@ -1,1 +1,11 @@
-<p>Side bar works!</p>
+<div class="users-bar">
+    <h3>Users</h3>
+    <div class="users-wrapper">
+        <ul>
+            <li *ngFor="let user of users">
+                {{user.userName}}
+                <hr class="user-divider">
+            </li>
+        </ul>
+    </div>
+</div>
