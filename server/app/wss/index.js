@@ -30,7 +30,6 @@ module.exports = (server) => {
         socket.on('disconnect', () => {
             users = users.filter((user) => user.id !== socket.id);
             socket.broadcast.emit('users', users);
-            console.log(users);
         })
     });
 }
