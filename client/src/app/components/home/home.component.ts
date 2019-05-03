@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LocalStorageService, SocketIoService, ApiService } from '../../services';
 import { Router } from '@angular/router';
 import { Room } from 'src/app/models';
+import { UserDetails } from 'src/app/models/UserDetails';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ import { Room } from 'src/app/models';
 })
 export class HomeComponent implements OnInit {
 
-  userName = '';
+  userDetails: UserDetails;
   rooms: Room[];
 
   constructor(
@@ -21,10 +22,10 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userName = this.localStorageService.getUserName();
-    this.apiService.getRooms().subscribe((rooms) => {
-      this.rooms = rooms;
-    });
+    this.userDetails = {
+      userName: this.localStorageService.getUserName(),
+      room: this.localStorageService.getRoom(),
+    }
   }
 
   logout() {
@@ -33,7 +34,9 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl('/');
   }
 
-  newRooms(rooms: Room[]) {
-    this.rooms = rooms;
+  getRooms() {
+    this.apiService.getRooms().subscribe((rooms) => {
+      this.rooms = rooms;
+    });
   }
 }

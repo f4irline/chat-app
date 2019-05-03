@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Message, Typing, User } from 'src/app/models/';
+import { UserDetails } from 'src/app/models/UserDetails';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,10 @@ export class SocketIoService {
 
   sendUserName(userName: string) {
     this.socket.emit('join', userName);
+  }
+
+  sendUserDetails(userDetails: UserDetails) {
+    this.socket.emit('join', userDetails);
   }
 
   disconnect() {

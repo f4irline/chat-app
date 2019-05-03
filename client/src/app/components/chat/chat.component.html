@@ -5,7 +5,7 @@
       </div>
       <div class="col-sm-9 text-center align-self-end chat-scroll-container">
         <div class="chat-container">
-          <app-message *ngFor="let msg of messages" [msg]="msg" [userName]="userName"></app-message>
+          <app-message *ngFor="let msg of messages" [msg]="msg" [userName]="userDetails.userName"></app-message>
           <hr>
           <div class="text-right typing-container">
             <p class="lead" [ngClass]="{'hidden': whoisTyping.userName ? false : true}">{{whoisTyping.userName}} is typing...</p>

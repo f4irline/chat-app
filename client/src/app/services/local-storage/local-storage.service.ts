@@ -20,4 +20,18 @@ export class LocalStorageService {
       localStorage.removeItem('userName');
     }
   }
+
+  setRoom(room: number) {
+    localStorage.setItem('room', room.toString());
+  }
+
+  getRoom() {
+    return localStorage.getItem('room');
+  }
+
+  removeRoom() {
+    if (localStorage.getItem('room')) {
+      localStorage.removeItem('room');
+    }
+  }
 }

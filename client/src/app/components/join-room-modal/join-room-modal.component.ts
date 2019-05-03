@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Room } from 'src/app/models';
-import { SocketIoService } from 'src/app/services';
+import { SocketIoService, LocalStorageService } from 'src/app/services';
 
 @Component({
   selector: 'app-join-room-modal',
@@ -10,7 +10,10 @@ import { SocketIoService } from 'src/app/services';
 export class JoinRoomModalComponent implements OnInit {
   @Input() rooms: Room;
 
-  constructor(private socketIo: SocketIoService) { }
+  constructor(
+    private socketIo: SocketIoService,
+    private localStorageService: LocalStorageService
+    ) { }
 
   ngOnInit() {
   }
@@ -20,6 +23,7 @@ export class JoinRoomModalComponent implements OnInit {
   }
 
   joinRoom(id: number) {
+    this.localStorageService.setRoom(id);
     this.socketIo.joinRoom(id);
   }
 }

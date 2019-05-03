@@ -2,6 +2,7 @@ import { Component, OnInit, Input, AfterViewChecked, OnDestroy } from '@angular/
 import { Message, Typing, User } from 'src/app/models/';
 import { SocketIoService } from 'src/app/services';
 import { Observable, Subscription } from 'rxjs';
+import { UserDetails } from 'src/app/models/UserDetails';
 
 @Component({
   selector: 'app-chat',
@@ -10,7 +11,7 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
 
-  @Input() userName: string;
+  @Input() userDetails: UserDetails;
 
   whoisTyping: Typing;
   msg: Message;
@@ -44,9 +45,9 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   ngOnInit() {
     this.scrollToBottom();
 
-    this.msg.userName = this.userName;
+    this.msg.userName = this.userDetails.userName;
 
-    this.socketIo.sendUserName(this.userName);
+    this.socketIo.sendUserDetails(this.userDetails);
 
     this.msgSubscription$ = this.socketIo.message.subscribe((msg) => {
       this.messages.push(msg);
@@ -75,7 +76,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.msg.msg = event;
 
     if (this.msg.msg.length > 0) {
-      this.socketIo.startTyping({userName: this.userName});
+      this.socketIo.startTyping({userName: this.userDetails.userName});
     } else {
       this.socketIo.clearTyping();
     }
