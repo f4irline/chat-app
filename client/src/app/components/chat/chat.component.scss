@@ -3,7 +3,7 @@
     max-height: 50vh;
     padding: 1vh 0;
 
-    .scroll-container {
+    .chat-scroll-container {
         overflow-y: overlay;
         max-height: 100%;
         
@@ -21,6 +21,10 @@
             }    
         }
     }    
+
+    .side-scroll-container {
+        @extend .chat-scroll-container;
+    }
 
     .chat-controls {
         margin-bottom: 1vh;

@@ -1,9 +1,9 @@
 <div class="paper elevate-1 container">
   <div class="row chat-wrapper">
-      <div class="col-sm-3 text-center vertical-divider align-self-start">
+      <div class="col-sm-3 text-center vertical-divider align-self-start side-scroll-container">
         <app-sidebar [users]="users"></app-sidebar>
       </div>
-      <div class="col-sm-9 text-center align-self-end scroll-container">
+      <div class="col-sm-9 text-center align-self-end chat-scroll-container">
         <div class="chat-container">
           <app-message *ngFor="let msg of messages" [msg]="msg" [userName]="userName"></app-message>
           <hr>

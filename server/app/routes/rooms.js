@@ -7,8 +7,10 @@ const bodyParser    = require('body-parser');
 app.use(bodyParser.json());
 
 app.post('/rooms', (req, res) => {
-    Room.create(req.body).then((room) => {
-        res.json(room);
+    Room.create(req.body).then(() => {
+        Room.findAll().then((rooms) => {
+            res.json(rooms);
+        })
     }).catch((err) => {
         console.log(err);
     })

@@ -1,18 +1,15 @@
 .users-bar {
-    max-height: 100%;
-    overflow-y: overlay;
-    direction: rtl;
     width: 100%;
 
     h3 {
-        margin-left: 1.5vw;
-        text-align: end;
+        margin-right: 1vw;
+        text-align: start;
         text-transform: uppercase;
     }
 
     .users-wrapper {
         display: flex;
-        margin-left: 1.5vw;
+        margin-right: 1vw;
         ul {
             list-style: none;
             width: 100%;

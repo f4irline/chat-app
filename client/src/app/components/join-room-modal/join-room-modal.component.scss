@@ -1,0 +1,17 @@
+.rooms-list {
+    list-style: none;
+    
+    .room-wrapper {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        span {
+            flex: 2;
+        }
+
+        button {
+            flex: 1;
+        }
+    }
+}

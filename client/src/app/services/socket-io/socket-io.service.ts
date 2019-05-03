@@ -32,4 +32,8 @@ export class SocketIoService {
   disconnect() {
     this.socket.emit('userLeave');
   }
+
+  joinRoom(id: number) {
+    this.socket.emit('joinRoom', id);
+  }
 }

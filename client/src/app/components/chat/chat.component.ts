@@ -28,19 +28,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
       msg: ''
     };
 
-    this.messages = [{
-      userName: 'test1',
-      msg: 'test test tset'
-    }, {
-      userName: 'test2',
-      msg: 'test test testst es'
-    }, {
-      userName: 'test1',
-      msg: 'test test tset'
-    }, {
-      userName: 'test2',
-      msg: 'test test testst es'
-    }];
+    this.messages = [];
 
     this.whoisTyping = {
       userName: undefined,
@@ -96,12 +84,13 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   send() {
     if (this.msg.msg.length > 0) {
       this.socketIo.sendMessage(this.msg);
+      this.socketIo.clearTyping();
       this.msg.msg = '';
     }
   }
 
   scrollToBottom() {
-    const chatContainer = document.querySelector('.scroll-container');
-    chatContainer.scrollTop = chatContainer.scrollHeight - chatContainer.clientHeight;
+    const chatScrollContainer = document.querySelector('.chat-scroll-container');
+    chatScrollContainer.scrollTop = chatScrollContainer.scrollHeight - chatScrollContainer.clientHeight;
   }
 }
