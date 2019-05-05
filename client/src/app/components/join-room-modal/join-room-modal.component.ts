@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Room } from 'src/app/models';
 import { SocketIoService, LocalStorageService } from 'src/app/services';
 
@@ -9,6 +9,8 @@ import { SocketIoService, LocalStorageService } from 'src/app/services';
 })
 export class JoinRoomModalComponent implements OnInit {
   @Input() rooms: Room;
+  @ViewChild('closeModal') closeBtn: ElementRef;
+
 
   constructor(
     private socketIo: SocketIoService,
@@ -18,15 +20,12 @@ export class JoinRoomModalComponent implements OnInit {
   ngOnInit() {
   }
 
-  close() {
-    console.log(this.rooms);
-  }
-
   joinRoom(id: number) {
     this.localStorageService.setRoom(id);
     this.socketIo.join({
       userName: this.localStorageService.getUserName(),
       room: id.toString(),
     });
+    this.closeBtn.nativeElement.click();
   }
 }

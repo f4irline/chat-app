@@ -17,6 +17,14 @@ sequelize.sync()
         console.log('Database and tables created.');
     });
 
+Room.findOrCreate({where: {roomName: 'General'}})
+    .then(([room, created]) => {
+        console.log(room.get({
+            plain: true
+        }));
+        console.log(created);
+    })
+
 module.exports = {
     Room
 };

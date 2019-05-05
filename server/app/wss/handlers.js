@@ -1,15 +1,13 @@
 'use strict'
 const { Room } = require ('../models');
 
-const defaultRoom = {
-    id: 0,
-    roomName: 'General',
-};
-
 let allUsers = [];
 
 module.exports  = function (io, socket) {
-    let currentRoom = defaultRoom;
+    let currentRoom = {
+        id: undefined,
+        roomName: undefined,
+    };
     let previousRoom = {
         id: undefined,
         roomName: undefined,
@@ -24,11 +22,13 @@ module.exports  = function (io, socket) {
                 });    
             }
             if (data.room) {
-                joinRoom(data.room);
+                findRoom(data.room).then((newRoom) => {
+                    joinRoom(newRoom);
+                })
             } else {
-                socket.join(currentRoom.id);
-                io.to(currentRoom.id).emit('users', getUsersInRoom(io.sockets.adapter.rooms[currentRoom.id].sockets));
-                socket.emit('room', currentRoom);
+                findRoom(1).then((newRoom) => {
+                    joinRoom(newRoom);
+                })
             }
         },
         sendMsg: (data) => {
@@ -48,17 +48,15 @@ module.exports  = function (io, socket) {
         }
     }
 
-    function joinRoom (roomId) {
+    function joinRoom (newRoom) {
         previousRoom = currentRoom;
-        findRoom(roomId).then((newRoom) => {
-            currentRoom = newRoom;
-            socket.join(newRoom.id);
-            if (io.sockets.adapter.rooms[previousRoom.id]) {
-                leavePreviousRoom(previousRoom.id);
-            }
-            io.to(newRoom.id).emit('users', getUsersInRoom(io.sockets.adapter.rooms[newRoom.id].sockets));    
-            socket.emit('room', newRoom);
-        });
+        currentRoom = newRoom;
+        socket.join(newRoom.id);
+        if (io.sockets.adapter.rooms[previousRoom.id]) {
+            leavePreviousRoom(previousRoom.id);
+        }
+        io.to(newRoom.id).emit('users', getUsersInRoom(io.sockets.adapter.rooms[newRoom.id].sockets));    
+        socket.emit('room', newRoom);
     }
 
     function leavePreviousRoom(roomId) {
