@@ -3,13 +3,21 @@
     max-height: 50vh;
     padding: 1vh 0;
 
-    .chat-scroll-container {
-        overflow-y: overlay;
-        max-height: 100%;
-        
-        .chat-container {
-            margin-right: 1vw;
+    .room-wrapper {
+        height: 10%;
+        text-align: start;
+        padding-right: 1vw;
+    }
 
+    .chat-container {
+        height: 100%;
+
+        .chat-scroll-container {
+            overflow-y: overlay;
+            max-height: 90%;
+            height: 90%;
+            padding-right: 1vw;
+    
             .typing-container {
                 p {
                     font-size: 1.5vh;
@@ -19,11 +27,16 @@
                     visibility: hidden;
                 }
             }    
-        }
-    }    
-
+    
+            .room-wrapper {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }        
+    }
+    
     .side-scroll-container {
-        @extend .chat-scroll-container;
     }
 
     .chat-controls {

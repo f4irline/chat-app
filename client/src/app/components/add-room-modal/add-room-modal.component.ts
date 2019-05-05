@@ -4,8 +4,8 @@ import { Room } from 'src/app/models';
 
 @Component({
   selector: 'app-room-modal',
-  templateUrl: './room-modal.component.html',
-  styleUrls: ['./room-modal.component.scss']
+  templateUrl: './add-room-modal.component.html',
+  styleUrls: ['./add-room-modal.component.scss']
 })
 export class RoomModalComponent implements OnInit {
 

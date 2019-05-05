@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import { Message, Typing, User } from 'src/app/models/';
+import { Message, Typing, User, Room } from 'src/app/models/';
 import { UserDetails } from 'src/app/models/UserDetails';
 
 @Injectable({
@@ -11,6 +11,7 @@ export class SocketIoService {
   typing = this.socket.fromEvent<Typing>('typing');
   clear = this.socket.fromEvent('clear');
   users = this.socket.fromEvent<User[]>('users');
+  room = this.socket.fromEvent<Room>('room');
 
   constructor(private socket: Socket) { }
 
@@ -30,15 +31,11 @@ export class SocketIoService {
     this.socket.emit('join', userName);
   }
 
-  sendUserDetails(userDetails: UserDetails) {
+  join(userDetails: UserDetails) {
     this.socket.emit('join', userDetails);
   }
 
   disconnect() {
     this.socket.emit('userLeave');
-  }
-
-  joinRoom(id: number) {
-    this.socket.emit('joinRoom', id);
   }
 }

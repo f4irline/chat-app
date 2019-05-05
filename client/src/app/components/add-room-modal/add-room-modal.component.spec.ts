@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RoomModalComponent } from './room-modal.component';
+import { RoomModalComponent } from './add-room-modal.component';
 
 describe('RoomModalComponent', () => {
   let component: RoomModalComponent;

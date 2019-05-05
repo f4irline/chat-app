@@ -12,7 +12,7 @@ import { LoginComponent } from './components/login/login.component';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { MessageComponent } from './components/message/message.component';
-import { RoomModalComponent } from './components/room-modal/room-modal.component';
+import { RoomModalComponent } from './components/add-room-modal/add-room-modal.component';
 import { ApiService, SocketIoService, LocalStorageService } from './services';
 import { AuthGuard } from './services/auth/auth.guard';
 import { JoinRoomModalComponent } from './components/join-room-modal/join-room-modal.component';

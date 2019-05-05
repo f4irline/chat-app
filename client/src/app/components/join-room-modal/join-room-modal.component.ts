@@ -24,6 +24,9 @@ export class JoinRoomModalComponent implements OnInit {
 
   joinRoom(id: number) {
     this.localStorageService.setRoom(id);
-    this.socketIo.joinRoom(id);
+    this.socketIo.join({
+      userName: this.localStorageService.getUserName(),
+      room: id.toString(),
+    });
   }
 }

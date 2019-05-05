@@ -25,7 +25,8 @@ export class HomeComponent implements OnInit {
     this.userDetails = {
       userName: this.localStorageService.getUserName(),
       room: this.localStorageService.getRoom(),
-    }
+    };
+    this.socketIo.join(this.userDetails);
   }
 
   logout() {

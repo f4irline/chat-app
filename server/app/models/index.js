@@ -12,7 +12,7 @@ const sequelize = new Sequelize(config.mysql.database, config.mysql.user, config
 
 const Room = RoomModel(sequelize, Sequelize);
 
-sequelize.sync({force: true})
+sequelize.sync()
     .then(() => {
         console.log('Database and tables created.');
     });

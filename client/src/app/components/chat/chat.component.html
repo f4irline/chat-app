@@ -3,21 +3,29 @@
       <div class="col-sm-3 text-center vertical-divider align-self-start side-scroll-container">
         <app-sidebar [users]="users"></app-sidebar>
       </div>
-      <div class="col-sm-9 text-center align-self-end chat-scroll-container">
-        <div class="chat-container">
-          <app-message *ngFor="let msg of messages" [msg]="msg" [userName]="userDetails.userName"></app-message>
-          <hr>
-          <div class="text-right typing-container">
-            <p class="lead" [ngClass]="{'hidden': whoisTyping.userName ? false : true}">{{whoisTyping.userName}} is typing...</p>
-          </div>  
-          <form class="form-inline chat-controls">
-            <input type="text" class="form-control fill-parent" 
-              name="msg" 
-              [ngModel]="msg.msg"
-              (ngModelChange)="msgChanged($event)"
-              placeholder="Enter text.">
-            <button type="submit" class="btn btn-primary margin-left-1" (keyup.enter)="send()" (click)="send()">Send</button>
-          </form>
+      <div class="col-sm-9 text-center chat-container">
+        <div class="room-wrapper row">
+          <div class="col-sm-12 align-self-start">
+            <h4>Room: {{room.roomName}}</h4>
+            <hr>
+          </div>
+        </div>
+        <div class="chat-scroll-container row">
+          <div class="col-sm-12 align-self-end">
+            <app-message *ngFor="let msg of messages" [msg]="msg" [userName]="userDetails.userName"></app-message>
+            <hr>
+            <div class="text-right typing-container">
+              <p class="lead" [ngClass]="{'hidden': whoisTyping.userName ? false : true}">{{whoisTyping.userName}} is typing...</p>
+            </div>  
+            <form class="form-inline chat-controls">
+              <input type="text" class="form-control fill-parent" 
+                name="msg" 
+                [ngModel]="msg.msg"
+                (ngModelChange)="msgChanged($event)"
+                placeholder="Enter text.">
+              <button type="submit" class="btn btn-primary margin-left-1" (keyup.enter)="send()" (click)="send()">Send</button>
+            </form>
+          </div>
         </div>
       </div>
   </div>
