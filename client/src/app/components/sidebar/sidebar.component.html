@@ -3,7 +3,7 @@
     <div class="users-wrapper">
         <ul>
             <li *ngFor="let user of users">
-                {{user.userName}}
+                <span class="user" (click)="startPm(user)">{{user.userName}}</span>
                 <hr class="user-divider">
             </li>
         </ul>

@@ -19,6 +19,8 @@
             padding-right: 1vw;
     
             .typing-container {
+                display: inline-block;
+                width: 50%;
                 p {
                     font-size: 1.5vh;
                 }
@@ -27,6 +29,11 @@
                     visibility: hidden;
                 }
             }    
+
+            .error-container {
+                @extend .typing-container;
+                color: red;
+            }
     
             .room-wrapper {
                 position: absolute;

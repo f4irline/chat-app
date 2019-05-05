@@ -1,34 +1,43 @@
-import { Component, OnInit, Input, AfterViewChecked, OnDestroy } from '@angular/core';
-import { Message, Typing, User, Room } from 'src/app/models/';
+import { Component, OnInit, Input, AfterViewChecked, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Fade } from '../../animations/Fade';
+import { Message, Typing, User, Room, UserDetails } from 'src/app/models/';
 import { SocketIoService } from 'src/app/services';
 import { Subscription } from 'rxjs';
-import { UserDetails } from 'src/app/models/UserDetails';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss']
+  styleUrls: ['./chat.component.scss'],
+  animations: [
+    Fade,
+  ]
 })
 export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   @Input() userDetails: UserDetails;
+  @ViewChild('msgInput') msgInput: ElementRef;
 
   whoisTyping: Typing;
   msg: Message;
   messages: Message[];
   room: Room;
   users: User[];
+  receiverError: boolean;
+
+  errorTimeout: number;
 
   msgSubscription$: Subscription;
   clearSubscription$: Subscription;
   typingSubscription$: Subscription;
   usersSubscription$: Subscription;
   roomSubscription$: Subscription;
+  noReceiverSubscription$: Subscription;
 
   constructor(private socketIo: SocketIoService) {
     this.msg = {
       userName: '',
-      msg: ''
+      msg: '',
+      private: false,
     };
 
     this.messages = [];
@@ -40,6 +49,8 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.room = {
       roomName: undefined,
     };
+
+    this.receiverError = false;
   }
 
   ngOnDestroy() {
@@ -47,6 +58,11 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.clearSubscription$.unsubscribe();
     this.typingSubscription$.unsubscribe();
     this.usersSubscription$.unsubscribe();
+    this.roomSubscription$.unsubscribe();
+
+    if (this.errorTimeout) {
+      window.clearTimeout(this.errorTimeout);
+    }
   }
 
   ngOnInit() {
@@ -76,6 +92,19 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
       this.room = room;
       this.messages = [];
     });
+
+    this.noReceiverSubscription$ = this.socketIo.noReceiver.subscribe((msg) => {
+      this.receiverError = true;
+
+      if (this.errorTimeout) {
+        window.clearTimeout(this.errorTimeout);
+      }
+
+      this.errorTimeout = window.setTimeout(() => {
+        this.receiverError = false;
+        this.errorTimeout = undefined;
+      }, 4000);
+    });
   }
 
   ngAfterViewChecked() {
@@ -84,11 +113,18 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   msgChanged(event: any) {
     this.msg.msg = event;
+    this.msg.private = false;
 
     if (this.msg.msg.length > 0) {
-      this.socketIo.startTyping({userName: this.userDetails.userName});
+      if (this.msg.msg[0] !== '/') {
+        this.socketIo.startTyping({userName: this.userDetails.userName});
+      }
+      if (this.msg.msg.substr(0, 3) === '/pm') {
+        this.msg.private = true;
+      }
     } else {
       this.socketIo.clearTyping();
+      this.msg.private = false;
     }
   }
 
@@ -103,5 +139,11 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   scrollToBottom() {
     const chatScrollContainer = document.querySelector('.chat-scroll-container');
     chatScrollContainer.scrollTop = chatScrollContainer.scrollHeight - chatScrollContainer.clientHeight;
+  }
+
+  onPm(receiver: string) {
+    this.msg.msg = `/pm ${receiver} `;
+    this.msg.private = true;
+    this.msgInput.nativeElement.focus();
   }
 }

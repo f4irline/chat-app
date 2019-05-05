@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ApiService } from 'src/app/services';
 import { Room } from 'src/app/models';
 
@@ -12,8 +12,6 @@ export class RoomModalComponent implements OnInit {
   @ViewChild('closeModal') closeBtn: ElementRef;
   room: Room;
 
-  @Output() newRooms = new EventEmitter<Room[]>();
-
   constructor(private apiService: ApiService) { }
 
   ngOnInit() {
@@ -23,8 +21,7 @@ export class RoomModalComponent implements OnInit {
   }
 
   saveRoom() {
-    this.apiService.saveRoom(this.room).subscribe((rooms) => {
-      this.newRooms.emit(rooms);
+    this.apiService.saveRoom(this.room).subscribe(() => {
       this.closeBtn.nativeElement.click();
     });
   }

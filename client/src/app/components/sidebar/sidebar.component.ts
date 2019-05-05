@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { User } from 'src/app/models';
 
 @Component({
@@ -8,9 +8,14 @@ import { User } from 'src/app/models';
 })
 export class SidebarComponent implements OnInit {
   @Input() users: User;
+  @Output() pm = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  startPm(user: User) {
+    this.pm.emit(user.userName);
   }
 }

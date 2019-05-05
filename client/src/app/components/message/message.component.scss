@@ -16,7 +16,7 @@
         border-radius: 2px 2px;
 
         &.user-message {
-            border: 2px solid green;
+            border: 2px solid rgb(0, 168, 0);
             border-radius: 2px 2px;    
             justify-content: flex-end;
         }
@@ -28,6 +28,14 @@
             span {
                 font-weight: 700;
             }
+        }
+
+        &.private {
+            font-style: italic;
+        }
+
+        .user {
+            cursor: pointer;
         }
     }
 }

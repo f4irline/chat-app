@@ -22,6 +22,11 @@
                 .user-divider {
                     margin: 5px 0;
                 }
+
+                .user:hover {
+                    color: red;
+                    cursor: pointer;
+                }
             }
         }
     }
