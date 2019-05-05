@@ -32,7 +32,11 @@ module.exports  = function (io, socket) {
             }
         },
         sendMsg: (data) => {
-            io.to(currentRoom.id).emit('msg', data);
+            if (data.private) {
+                sendPm(data);
+            } else {
+                io.to(currentRoom.id).emit('msg', data);
+            }
         },
         emitTyping: (data) => {
             socket.to(currentRoom.id).broadcast.emit('typing', data);
@@ -46,6 +50,51 @@ module.exports  = function (io, socket) {
                 socket.to(currentRoom.id).broadcast.emit('users', getUsersInRoom(io.sockets.adapter.rooms[currentRoom.id].sockets));
             }
         }
+    }
+
+    function sendPm(data) {
+        const receiverName = parseReceiver(data.msg).toLowerCase();
+        const receiver = findReceiver(receiverName);
+        if (receiver) {
+            const message = parseMessage(data.msg, receiverName);
+            data.msg = message;
+            io.to(receiver.id).emit('msg', data);
+            socket.emit('msg', data);    
+        } else {
+            socket.emit('no-receiver-found', data);
+        }
+    }
+
+    function parseReceiver(msg) {
+        let receiver = '';
+        for (let i = 4; i < msg.length; i++) {
+            if (msg[i] === ' ') {
+                break;
+            }
+            receiver += msg[i];
+        }
+
+        return receiver;
+    }
+
+    function parseMessage(msg, receiverName) {
+        const msgStarts = 4 + receiverName.length + 1;
+        let message = '';
+        for (let i = msgStarts; i < msg.length; i++) {
+            message += msg[i];
+        }
+
+        return message;
+    }
+
+    function findReceiver(receiverName) {
+        for (const user of allUsers) {
+            if (user.userName.toLowerCase() === receiverName) {
+                return user;
+            }
+        }
+
+        return undefined;
     }
 
     function joinRoom (newRoom) {
