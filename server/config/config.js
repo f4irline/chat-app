@@ -1,10 +1,10 @@
 const config = {};
 
 config.mysql = {
-    host: 'your-db-host',
-    user: 'your-db-user',
-    password: 'your-db-password',
-    database: 'your-db'  
+    host: 'mydb.tamk.fi',
+    user: 'c4tlepol',
+    password: 'GYG8losY',
+    database: 'dbc4tlepol42'  
 }
 
 config.port = 3000;

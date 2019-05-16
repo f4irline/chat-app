@@ -4,6 +4,7 @@ const config    = require('../../config/config');
 const Sequelize = require('sequelize');
 
 const RoomModel = require('./room');
+const MessageModel = require('./message');
 
 const sequelize = new Sequelize(config.mysql.database, config.mysql.user, config.mysql.password, {
     host: config.mysql.host,
@@ -11,20 +12,18 @@ const sequelize = new Sequelize(config.mysql.database, config.mysql.user, config
 });
 
 const Room = RoomModel(sequelize, Sequelize);
+const Message = MessageModel(sequelize, Sequelize);
+Room.hasMany(Message, {as: 'messages'});
+Message.belongsTo(Room, {foreignKey: 'roomId', as: 'room'});
 
-sequelize.sync()
+sequelize.sync({force: true})
     .then(() => {
+        Room.findOrCreate({where: {roomName: 'General'}});
         console.log('Database and tables created.');
     });
 
-Room.findOrCreate({where: {roomName: 'General'}})
-    .then(([room, created]) => {
-        console.log(room.get({
-            plain: true
-        }));
-        console.log(created);
-    })
 
 module.exports = {
-    Room
+    Room,
+    Message
 };

@@ -1,5 +1,6 @@
 'use strict'
 const { Room } = require ('../models');
+const { Message } = require ('../models');
 
 let allUsers = [];
 
@@ -36,6 +37,7 @@ module.exports  = function (io, socket) {
                 sendPm(data);
             } else {
                 io.to(currentRoom.id).emit('msg', data);
+                saveToRoom(currentRoom.id, data);
             }
         },
         emitTyping: (data) => {
@@ -50,6 +52,15 @@ module.exports  = function (io, socket) {
                 socket.to(currentRoom.id).broadcast.emit('users', getUsersInRoom(io.sockets.adapter.rooms[currentRoom.id].sockets));
             }
         }
+    }
+
+    function saveToRoom(id, data) {
+        Message.create({
+            msg: data.msg,
+            userName: data.userName,
+            private: data.private,
+            roomId: id
+        });
     }
 
     function sendPm(data) {
@@ -142,7 +153,7 @@ module.exports  = function (io, socket) {
     }
 
     async function findRoom (roomId) {
-        return Room.findOne({ where: {id: roomId} });
+        return Room.findOne({ where: {id: roomId}, include: ['messages'] });
     }
 }
 
