@@ -42,6 +42,7 @@ export class HomeComponent implements OnInit {
 
   profileError(err: any) {
     this.localStorageService.removeToken();
+    this.localStorageService.removeUserName();
     this.router.navigateByUrl('/login');
   }
 
