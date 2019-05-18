@@ -1,13 +1,14 @@
 const config = {};
 
 config.mysql = {
-    host: 'mydb.tamk.fi',
-    user: 'c4tlepol',
-    password: 'GYG8losY',
-    database: 'dbc4tlepol42'  
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB,
 }
 
-config.port = 3000;
-config.host = 'localhost'
+config.port = process.env.PORT;
+config.host = process.env.HOST;
+config.secret = process.env.APP_SECRET;
 
 module.exports = config;

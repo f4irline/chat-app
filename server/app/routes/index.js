@@ -7,3 +7,4 @@ app.get('/api', (req, res) => {
 });
 
 app.use('/api', require('./rooms'));
+app.use('/api', require('./auth'));
