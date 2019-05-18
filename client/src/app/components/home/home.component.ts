@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
 
   logout() {
     this.socketIo.disconnect();
-    this.localStorageService.removeToken();
+    this.localStorageService.emptyLocalStorage();
     this.router.navigateByUrl('/');
   }
 

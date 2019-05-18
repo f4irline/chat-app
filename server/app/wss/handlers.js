@@ -24,11 +24,11 @@ module.exports  = function (io, socket) {
             }
             if (data.room) {
                 findRoom(data.room).then((newRoom) => {
-                    joinRoom(newRoom);
+                    joinRoom(newRoom, true);
                 })
             } else {
                 findRoom(1).then((newRoom) => {
-                    joinRoom(newRoom);
+                    joinRoom(newRoom, false);
                 })
             }
         },
@@ -51,6 +51,7 @@ module.exports  = function (io, socket) {
             if (io.sockets.adapter.rooms[currentRoom.id]) {
                 socket.to(currentRoom.id).broadcast.emit('users', getUsersInRoom(io.sockets.adapter.rooms[currentRoom.id].sockets));
             }
+            socket.leave(currentRoom.id);
         }
     }
 
@@ -108,16 +109,16 @@ module.exports  = function (io, socket) {
         return undefined;
     }
 
-    function joinRoom (newRoom) {
+    function joinRoom (newRoom, leaving) {
         previousRoom = currentRoom;
         currentRoom = newRoom;
         socket.join(newRoom.id);
-        if (io.sockets.adapter.rooms[previousRoom.id]) {
+        if (io.sockets.adapter.rooms[previousRoom.id] && leaving) {
             leavePreviousRoom(previousRoom.id);
         }
-        if (io.sockets.adapter.rooms[newRoom.id]) {
-            io.to(newRoom.id).emit('users', getUsersInRoom(io.sockets.adapter.rooms[newRoom.id].sockets));    
-        }
+
+        io.to(newRoom.id).emit('users', getUsersInRoom(io.sockets.adapter.rooms[newRoom.id].sockets));
+
         socket.emit('room', newRoom);
     }
 

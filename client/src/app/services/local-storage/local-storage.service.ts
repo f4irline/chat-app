@@ -48,4 +48,10 @@ export class LocalStorageService {
       localStorage.removeItem('token');
     }
   }
+
+  emptyLocalStorage() {
+    this.removeToken();
+    this.removeRoom();
+    this.removeUserName();
+  }
 }
