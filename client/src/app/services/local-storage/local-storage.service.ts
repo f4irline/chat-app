@@ -34,4 +34,18 @@ export class LocalStorageService {
       localStorage.removeItem('room');
     }
   }
+
+  setToken(token: string) {
+    localStorage.setItem('token', token);
+  }
+
+  getToken() {
+    return localStorage.getItem('token');
+  }
+
+  removeToken() {
+    if (localStorage.getItem('token')) {
+      localStorage.removeItem('token');
+    }
+  }
 }

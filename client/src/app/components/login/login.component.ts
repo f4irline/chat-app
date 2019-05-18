@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { LocalStorageService } from '../../services';
+import { LocalStorageService, ApiService } from '../../services';
 import { Router } from '@angular/router';
+import { Token } from 'src/app/models/Token';
 
 @Component({
   selector: 'app-login',
@@ -10,20 +11,39 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   userName: string;
+  password: string;
+
+  loginFailed = false;
 
   constructor(
     private localStorageService: LocalStorageService,
     private router: Router,
+    private apiService: ApiService,
     ) { }
 
   ngOnInit() {
-    if (this.localStorageService.getUserName()) {
+    if (this.localStorageService.getToken()) {
       this.router.navigateByUrl('/home');
     }
   }
 
   login() {
-    this.localStorageService.setUserName(this.userName);
+    this.apiService.login({userName: this.userName, password: this.password}).subscribe(
+      (data) => this.handleLogin(data),
+      () => this.handleError(),
+    );
+  }
+
+  handleLogin(data: Token) {
+    console.log(data);
+    this.localStorageService.setToken(data.token);
     this.router.navigateByUrl('/home');
+  }
+
+  handleError() {
+    this.loginFailed = true;
+    setTimeout(() => {
+      this.loginFailed = false;
+    }, 3000);
   }
 }

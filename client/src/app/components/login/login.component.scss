@@ -10,6 +10,11 @@
 
         .login-form {
             padding: 0 1vw;
+        
+            .error-hint {
+                margin-left: 1vh;
+                color: red;
+            }
 
             input[type="text"] {
                 margin-bottom: 1vh;
