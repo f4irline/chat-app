@@ -33,7 +33,7 @@ export class ApiService {
     return this.http.post<Token>(`${this.api}${this.endpoints.login}`, auth);
   }
 
-  register(auth: Auth) {
+  signup(auth: Auth) {
     return this.http.post<any>(`${this.api}${this.endpoints.signup}`, auth);
   }
 }

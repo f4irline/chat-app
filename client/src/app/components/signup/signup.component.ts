@@ -4,16 +4,16 @@ import { Router } from '@angular/router';
 import { Token } from 'src/app/models/Token';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class SignupComponent implements OnInit {
 
   userName: string;
   password: string;
 
-  loginFailed = false;
+  signupFailed = false;
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -27,27 +27,21 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  login() {
-    this.apiService.login({userName: this.userName, password: this.password}).subscribe(
-      (data) => this.handleLogin(data),
+  signup() {
+    this.apiService.signup({userName: this.userName, password: this.password}).subscribe(
+      () => this.handleLogin(),
       () => this.handleError(),
     );
   }
 
-  handleLogin(data: Token) {
-    this.localStorageService.setToken(data.token);
-    this.localStorageService.setUserName(this.userName);
-    this.router.navigateByUrl('/home');
+  handleLogin() {
+    this.router.navigateByUrl('/login');
   }
 
   handleError() {
-    this.loginFailed = true;
+    this.signupFailed = true;
     setTimeout(() => {
-      this.loginFailed = false;
+      this.signupFailed = false;
     }, 3000);
-  }
-
-  signup() {
-    this.router.navigateByUrl('/signup');
   }
 }

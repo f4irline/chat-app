@@ -10,6 +10,7 @@ import { ChatComponent } from './components/chat/chat.component';
 import { HomeComponent } from './components/home/home.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { MessageComponent } from './components/message/message.component';
@@ -29,6 +30,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     MessageComponent,
     RoomModalComponent,
     JoinRoomModalComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
