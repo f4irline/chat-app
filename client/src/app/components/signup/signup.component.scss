@@ -6,6 +6,26 @@
 
         .container {
             padding: 5vw;
+
+            .header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                div {
+                    display: flex;
+                    align-items: center;
+
+                    h4 {
+                        margin: 0;
+
+                        &:hover {
+                            color: blue;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }    
         }
 
         .login-form {

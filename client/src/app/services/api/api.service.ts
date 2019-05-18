@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Room } from 'src/app/models';
+import { Room, User } from 'src/app/models';
 import { Observable } from 'rxjs';
 import { Auth } from 'src/app/models/Auth';
 import { Token } from '../../models/Token';
@@ -16,6 +16,7 @@ export class ApiService {
     rooms: '/rooms',
     login: '/login',
     signup: '/signup',
+    profile: '/profile',
   };
 
   constructor(private http: HttpClient) {
@@ -31,6 +32,10 @@ export class ApiService {
 
   login(auth: Auth): Observable<Token> {
     return this.http.post<Token>(`${this.api}${this.endpoints.login}`, auth);
+  }
+
+  profile(): Observable<User> {
+    return this.http.get<User>(`${this.api}${this.endpoints.profile}`);
   }
 
   signup(auth: Auth) {

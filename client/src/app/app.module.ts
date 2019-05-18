@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { JwtModule } from '@auth0/angular-jwt';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChatComponent } from './components/chat/chat.component';
@@ -19,6 +21,10 @@ import { ApiService, SocketIoService, LocalStorageService } from './services';
 import { AuthGuard } from './services/auth/auth.guard';
 import { JoinRoomModalComponent } from './components/join-room-modal/join-room-modal.component';
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+
+function getToken() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [
@@ -38,6 +44,12 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     AppRoutingModule,
     SocketIoModule.forRoot(config),
     HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: getToken,
+        whitelistedDomains: ['localhost:3000'],
+      }
+    }),
     BrowserAnimationsModule,
   ],
   providers: [

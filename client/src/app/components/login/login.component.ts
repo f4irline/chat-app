@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LocalStorageService, ApiService } from '../../services';
 import { Router } from '@angular/router';
 import { Token } from 'src/app/models/Token';
+import { User } from 'src/app/models';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.localStorageService.getToken()) {
-      this.router.navigateByUrl('/home');
+      this.apiService.profile().subscribe(
+        (res) => {
+        this.localStorageService.setUserName(res.userName);
+        this.router.navigateByUrl('/home');
+      });
     }
   }
 
@@ -34,9 +39,9 @@ export class LoginComponent implements OnInit {
     );
   }
 
+
   handleLogin(data: Token) {
     this.localStorageService.setToken(data.token);
-    this.localStorageService.setUserName(this.userName);
     this.router.navigateByUrl('/home');
   }
 

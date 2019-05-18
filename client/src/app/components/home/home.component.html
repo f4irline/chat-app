@@ -1,6 +1,6 @@
 <div class="container margin-vertical-2">
   <div class="jumbotron elevate-1">
-    <h1 class="display-3">Welcome to Chat, {{userDetails.userName}}!</h1>
+    <h1 class="display-3">Welcome to Chat, {{userDetails ? userDetails.userName : ''}}!</h1>
     <p class="lead">The best chat application in the whole internet!</p>
     <hr>
     <p>Please respect each other in the chat!</p>
@@ -8,7 +8,7 @@
     <button class="btn btn-primary action-button" data-toggle="modal" data-target="#room-add-modal">Add room</button>
     <button class="btn btn-success action-button" data-toggle="modal" data-target="#room-join-modal" (click)="getRooms()">Join room</button>
   </div>
-  <app-chat [userDetails]="userDetails"></app-chat>
+  <app-chat *ngIf="userDetails" [userDetails]="userDetails"></app-chat>
 </div>
 
 <app-room-modal></app-room-modal>

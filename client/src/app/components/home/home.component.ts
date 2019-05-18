@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalStorageService, SocketIoService, ApiService } from '../../services';
 import { Router } from '@angular/router';
-import { Room } from 'src/app/models';
+import { Room, User } from 'src/app/models';
 import { UserDetails } from 'src/app/models/UserDetails';
 
 @Component({
@@ -22,11 +22,27 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getProfile();
+  }
+
+  getProfile() {
+    this.apiService.profile().subscribe(
+      res => this.profileSuccess(res),
+      err => this.profileError(err),
+    );
+  }
+
+  profileSuccess(res: User) {
     this.userDetails = {
-      userName: this.localStorageService.getUserName(),
-      room: this.localStorageService.getRoom(),
+      userName: res.userName,
+      room: this.localStorageService.getRoom()
     };
     this.socketIo.join(this.userDetails);
+  }
+
+  profileError(err: any) {
+    this.localStorageService.removeToken();
+    this.router.navigateByUrl('/login');
   }
 
   logout() {

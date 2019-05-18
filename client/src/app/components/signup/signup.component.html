@@ -1,9 +1,12 @@
 <div class="login-wrapper">
   <div class="container paper elevate-1">
-    <div class="row">
+    <div class="row header">
       <div>
         <h1>Sign up</h1>
       </div>
+      <div>
+        <h4 (click)="login()">Login</h4>
+      </div>  
     </div>
     <hr>
     <form class="login-form">
@@ -16,7 +19,7 @@
         <input type="text" id="password" name="password" placeholder="Enter password" class="form-control col-sm-9" [(ngModel)]="password">
       </div>
       <button type="submit" class="btn btn-primary" (click)="signup()">Sign up!</button>
-      <span *ngIf="signupFailed" class="error-hint">Error in login</span>
+      <span *ngIf="signupFailed" class="error-hint">User with the given name already exists.</span>
     </form>      
   </div>
 </div>

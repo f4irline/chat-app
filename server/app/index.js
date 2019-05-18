@@ -7,6 +7,7 @@ const express   = require('express');
 const cors      = require('cors');
 const routes    = require('./routes');
 
+const UserUtils = require('./routes/userUtils');
 
 // Passport and auth utils
 const passport      = require('passport');
@@ -19,13 +20,13 @@ jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 jwtOptions.secretOrKey = config.secret;
 
 passport.use(new JwtStrategy(jwtOptions, (jwt_payload, next) => {
-    console.log('Payload: ' + jwt_payload);
-    let user = getUser({ id: jwt_payload.id });
-    if (user) {
-        next(null, user);
-    } else {
-        next(null, false);
-    }
+    return UserUtils.getUserById(jwt_payload.id)
+        .then(user => {
+            return next(null, user);
+        })
+        .catch(err => {
+            return next(err);
+        });
 }));
 
 const app = express();

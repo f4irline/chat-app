@@ -29,12 +29,16 @@ export class SignupComponent implements OnInit {
 
   signup() {
     this.apiService.signup({userName: this.userName, password: this.password}).subscribe(
-      () => this.handleLogin(),
+      () => this.handleSuccess(),
       () => this.handleError(),
     );
   }
 
-  handleLogin() {
+  handleSuccess() {
+    this.router.navigateByUrl('/login');
+  }
+
+  login() {
     this.router.navigateByUrl('/login');
   }
 

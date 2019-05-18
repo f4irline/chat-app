@@ -115,7 +115,9 @@ module.exports  = function (io, socket) {
         if (io.sockets.adapter.rooms[previousRoom.id]) {
             leavePreviousRoom(previousRoom.id);
         }
-        io.to(newRoom.id).emit('users', getUsersInRoom(io.sockets.adapter.rooms[newRoom.id].sockets));    
+        if (io.sockets.adapter.rooms[newRoom.id]) {
+            io.to(newRoom.id).emit('users', getUsersInRoom(io.sockets.adapter.rooms[newRoom.id].sockets));    
+        }
         socket.emit('room', newRoom);
     }
 
