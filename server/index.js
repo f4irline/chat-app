@@ -33,7 +33,7 @@ passport.use(new JwtStrategy(jwtOptions, (jwt_payload, next) => {
 
 const app = express();
 
-const server = app.listen(config.port, config.host, () => {
+const server = app.listen(config.port, () => {
     console.log(`Listening in: http://${config.host}:${config.port}/api`);
 });
 
@@ -45,3 +45,6 @@ app.use(cors());
 app.use(routes);
 
 app.use(passport.initialize());
+
+const distDir = __dirname + "/dist/";
+app.use(express.static(distDir));
