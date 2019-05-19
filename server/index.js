@@ -48,3 +48,7 @@ app.use(passport.initialize());
 
 const distDir = __dirname + "/dist/";
 app.use(express.static(distDir));
+
+app.use('/*', function(req, res) {
+    res.sendfile(__dirname + '/dist/index.html');
+});
