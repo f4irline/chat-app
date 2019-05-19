@@ -1,7 +1,7 @@
 <div class="paper elevate-1 container">
   <div class="row chat-wrapper">
       <div class="col-sm-3 text-center vertical-divider align-self-start side-scroll-container">
-        <app-sidebar (pm)="onPm($event)" [users]="users"></app-sidebar>
+        <app-sidebar (pm)="onPm($event)" [userDetails]="userDetails" [users]="users"></app-sidebar>
       </div>
       <div class="col-sm-9 text-center chat-container">
         <div class="room-wrapper row">
@@ -16,7 +16,7 @@
             <hr>
             <div class="text-left error-container">
               <p class="lead" [@fade]='receiverError' *ngIf="receiverError">
-                No user with given name found.
+                {{errorString}}
               </p>
             </div>
             <div class="text-right typing-container">

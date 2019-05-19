@@ -24,6 +24,8 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   users: User[];
   receiverError: boolean;
 
+  errorString: string;
+
   errorTimeout: number;
 
   msgSubscription$: Subscription;
@@ -32,6 +34,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   usersSubscription$: Subscription;
   roomSubscription$: Subscription;
   noReceiverSubscription$: Subscription;
+  invalidReceiverSubscription$: Subscription;
 
   constructor(private socketIo: SocketIoService) {
     this.msg = {
@@ -59,6 +62,8 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.typingSubscription$.unsubscribe();
     this.usersSubscription$.unsubscribe();
     this.roomSubscription$.unsubscribe();
+    this.noReceiverSubscription$.unsubscribe();
+    this.invalidReceiverSubscription$.unsubscribe();
 
     if (this.errorTimeout) {
       window.clearTimeout(this.errorTimeout);
@@ -94,6 +99,21 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     });
 
     this.noReceiverSubscription$ = this.socketIo.noReceiver.subscribe((msg) => {
+      this.errorString = 'No user with given name found.';
+      this.receiverError = true;
+
+      if (this.errorTimeout) {
+        window.clearTimeout(this.errorTimeout);
+      }
+
+      this.errorTimeout = window.setTimeout(() => {
+        this.receiverError = false;
+        this.errorTimeout = undefined;
+      }, 4000);
+    });
+
+    this.invalidReceiverSubscription$ = this.socketIo.invalidReceiver.subscribe((msg) => {
+      this.errorString = 'Invalid receiver (do not send to self).';
       this.receiverError = true;
 
       if (this.errorTimeout) {

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { User } from 'src/app/models';
+import { User, UserDetails } from 'src/app/models';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,6 +8,7 @@ import { User } from 'src/app/models';
 })
 export class SidebarComponent implements OnInit {
   @Input() users: User;
+  @Input() userDetails: UserDetails;
   @Output() pm = new EventEmitter<string>();
 
   constructor() { }
@@ -16,6 +17,8 @@ export class SidebarComponent implements OnInit {
   }
 
   startPm(user: User) {
-    this.pm.emit(user.userName);
+    if (this.userDetails.userName !== user.userName) {
+      this.pm.emit(user.userName);
+    }
   }
 }
