@@ -16,7 +16,7 @@
             <hr>
             <div class="text-left error-container">
               <p class="lead" [@fade]='receiverError' *ngIf="receiverError">
-                {{errorString}}
+                {{errorString ? errorString : 'Error in message'}}
               </p>
             </div>
             <div class="text-right typing-container">
