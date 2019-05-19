@@ -3,7 +3,7 @@
     <div class="users-wrapper">
         <ul>
             <li *ngFor="let user of users">
-                <span [ngClass]="{'user': this.userDetails.userName === user.userName ? false : true}" (click)="startPm(user)">{{user.userName}}</span>
+                <span [ngClass]="{'user': userDetails.userName === user.userName ? false : true}" (click)="startPm(user)">{{user.userName}}</span>
                 <hr class="user-divider">
             </li>
         </ul>

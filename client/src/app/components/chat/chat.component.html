@@ -12,7 +12,7 @@
         </div>
         <div class="chat-scroll-container row">
           <div class="col-sm-12 align-self-end">
-            <app-message (pm)="onPm($event)" *ngFor="let msg of messages" [msg]="msg" [userName]="userDetails.userName"></app-message>
+            <app-message [userDetails]="userDetails" (pm)="onPm($event)" *ngFor="let msg of messages" [msg]="msg" [userName]="userDetails.userName"></app-message>
             <hr>
             <div class="text-left error-container">
               <p class="lead" [@fade]='receiverError' *ngIf="receiverError">
