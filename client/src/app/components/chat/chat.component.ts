@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewChecked, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, AfterViewChecked, OnDestroy, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Fade } from '../../animations/Fade';
 import { Message, Typing, User, Room, UserDetails } from 'src/app/models/';
 import { SocketIoService } from 'src/app/services';
@@ -41,6 +41,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
       userName: '',
       msg: '',
       private: false,
+      receiver: undefined
     };
 
     this.messages = [];
@@ -54,6 +55,20 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     };
 
     this.receiverError = false;
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  onkeydown(event: KeyboardEvent) {
+    switch (event.key) {
+      case 'Escape':
+        this.msg.private = false;
+        break;
+      case 'Enter':
+        this.send();
+        break;
+      default:
+        break;
+    }
   }
 
   ngOnDestroy() {
@@ -133,18 +148,13 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   msgChanged(event: any) {
     this.msg.msg = event;
-    this.msg.private = false;
 
     if (this.msg.msg.length > 0) {
-      if (this.msg.msg[0] !== '/') {
+      if (!this.msg.private) {
         this.socketIo.startTyping({userName: this.userDetails.userName});
-      }
-      if (this.msg.msg.substr(0, 3) === '/pm') {
-        this.msg.private = true;
       }
     } else {
       this.socketIo.clearTyping();
-      this.msg.private = false;
     }
   }
 
@@ -161,9 +171,14 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     chatScrollContainer.scrollTop = chatScrollContainer.scrollHeight - chatScrollContainer.clientHeight;
   }
 
+  endPm() {
+    this.msg.private = false;
+    this.msg.receiver = undefined;
+  }
+
   onPm(receiver: string) {
-    this.msg.msg = `/pm ${receiver} `;
     this.msg.private = true;
+    this.msg.receiver = receiver;
     this.msgInput.nativeElement.focus();
   }
 }
