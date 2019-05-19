@@ -19,18 +19,32 @@
                 {{errorString ? errorString : 'Error in message'}}
               </p>
             </div>
+            <div class="text-center pm-container">
+              <p class="lead" [ngClass]="{'hidden': !this.msg.private}">Sending pm to: {{this.msg.receiver}}</p>
+            </div>
             <div class="text-right typing-container">
               <p class="lead" [ngClass]="{'hidden': whoisTyping.userName ? false : true}">{{whoisTyping.userName}} is typing...</p>
             </div>  
-            <form class="form-inline chat-controls">
+            <form class="form-inline chat-controls" *ngIf="!this.msg.private">
               <input type="text" 
                 #msgInput
                 class="form-control fill-parent" 
                 name="msg" 
                 [ngModel]="msg.msg"
                 (ngModelChange)="msgChanged($event)"
-                placeholder="Enter text.">
-              <button type="submit" class="btn btn-primary margin-left-1" (keyup.enter)="send()" (click)="send()">Send</button>
+                placeholder="Enter message.">
+              <button type="submit" class="btn btn-primary margin-left-1" (click)="send()">Send</button>
+            </form>
+            <form class="form-inline chat-controls" *ngIf="this.msg.private">
+              <input type="text" 
+                #msgInput
+                class="form-control fill-parent" 
+                name="msg" 
+                [ngModel]="msg.msg"
+                (ngModelChange)="msgChanged($event)"
+                placeholder="Enter private message.">
+              <span (click)="endPm()" class="clear-pm margin-left-1">X</span>
+              <button type="submit" class="btn btn-primary margin-left-1" (click)="send()">Send</button>
             </form>
           </div>
         </div>

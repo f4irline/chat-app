@@ -65,11 +65,9 @@ exports.io = function (io, socket) {
     }
 
     function sendPm(data) {
-        const receiverName = parseReceiver(data.msg).toLowerCase();
+        const receiverName = data.receiver.toLowerCase();
         const receiver = findReceiver(receiverName);
         if (receiver && receiver.id !== socket.id) {
-            const message = parseMessage(data.msg, receiverName);
-            data.msg = message;
             io.to(receiver.id).emit('msg', data);
             socket.emit('msg', data);    
         } else if (receiver && receiver.id === socket.id) {
@@ -77,28 +75,6 @@ exports.io = function (io, socket) {
         } else {
             socket.emit('no-receiver-found', data);
         }
-    }
-
-    function parseReceiver(msg) {
-        let receiver = '';
-        for (let i = 4; i < msg.length; i++) {
-            if (msg[i] === ' ') {
-                break;
-            }
-            receiver += msg[i];
-        }
-
-        return receiver;
-    }
-
-    function parseMessage(msg, receiverName) {
-        const msgStarts = 4 + receiverName.length + 1;
-        let message = '';
-        for (let i = msgStarts; i < msg.length; i++) {
-            message += msg[i];
-        }
-
-        return message;
     }
 
     function findReceiver(receiverName) {

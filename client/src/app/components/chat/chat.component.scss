@@ -20,11 +20,11 @@
     
             .typing-container {
                 display: inline-block;
-                width: 50%;
+                width: 33%;
                 p {
                     font-size: 1.5vh;
                 }
-            
+
                 .hidden {
                     visibility: hidden;
                 }
@@ -33,6 +33,10 @@
             .error-container {
                 @extend .typing-container;
                 color: red;
+            }
+
+            .pm-container {
+                @extend .typing-container;
             }
     
             .room-wrapper {
@@ -50,6 +54,19 @@
 
     .chat-controls {
         margin-bottom: 1vh;
+
+        .clear-pm {
+            color: #fff;
+            background-color: red;
+            border: 1px solid red;
+            border-radius: 5px;
+            padding: 6px 12px;
+
+            &:hover {
+                background-color: darkred;
+                cursor: pointer;
+            }
+        }
     }
 }
 
