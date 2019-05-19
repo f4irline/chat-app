@@ -339,7 +339,7 @@ var RoomModalComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"paper elevate-1 container\">\r\n  <div class=\"row chat-wrapper\">\r\n      <div class=\"col-sm-3 text-center vertical-divider align-self-start side-scroll-container\">\r\n        <app-sidebar (pm)=\"onPm($event)\" [userDetails]=\"userDetails\" [users]=\"users\"></app-sidebar>\r\n      </div>\r\n      <div class=\"col-sm-9 text-center chat-container\">\r\n        <div class=\"room-wrapper row\">\r\n          <div class=\"col-sm-12 align-self-start\">\r\n            <h4 class=\"display-5\">Room: {{room.roomName}}</h4>\r\n            <hr>\r\n          </div>\r\n        </div>\r\n        <div class=\"chat-scroll-container row\">\r\n          <div class=\"col-sm-12 align-self-end\">\r\n            <app-message [userDetails]=\"userDetails\" (pm)=\"onPm($event)\" *ngFor=\"let msg of messages\" [msg]=\"msg\" [userName]=\"userDetails.userName\"></app-message>\r\n            <hr>\r\n            <div class=\"text-left error-container\">\r\n              <p class=\"lead\" [@fade]='receiverError' *ngIf=\"receiverError\">\r\n                {{errorString ? errorString : 'Error in message'}}\r\n              </p>\r\n            </div>\r\n            <div class=\"text-center pm-container\">\r\n              <p class=\"lead\" [ngClass]=\"{'hidden': !this.msg.private}\">Sending pm to: {{this.msg.receiver}}</p>\r\n            </div>\r\n            <div class=\"text-right typing-container\">\r\n              <p class=\"lead\" [ngClass]=\"{'hidden': whoisTyping.userName ? false : true}\">{{whoisTyping.userName}} is typing...</p>\r\n            </div>  \r\n            <form class=\"form-inline chat-controls\" *ngIf=\"!this.msg.private\">\r\n              <input type=\"text\" \r\n                #msgInput\r\n                class=\"form-control fill-parent\" \r\n                name=\"msg\" \r\n                [ngModel]=\"msg.msg\"\r\n                (ngModelChange)=\"msgChanged($event)\"\r\n                placeholder=\"Enter message.\">\r\n              <button type=\"submit\" class=\"btn btn-primary margin-left-1\" (click)=\"send()\">Send</button>\r\n            </form>\r\n            <form class=\"form-inline chat-controls\" *ngIf=\"this.msg.private\">\r\n              <input type=\"text\" \r\n                #msgInput\r\n                class=\"form-control fill-parent\" \r\n                name=\"msg\" \r\n                [ngModel]=\"msg.msg\"\r\n                (ngModelChange)=\"msgChanged($event)\"\r\n                placeholder=\"Enter private message.\">\r\n              <span (click)=\"endPm()\" class=\"clear-pm margin-left-1\">X</span>\r\n              <button type=\"submit\" class=\"btn btn-primary margin-left-1\" (click)=\"send()\">Send</button>\r\n            </form>\r\n          </div>\r\n        </div>\r\n      </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"paper elevate-1 container\">\r\n  <div class=\"row chat-wrapper\">\r\n      <div class=\"col-sm-3 text-center vertical-divider align-self-start side-scroll-container\">\r\n        <app-sidebar (pm)=\"onPm($event)\" [userDetails]=\"userDetails\" [users]=\"users\"></app-sidebar>\r\n      </div>\r\n      <div class=\"col-sm-9 text-center chat-container\">\r\n        <div class=\"room-wrapper row\">\r\n          <div class=\"col-sm-12 align-self-start\">\r\n            <h4 class=\"display-5\">Room: {{room.roomName}}</h4>\r\n            <hr>\r\n          </div>\r\n        </div>\r\n        <div class=\"chat-scroll-container row\">\r\n          <div class=\"col-sm-12 align-self-end\">\r\n            <app-message [userDetails]=\"userDetails\" (pm)=\"onPm($event)\" *ngFor=\"let msg of messages\" [msg]=\"msg\" [userName]=\"userDetails.userName\"></app-message>\r\n            <hr>\r\n            <div class=\"text-left error-container\">\r\n              <p class=\"lead\" [@fade]='receiverError' *ngIf=\"receiverError\">\r\n                {{errorString ? errorString : 'Error in message'}}\r\n              </p>\r\n            </div>\r\n            <div class=\"text-center pm-container\">\r\n              <p class=\"lead\" [ngClass]=\"{'hidden': !this.msg.private}\">Sending pm to: {{this.msg.receiver}}</p>\r\n            </div>\r\n            <div class=\"text-right typing-container\">\r\n              <p class=\"lead\" [ngClass]=\"{'hidden': whoisTyping.userName ? false : true}\">{{whoisTyping.userName}} is typing...</p>\r\n            </div>  \r\n            <form class=\"form-inline chat-controls\" [hidden]=\"this.msg.private\">\r\n              <input type=\"text\" \r\n                #msgInput\r\n                class=\"form-control fill-parent\" \r\n                name=\"msg\" \r\n                [ngModel]=\"msg.msg\"\r\n                (ngModelChange)=\"msgChanged($event)\"\r\n                placeholder=\"Enter message.\">\r\n              <button type=\"submit\" class=\"btn btn-primary margin-left-1\" (click)=\"send()\">Send</button>\r\n            </form>\r\n            <form class=\"form-inline chat-controls\" [hidden]=\"!this.msg.private\">\r\n              <input type=\"text\" \r\n                #pmInput\r\n                class=\"form-control fill-parent\" \r\n                name=\"msg\" \r\n                [ngModel]=\"msg.msg\"\r\n                (ngModelChange)=\"msgChanged($event)\"\r\n                placeholder=\"Enter private message.\">\r\n              <span (click)=\"endPm()\" class=\"clear-pm margin-left-1\">X</span>\r\n              <button type=\"submit\" class=\"btn btn-primary margin-left-1\" (click)=\"send()\">Send</button>\r\n            </form>\r\n          </div>\r\n        </div>\r\n      </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -465,12 +465,23 @@ var ChatComponent = /** @class */ (function () {
     ChatComponent.prototype.msgChanged = function (event) {
         this.msg.msg = event;
         if (this.msg.msg.length > 0) {
-            if (!this.msg.private) {
-                this.socketIo.startTyping({ userName: this.userDetails.userName });
+            if (this.msg.msg[0] !== '/') {
+                if (!this.msg.private) {
+                    this.socketIo.startTyping({ userName: this.userDetails.userName });
+                }
+            }
+            else {
+                this.checkMessageForPm();
             }
         }
         else {
             this.socketIo.clearTyping();
+        }
+    };
+    ChatComponent.prototype.checkMessageForPm = function () {
+        var receiver = this.msg.msg.slice(4);
+        if (receiver[receiver.length - 1] === ' ') {
+            this.onPm(receiver.slice(0, receiver.length - 1));
         }
     };
     ChatComponent.prototype.send = function () {
@@ -489,9 +500,13 @@ var ChatComponent = /** @class */ (function () {
         this.msg.receiver = undefined;
     };
     ChatComponent.prototype.onPm = function (receiver) {
+        var _this = this;
+        this.msg.msg = '';
         this.msg.private = true;
         this.msg.receiver = receiver;
-        this.msgInput.nativeElement.focus();
+        setTimeout(function () {
+            _this.pmInput.nativeElement.focus();
+        });
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
@@ -501,6 +516,10 @@ var ChatComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('msgInput'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
     ], ChatComponent.prototype, "msgInput", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('pmInput'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
+    ], ChatComponent.prototype, "pmInput", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('document:keydown', ['$event']),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
