@@ -496,8 +496,13 @@ var ChatComponent = /** @class */ (function () {
         chatScrollContainer.scrollTop = chatScrollContainer.scrollHeight - chatScrollContainer.clientHeight;
     };
     ChatComponent.prototype.endPm = function () {
+        var _this = this;
         this.msg.private = false;
         this.msg.receiver = undefined;
+        this.msg.msg = '';
+        setTimeout(function () {
+            _this.msgInput.nativeElement.focus();
+        });
     };
     ChatComponent.prototype.onPm = function (receiver) {
         var _this = this;
