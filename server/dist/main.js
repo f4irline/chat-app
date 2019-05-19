@@ -227,7 +227,7 @@ var AppModule = /** @class */ (function () {
                 _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_6__["JwtModule"].forRoot({
                     config: {
                         tokenGetter: getToken,
-                        whitelistedDomains: ['https://gentle-mesa-55326.herokuapp.com'],
+                        whitelistedDomains: ['gentle-mesa-55326.herokuapp.com'],
                     }
                 }),
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__["BrowserAnimationsModule"],
