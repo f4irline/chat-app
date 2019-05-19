@@ -19,7 +19,7 @@ const User = UserModel(sequelize, Sequelize);
 Room.hasMany(Message, {as: 'messages'});
 Message.belongsTo(Room, {foreignKey: 'roomId', as: 'room'});
 
-sequelize.sync({force: true})
+sequelize.sync()
     .then(() => {
         Room.findOrCreate({where: {roomName: 'General'}});
         console.log('Database and tables created.');
