@@ -4,7 +4,7 @@ const { Message } = require ('../models');
 
 let allUsers = [];
 
-module.exports  = function (io, socket) {
+exports.io = function (io, socket) {
     let currentRoom = {
         id: undefined,
         roomName: undefined,
@@ -146,7 +146,7 @@ module.exports  = function (io, socket) {
         }
         return usersInRoom;
     }
-    
+
     function checkExistingUser(socketId) {
         for (const user of allUsers) {
             if (user.id === socketId) {
@@ -156,9 +156,20 @@ module.exports  = function (io, socket) {
         
         return true;
     }
-
     async function findRoom (roomId) {
         return Room.findOne({ where: {id: roomId}, include: ['messages'] });
     }
 }
 
+exports.helpers = function () {
+    return {
+        userExists: (name) => {
+            for (const user of allUsers) {
+                if (user.userName === name) {
+                    return true;
+                }
+                return false;
+            }        
+        }
+    }
+}    

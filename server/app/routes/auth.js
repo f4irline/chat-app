@@ -10,6 +10,9 @@ const passport      = require('passport');
 const passportJWT   = require('passport-jwt');
 let ExtractJwt      = passportJWT.ExtractJwt;
 
+const handlers      = require('../wss/handlers');
+const helpers       = handlers.helpers();
+
 let jwtOptions = {};
 
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
@@ -34,14 +37,20 @@ app.post('/login', async (req, res, next) => {
         let user = await UserUtils.getUser({ userName });
         if (!user) {
             res.status(401).json({ msg: 'No user found.', user });
+            return;
         };
+
+        if (helpers.userExists(userName)) {
+            res.status(401).json({ msg: 'User already logged in.' });
+            return;
+        }
 
         if (user.validPassword(password)) {
             let payload = { id: user.id };
             let token = jwt.sign(payload, jwtOptions.secretOrKey);
             res.json({ msg: 'Logged in succesfully.', token: token });
         } else {
-            res.status(401).json({ msg: 'Incorrect password' });
+            res.status(401).json({ msg: 'Incorrect password.' });
         }    
     }
 });

@@ -19,7 +19,7 @@
         <input type="text" id="password" name="password" placeholder="Enter password" class="form-control col-sm-9" [(ngModel)]="password">
       </div>
       <button type="submit" class="btn btn-primary" (click)="login()">Send</button>
-      <span *ngIf="loginFailed" class="error-hint">Error in login</span>
+      <span *ngIf="loginFailed" class="error-hint">{{errorString}}</span>
     </form>      
   </div>
 </div>
