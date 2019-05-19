@@ -339,7 +339,7 @@ var RoomModalComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"paper elevate-1 container\">\r\n  <div class=\"row chat-wrapper\">\r\n      <div class=\"col-sm-3 text-center vertical-divider align-self-start side-scroll-container\">\r\n        <app-sidebar (pm)=\"onPm($event)\" [userDetails]=\"userDetails\" [users]=\"users\"></app-sidebar>\r\n      </div>\r\n      <div class=\"col-sm-9 text-center chat-container\">\r\n        <div class=\"room-wrapper row\">\r\n          <div class=\"col-sm-12 align-self-start\">\r\n            <h4 class=\"display-5\">Room: {{room.roomName}}</h4>\r\n            <hr>\r\n          </div>\r\n        </div>\r\n        <div class=\"chat-scroll-container row\">\r\n          <div class=\"col-sm-12 align-self-end\">\r\n            <app-message (pm)=\"onPm($event)\" *ngFor=\"let msg of messages\" [msg]=\"msg\" [userName]=\"userDetails.userName\"></app-message>\r\n            <hr>\r\n            <div class=\"text-left error-container\">\r\n              <p class=\"lead\" [@fade]='receiverError' *ngIf=\"receiverError\">\r\n                {{errorString ? errorString : 'Error in message'}}\r\n              </p>\r\n            </div>\r\n            <div class=\"text-right typing-container\">\r\n              <p class=\"lead\" [ngClass]=\"{'hidden': whoisTyping.userName ? false : true}\">{{whoisTyping.userName}} is typing...</p>\r\n            </div>  \r\n            <form class=\"form-inline chat-controls\">\r\n              <input type=\"text\" \r\n                #msgInput\r\n                class=\"form-control fill-parent\" \r\n                name=\"msg\" \r\n                [ngModel]=\"msg.msg\"\r\n                (ngModelChange)=\"msgChanged($event)\"\r\n                placeholder=\"Enter text.\">\r\n              <button type=\"submit\" class=\"btn btn-primary margin-left-1\" (keyup.enter)=\"send()\" (click)=\"send()\">Send</button>\r\n            </form>\r\n          </div>\r\n        </div>\r\n      </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"paper elevate-1 container\">\r\n  <div class=\"row chat-wrapper\">\r\n      <div class=\"col-sm-3 text-center vertical-divider align-self-start side-scroll-container\">\r\n        <app-sidebar (pm)=\"onPm($event)\" [userDetails]=\"userDetails\" [users]=\"users\"></app-sidebar>\r\n      </div>\r\n      <div class=\"col-sm-9 text-center chat-container\">\r\n        <div class=\"room-wrapper row\">\r\n          <div class=\"col-sm-12 align-self-start\">\r\n            <h4 class=\"display-5\">Room: {{room.roomName}}</h4>\r\n            <hr>\r\n          </div>\r\n        </div>\r\n        <div class=\"chat-scroll-container row\">\r\n          <div class=\"col-sm-12 align-self-end\">\r\n            <app-message (pm)=\"onPm($event)\" *ngFor=\"let msg of messages\" [msg]=\"msg\" [userName]=\"userDetails.userName\"></app-message>\r\n            <hr>\r\n            <div class=\"text-left error-container\">\r\n              <p class=\"lead\" [@fade]='receiverError' *ngIf=\"receiverError\">\r\n                {{errorString ? errorString : 'Error in message'}}\r\n              </p>\r\n            </div>\r\n            <div class=\"text-center pm-container\">\r\n              <p class=\"lead\" [ngClass]=\"{'hidden': !this.msg.private}\">Sending pm to: {{this.msg.receiver}}</p>\r\n            </div>\r\n            <div class=\"text-right typing-container\">\r\n              <p class=\"lead\" [ngClass]=\"{'hidden': whoisTyping.userName ? false : true}\">{{whoisTyping.userName}} is typing...</p>\r\n            </div>  \r\n            <form class=\"form-inline chat-controls\" *ngIf=\"!this.msg.private\">\r\n              <input type=\"text\" \r\n                #msgInput\r\n                class=\"form-control fill-parent\" \r\n                name=\"msg\" \r\n                [ngModel]=\"msg.msg\"\r\n                (ngModelChange)=\"msgChanged($event)\"\r\n                placeholder=\"Enter message.\">\r\n              <button type=\"submit\" class=\"btn btn-primary margin-left-1\" (click)=\"send()\">Send</button>\r\n            </form>\r\n            <form class=\"form-inline chat-controls\" *ngIf=\"this.msg.private\">\r\n              <input type=\"text\" \r\n                #msgInput\r\n                class=\"form-control fill-parent\" \r\n                name=\"msg\" \r\n                [ngModel]=\"msg.msg\"\r\n                (ngModelChange)=\"msgChanged($event)\"\r\n                placeholder=\"Enter private message.\">\r\n              <span (click)=\"endPm()\" class=\"clear-pm margin-left-1\">X</span>\r\n              <button type=\"submit\" class=\"btn btn-primary margin-left-1\" (click)=\"send()\">Send</button>\r\n            </form>\r\n          </div>\r\n        </div>\r\n      </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -350,7 +350,7 @@ module.exports = "<div class=\"paper elevate-1 container\">\r\n  <div class=\"ro
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".chat-wrapper {\n  height: 50vh;\n  max-height: 50vh;\n  padding: 1vh 0; }\n  .chat-wrapper .room-wrapper {\n    height: 10%;\n    text-align: start;\n    padding-right: 1vw; }\n  .chat-wrapper .chat-container {\n    height: 100%; }\n  .chat-wrapper .chat-container .chat-scroll-container {\n      overflow-y: overlay;\n      max-height: 90%;\n      height: 90%;\n      padding-right: 1vw; }\n  .chat-wrapper .chat-container .chat-scroll-container .typing-container, .chat-wrapper .chat-container .chat-scroll-container .error-container {\n        display: inline-block;\n        width: 50%; }\n  .chat-wrapper .chat-container .chat-scroll-container .typing-container p, .chat-wrapper .chat-container .chat-scroll-container .error-container p {\n          font-size: 1.5vh; }\n  .chat-wrapper .chat-container .chat-scroll-container .typing-container .hidden, .chat-wrapper .chat-container .chat-scroll-container .error-container .hidden {\n          visibility: hidden; }\n  .chat-wrapper .chat-container .chat-scroll-container .error-container {\n        color: red; }\n  .chat-wrapper .chat-container .chat-scroll-container .room-wrapper {\n        position: absolute;\n        left: 0;\n        top: 0; }\n  .chat-wrapper .side-scroll-container {\n    overflow-y: overlay;\n    max-height: 100%; }\n  .chat-wrapper .chat-controls {\n    margin-bottom: 1vh; }\n  .vertical-divider {\n  border-right: 1px solid #aaa;\n  height: 100%; }\n  .margin-left-1 {\n  margin-left: 1vw; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9jaGF0L0M6XFxVc2Vyc1xcbGVwb2xcXERvY3VtZW50c1xcT2hqZWxtb2ludGlcXFdlYlxcY2hhdC1hcHBcXGNsaWVudC9zcmNcXGFwcFxcY29tcG9uZW50c1xcY2hhdFxcY2hhdC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFlBQVk7RUFDWixnQkFBZ0I7RUFDaEIsY0FBYyxFQUFBO0VBSGxCO0lBTVEsV0FBVztJQUNYLGlCQUFpQjtJQUNqQixrQkFBa0IsRUFBQTtFQVIxQjtJQVlRLFlBQVksRUFBQTtFQVpwQjtNQWVZLG1CQUFtQjtNQUNuQixlQUFlO01BQ2YsV0FBVztNQUNYLGtCQUFrQixFQUFBO0VBbEI5QjtRQXFCZ0IscUJBQXFCO1FBQ3JCLFVBQVUsRUFBQTtFQXRCMUI7VUF3Qm9CLGdCQUFnQixFQUFBO0VBeEJwQztVQTRCb0Isa0JBQWtCLEVBQUE7RUE1QnRDO1FBa0NnQixVQUFVLEVBQUE7RUFsQzFCO1FBc0NnQixrQkFBa0I7UUFDbEIsT0FBTztRQUNQLE1BQU0sRUFBQTtFQXhDdEI7SUE4Q1EsbUJBQW1CO0lBQ25CLGdCQUFnQixFQUFBO0VBL0N4QjtJQW1EUSxrQkFBa0IsRUFBQTtFQUkxQjtFQUNJLDRCQUE0QjtFQUM1QixZQUFZLEVBQUE7RUFHaEI7RUFDSSxnQkFBZ0IsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvY2hhdC9jaGF0LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmNoYXQtd3JhcHBlciB7XHJcbiAgICBoZWlnaHQ6IDUwdmg7XHJcbiAgICBtYXgtaGVpZ2h0OiA1MHZoO1xyXG4gICAgcGFkZGluZzogMXZoIDA7XHJcblxyXG4gICAgLnJvb20td3JhcHBlciB7XHJcbiAgICAgICAgaGVpZ2h0OiAxMCU7XHJcbiAgICAgICAgdGV4dC1hbGlnbjogc3RhcnQ7XHJcbiAgICAgICAgcGFkZGluZy1yaWdodDogMXZ3O1xyXG4gICAgfVxyXG5cclxuICAgIC5jaGF0LWNvbnRhaW5lciB7XHJcbiAgICAgICAgaGVpZ2h0OiAxMDAlO1xyXG5cclxuICAgICAgICAuY2hhdC1zY3JvbGwtY29udGFpbmVyIHtcclxuICAgICAgICAgICAgb3ZlcmZsb3cteTogb3ZlcmxheTtcclxuICAgICAgICAgICAgbWF4LWhlaWdodDogOTAlO1xyXG4gICAgICAgICAgICBoZWlnaHQ6IDkwJTtcclxuICAgICAgICAgICAgcGFkZGluZy1yaWdodDogMXZ3O1xyXG4gICAgXHJcbiAgICAgICAgICAgIC50eXBpbmctY29udGFpbmVyIHtcclxuICAgICAgICAgICAgICAgIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxuICAgICAgICAgICAgICAgIHdpZHRoOiA1MCU7XHJcbiAgICAgICAgICAgICAgICBwIHtcclxuICAgICAgICAgICAgICAgICAgICBmb250LXNpemU6IDEuNXZoO1xyXG4gICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICBcclxuICAgICAgICAgICAgICAgIC5oaWRkZW4ge1xyXG4gICAgICAgICAgICAgICAgICAgIHZpc2liaWxpdHk6IGhpZGRlbjtcclxuICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgfSAgICBcclxuXHJcbiAgICAgICAgICAgIC5lcnJvci1jb250YWluZXIge1xyXG4gICAgICAgICAgICAgICAgQGV4dGVuZCAudHlwaW5nLWNvbnRhaW5lcjtcclxuICAgICAgICAgICAgICAgIGNvbG9yOiByZWQ7XHJcbiAgICAgICAgICAgIH1cclxuICAgIFxyXG4gICAgICAgICAgICAucm9vbS13cmFwcGVyIHtcclxuICAgICAgICAgICAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgICAgICAgICAgICAgIGxlZnQ6IDA7XHJcbiAgICAgICAgICAgICAgICB0b3A6IDA7XHJcbiAgICAgICAgICAgIH1cclxuICAgICAgICB9ICAgICAgICBcclxuICAgIH1cclxuICAgIFxyXG4gICAgLnNpZGUtc2Nyb2xsLWNvbnRhaW5lciB7XHJcbiAgICAgICAgb3ZlcmZsb3cteTogb3ZlcmxheTtcclxuICAgICAgICBtYXgtaGVpZ2h0OiAxMDAlO1xyXG4gICAgfVxyXG5cclxuICAgIC5jaGF0LWNvbnRyb2xzIHtcclxuICAgICAgICBtYXJnaW4tYm90dG9tOiAxdmg7XHJcbiAgICB9XHJcbn1cclxuXHJcbi52ZXJ0aWNhbC1kaXZpZGVyIHtcclxuICAgIGJvcmRlci1yaWdodDogMXB4IHNvbGlkICNhYWE7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbn1cclxuXHJcbi5tYXJnaW4tbGVmdC0xIHtcclxuICAgIG1hcmdpbi1sZWZ0OiAxdnc7XHJcbn1cclxuIl19 */"
+module.exports = ".chat-wrapper {\n  height: 50vh;\n  max-height: 50vh;\n  padding: 1vh 0; }\n  .chat-wrapper .room-wrapper {\n    height: 10%;\n    text-align: start;\n    padding-right: 1vw; }\n  .chat-wrapper .chat-container {\n    height: 100%; }\n  .chat-wrapper .chat-container .chat-scroll-container {\n      overflow-y: overlay;\n      max-height: 90%;\n      height: 90%;\n      padding-right: 1vw; }\n  .chat-wrapper .chat-container .chat-scroll-container .typing-container, .chat-wrapper .chat-container .chat-scroll-container .error-container, .chat-wrapper .chat-container .chat-scroll-container .pm-container {\n        display: inline-block;\n        width: 33%; }\n  .chat-wrapper .chat-container .chat-scroll-container .typing-container p, .chat-wrapper .chat-container .chat-scroll-container .error-container p, .chat-wrapper .chat-container .chat-scroll-container .pm-container p {\n          font-size: 1.5vh; }\n  .chat-wrapper .chat-container .chat-scroll-container .typing-container .hidden, .chat-wrapper .chat-container .chat-scroll-container .error-container .hidden, .chat-wrapper .chat-container .chat-scroll-container .pm-container .hidden {\n          visibility: hidden; }\n  .chat-wrapper .chat-container .chat-scroll-container .error-container {\n        color: red; }\n  .chat-wrapper .chat-container .chat-scroll-container .room-wrapper {\n        position: absolute;\n        left: 0;\n        top: 0; }\n  .chat-wrapper .side-scroll-container {\n    overflow-y: overlay;\n    max-height: 100%; }\n  .chat-wrapper .chat-controls {\n    margin-bottom: 1vh; }\n  .chat-wrapper .chat-controls .clear-pm {\n      color: #fff;\n      background-color: red;\n      border: 1px solid red;\n      border-radius: 5px;\n      padding: 6px 12px; }\n  .chat-wrapper .chat-controls .clear-pm:hover {\n        background-color: darkred;\n        cursor: pointer; }\n  .vertical-divider {\n  border-right: 1px solid #aaa;\n  height: 100%; }\n  .margin-left-1 {\n  margin-left: 1vw; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9jaGF0L0M6XFxVc2Vyc1xcbGVwb2xcXERvY3VtZW50c1xcT2hqZWxtb2ludGlcXFdlYlxcY2hhdC1hcHBcXGNsaWVudC9zcmNcXGFwcFxcY29tcG9uZW50c1xcY2hhdFxcY2hhdC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFlBQVk7RUFDWixnQkFBZ0I7RUFDaEIsY0FBYyxFQUFBO0VBSGxCO0lBTVEsV0FBVztJQUNYLGlCQUFpQjtJQUNqQixrQkFBa0IsRUFBQTtFQVIxQjtJQVlRLFlBQVksRUFBQTtFQVpwQjtNQWVZLG1CQUFtQjtNQUNuQixlQUFlO01BQ2YsV0FBVztNQUNYLGtCQUFrQixFQUFBO0VBbEI5QjtRQXFCZ0IscUJBQXFCO1FBQ3JCLFVBQVUsRUFBQTtFQXRCMUI7VUF3Qm9CLGdCQUFnQixFQUFBO0VBeEJwQztVQTRCb0Isa0JBQWtCLEVBQUE7RUE1QnRDO1FBa0NnQixVQUFVLEVBQUE7RUFsQzFCO1FBMENnQixrQkFBa0I7UUFDbEIsT0FBTztRQUNQLE1BQU0sRUFBQTtFQTVDdEI7SUFrRFEsbUJBQW1CO0lBQ25CLGdCQUFnQixFQUFBO0VBbkR4QjtJQXVEUSxrQkFBa0IsRUFBQTtFQXZEMUI7TUEwRFksV0FBVztNQUNYLHFCQUFxQjtNQUNyQixxQkFBcUI7TUFDckIsa0JBQWtCO01BQ2xCLGlCQUFpQixFQUFBO0VBOUQ3QjtRQWlFZ0IseUJBQXlCO1FBQ3pCLGVBQWUsRUFBQTtFQU0vQjtFQUNJLDRCQUE0QjtFQUM1QixZQUFZLEVBQUE7RUFHaEI7RUFDSSxnQkFBZ0IsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvY2hhdC9jaGF0LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmNoYXQtd3JhcHBlciB7XHJcbiAgICBoZWlnaHQ6IDUwdmg7XHJcbiAgICBtYXgtaGVpZ2h0OiA1MHZoO1xyXG4gICAgcGFkZGluZzogMXZoIDA7XHJcblxyXG4gICAgLnJvb20td3JhcHBlciB7XHJcbiAgICAgICAgaGVpZ2h0OiAxMCU7XHJcbiAgICAgICAgdGV4dC1hbGlnbjogc3RhcnQ7XHJcbiAgICAgICAgcGFkZGluZy1yaWdodDogMXZ3O1xyXG4gICAgfVxyXG5cclxuICAgIC5jaGF0LWNvbnRhaW5lciB7XHJcbiAgICAgICAgaGVpZ2h0OiAxMDAlO1xyXG5cclxuICAgICAgICAuY2hhdC1zY3JvbGwtY29udGFpbmVyIHtcclxuICAgICAgICAgICAgb3ZlcmZsb3cteTogb3ZlcmxheTtcclxuICAgICAgICAgICAgbWF4LWhlaWdodDogOTAlO1xyXG4gICAgICAgICAgICBoZWlnaHQ6IDkwJTtcclxuICAgICAgICAgICAgcGFkZGluZy1yaWdodDogMXZ3O1xyXG4gICAgXHJcbiAgICAgICAgICAgIC50eXBpbmctY29udGFpbmVyIHtcclxuICAgICAgICAgICAgICAgIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxuICAgICAgICAgICAgICAgIHdpZHRoOiAzMyU7XHJcbiAgICAgICAgICAgICAgICBwIHtcclxuICAgICAgICAgICAgICAgICAgICBmb250LXNpemU6IDEuNXZoO1xyXG4gICAgICAgICAgICAgICAgfVxyXG5cclxuICAgICAgICAgICAgICAgIC5oaWRkZW4ge1xyXG4gICAgICAgICAgICAgICAgICAgIHZpc2liaWxpdHk6IGhpZGRlbjtcclxuICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgfSAgICBcclxuXHJcbiAgICAgICAgICAgIC5lcnJvci1jb250YWluZXIge1xyXG4gICAgICAgICAgICAgICAgQGV4dGVuZCAudHlwaW5nLWNvbnRhaW5lcjtcclxuICAgICAgICAgICAgICAgIGNvbG9yOiByZWQ7XHJcbiAgICAgICAgICAgIH1cclxuXHJcbiAgICAgICAgICAgIC5wbS1jb250YWluZXIge1xyXG4gICAgICAgICAgICAgICAgQGV4dGVuZCAudHlwaW5nLWNvbnRhaW5lcjtcclxuICAgICAgICAgICAgfVxyXG4gICAgXHJcbiAgICAgICAgICAgIC5yb29tLXdyYXBwZXIge1xyXG4gICAgICAgICAgICAgICAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gICAgICAgICAgICAgICAgbGVmdDogMDtcclxuICAgICAgICAgICAgICAgIHRvcDogMDtcclxuICAgICAgICAgICAgfVxyXG4gICAgICAgIH0gICAgICAgIFxyXG4gICAgfVxyXG4gICAgXHJcbiAgICAuc2lkZS1zY3JvbGwtY29udGFpbmVyIHtcclxuICAgICAgICBvdmVyZmxvdy15OiBvdmVybGF5O1xyXG4gICAgICAgIG1heC1oZWlnaHQ6IDEwMCU7XHJcbiAgICB9XHJcblxyXG4gICAgLmNoYXQtY29udHJvbHMge1xyXG4gICAgICAgIG1hcmdpbi1ib3R0b206IDF2aDtcclxuXHJcbiAgICAgICAgLmNsZWFyLXBtIHtcclxuICAgICAgICAgICAgY29sb3I6ICNmZmY7XHJcbiAgICAgICAgICAgIGJhY2tncm91bmQtY29sb3I6IHJlZDtcclxuICAgICAgICAgICAgYm9yZGVyOiAxcHggc29saWQgcmVkO1xyXG4gICAgICAgICAgICBib3JkZXItcmFkaXVzOiA1cHg7XHJcbiAgICAgICAgICAgIHBhZGRpbmc6IDZweCAxMnB4O1xyXG5cclxuICAgICAgICAgICAgJjpob3ZlciB7XHJcbiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kLWNvbG9yOiBkYXJrcmVkO1xyXG4gICAgICAgICAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xyXG4gICAgICAgICAgICB9XHJcbiAgICAgICAgfVxyXG4gICAgfVxyXG59XHJcblxyXG4udmVydGljYWwtZGl2aWRlciB7XHJcbiAgICBib3JkZXItcmlnaHQ6IDFweCBzb2xpZCAjYWFhO1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59XHJcblxyXG4ubWFyZ2luLWxlZnQtMSB7XHJcbiAgICBtYXJnaW4tbGVmdDogMXZ3O1xyXG59XHJcbiJdfQ== */"
 
 /***/ }),
 
@@ -379,6 +379,7 @@ var ChatComponent = /** @class */ (function () {
             userName: '',
             msg: '',
             private: false,
+            receiver: undefined
         };
         this.messages = [];
         this.whoisTyping = {
@@ -389,6 +390,18 @@ var ChatComponent = /** @class */ (function () {
         };
         this.receiverError = false;
     }
+    ChatComponent.prototype.onkeydown = function (event) {
+        switch (event.key) {
+            case 'Escape':
+                this.msg.private = false;
+                break;
+            case 'Enter':
+                this.send();
+                break;
+            default:
+                break;
+        }
+    };
     ChatComponent.prototype.ngOnDestroy = function () {
         this.msgSubscription$.unsubscribe();
         this.clearSubscription$.unsubscribe();
@@ -451,18 +464,13 @@ var ChatComponent = /** @class */ (function () {
     };
     ChatComponent.prototype.msgChanged = function (event) {
         this.msg.msg = event;
-        this.msg.private = false;
         if (this.msg.msg.length > 0) {
-            if (this.msg.msg[0] !== '/') {
+            if (!this.msg.private) {
                 this.socketIo.startTyping({ userName: this.userDetails.userName });
-            }
-            if (this.msg.msg.substr(0, 3) === '/pm') {
-                this.msg.private = true;
             }
         }
         else {
             this.socketIo.clearTyping();
-            this.msg.private = false;
         }
     };
     ChatComponent.prototype.send = function () {
@@ -476,9 +484,13 @@ var ChatComponent = /** @class */ (function () {
         var chatScrollContainer = document.querySelector('.chat-scroll-container');
         chatScrollContainer.scrollTop = chatScrollContainer.scrollHeight - chatScrollContainer.clientHeight;
     };
+    ChatComponent.prototype.endPm = function () {
+        this.msg.private = false;
+        this.msg.receiver = undefined;
+    };
     ChatComponent.prototype.onPm = function (receiver) {
-        this.msg.msg = "/pm " + receiver + " ";
         this.msg.private = true;
+        this.msg.receiver = receiver;
         this.msgInput.nativeElement.focus();
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -489,6 +501,12 @@ var ChatComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('msgInput'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
     ], ChatComponent.prototype, "msgInput", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('document:keydown', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [KeyboardEvent]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], ChatComponent.prototype, "onkeydown", null);
     ChatComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-chat',
