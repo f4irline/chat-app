@@ -20,7 +20,7 @@ import { RoomModalComponent } from './components/add-room-modal/add-room-modal.c
 import { ApiService, SocketIoService, LocalStorageService } from './services';
 import { AuthGuard } from './services/auth/auth.guard';
 import { JoinRoomModalComponent } from './components/join-room-modal/join-room-modal.component';
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+const config: SocketIoConfig = { url: 'https://gentle-mesa-55326.herokuapp.com', options: {} };
 
 function getToken() {
   return localStorage.getItem('token');
@@ -47,7 +47,7 @@ function getToken() {
     JwtModule.forRoot({
       config: {
         tokenGetter: getToken,
-        whitelistedDomains: ['localhost:3000'],
+        whitelistedDomains: ['https://gentle-mesa-55326.herokuapp.com'],
       }
     }),
     BrowserAnimationsModule,

@@ -10,7 +10,7 @@ import { Token } from '../../models/Token';
 })
 export class ApiService {
 
-  api = 'http://localhost:3000/api';
+  api = 'https://gentle-mesa-55326.herokuapp.com/api';
 
   endpoints = {
     rooms: '/rooms',
