@@ -47,7 +47,7 @@ function getToken() {
     JwtModule.forRoot({
       config: {
         tokenGetter: getToken,
-        whitelistedDomains: ['https://gentle-mesa-55326.herokuapp.com'],
+        whitelistedDomains: ['gentle-mesa-55326.herokuapp.com'],
       }
     }),
     BrowserAnimationsModule,
