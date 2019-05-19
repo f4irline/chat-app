@@ -186,6 +186,10 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   endPm() {
     this.msg.private = false;
     this.msg.receiver = undefined;
+    this.msg.msg = '';
+    setTimeout(() => {
+      this.msgInput.nativeElement.focus();
+    });
   }
 
   onPm(receiver: string) {
