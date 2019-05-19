@@ -16,6 +16,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   @Input() userDetails: UserDetails;
   @ViewChild('msgInput') msgInput: ElementRef;
+  @ViewChild('pmInput') pmInput: ElementRef;
 
   whoisTyping: Typing;
   msg: Message;
@@ -150,11 +151,22 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.msg.msg = event;
 
     if (this.msg.msg.length > 0) {
-      if (!this.msg.private) {
-        this.socketIo.startTyping({userName: this.userDetails.userName});
+      if (this.msg.msg[0] !== '/') {
+        if (!this.msg.private) {
+          this.socketIo.startTyping({userName: this.userDetails.userName});
+        }
+      } else {
+        this.checkMessageForPm();
       }
     } else {
       this.socketIo.clearTyping();
+    }
+  }
+
+  checkMessageForPm() {
+    const receiver = this.msg.msg.slice(4);
+    if (receiver[receiver.length - 1] === ' ') {
+      this.onPm(receiver.slice(0, receiver.length - 1));
     }
   }
 
@@ -177,8 +189,11 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   onPm(receiver: string) {
+    this.msg.msg = '';
     this.msg.private = true;
     this.msg.receiver = receiver;
-    this.msgInput.nativeElement.focus();
+    setTimeout(() => {
+      this.pmInput.nativeElement.focus();
+    });
   }
 }
