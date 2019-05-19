@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Message } from 'src/app/models/Message';
+import { UserDetails } from 'src/app/models';
 
 @Component({
   selector: 'app-message',
@@ -9,6 +10,7 @@ import { Message } from 'src/app/models/Message';
 export class MessageComponent implements OnInit {
   @Input() msg: Message;
   @Input() userName: string;
+  @Input() userDetails: UserDetails;
   @Output() pm = new EventEmitter<string>();
 
   constructor() { }
@@ -17,6 +19,8 @@ export class MessageComponent implements OnInit {
   }
 
   startPm(msg: Message) {
-    this.pm.emit(msg.userName);
+    if (this.userDetails.userName !== this.msg.userName) {
+      this.pm.emit(msg.userName);
+    }
   }
 }
