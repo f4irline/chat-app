@@ -22,8 +22,8 @@ export class ApiService {
   constructor(private http: HttpClient) {
   }
 
-  saveRoom(room: Room): Observable<Room[]> {
-    return this.http.post<Room[]>(`${this.api}${this.endpoints.rooms}`, room);
+  saveRoom(room: Room): Observable<Room> {
+    return this.http.post<Room>(`${this.api}${this.endpoints.rooms}`, room);
   }
 
   getRooms(): Observable<Room[]> {
