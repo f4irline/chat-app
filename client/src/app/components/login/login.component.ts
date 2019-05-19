@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   password: string;
 
   loginFailed = false;
+  errorString: string;
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -35,7 +36,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.apiService.login({userName: this.userName, password: this.password}).subscribe(
       (data) => this.handleLogin(data),
-      () => this.handleError(),
+      (err) => this.handleError(err),
     );
   }
 
@@ -46,7 +47,8 @@ export class LoginComponent implements OnInit {
     this.router.navigateByUrl('/home');
   }
 
-  handleError() {
+  handleError(err: any) {
+    this.errorString = err.error.msg;
     this.loginFailed = true;
     setTimeout(() => {
       this.loginFailed = false;
