@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ApiService } from 'src/app/services';
+import { ApiService, LocalStorageService, SocketIoService } from 'src/app/services';
 import { Room } from 'src/app/models';
 
 @Component({
@@ -12,7 +12,11 @@ export class RoomModalComponent implements OnInit {
   @ViewChild('closeModal') closeBtn: ElementRef;
   room: Room;
 
-  constructor(private apiService: ApiService) { }
+  constructor(
+    private apiService: ApiService,
+    private localStorageService: LocalStorageService,
+    private socketIo: SocketIoService,
+    ) { }
 
   ngOnInit() {
     this.room = {
@@ -21,8 +25,17 @@ export class RoomModalComponent implements OnInit {
   }
 
   saveRoom() {
-    this.apiService.saveRoom(this.room).subscribe(() => {
-      this.closeBtn.nativeElement.click();
+    this.apiService.saveRoom(this.room).subscribe((room) => {
+      this.joinRoom(room.id);
     });
+  }
+
+  joinRoom(id: number) {
+    this.localStorageService.setRoom(id);
+    this.socketIo.join({
+      userName: this.localStorageService.getUserName(),
+      room: id.toString(),
+    });
+    this.closeBtn.nativeElement.click();
   }
 }
