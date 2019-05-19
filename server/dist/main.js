@@ -287,8 +287,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var RoomModalComponent = /** @class */ (function () {
-    function RoomModalComponent(apiService) {
+    function RoomModalComponent(apiService, localStorageService, socketIo) {
         this.apiService = apiService;
+        this.localStorageService = localStorageService;
+        this.socketIo = socketIo;
     }
     RoomModalComponent.prototype.ngOnInit = function () {
         this.room = {
@@ -297,9 +299,17 @@ var RoomModalComponent = /** @class */ (function () {
     };
     RoomModalComponent.prototype.saveRoom = function () {
         var _this = this;
-        this.apiService.saveRoom(this.room).subscribe(function () {
-            _this.closeBtn.nativeElement.click();
+        this.apiService.saveRoom(this.room).subscribe(function (room) {
+            _this.joinRoom(room.id);
         });
+    };
+    RoomModalComponent.prototype.joinRoom = function (id) {
+        this.localStorageService.setRoom(id);
+        this.socketIo.join({
+            userName: this.localStorageService.getUserName(),
+            room: id.toString(),
+        });
+        this.closeBtn.nativeElement.click();
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('closeModal'),
@@ -311,7 +321,9 @@ var RoomModalComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./add-room-modal.component.html */ "./src/app/components/add-room-modal/add-room-modal.component.html"),
             styles: [__webpack_require__(/*! ./add-room-modal.component.scss */ "./src/app/components/add-room-modal/add-room-modal.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services__WEBPACK_IMPORTED_MODULE_2__["ApiService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services__WEBPACK_IMPORTED_MODULE_2__["ApiService"],
+            src_app_services__WEBPACK_IMPORTED_MODULE_2__["LocalStorageService"],
+            src_app_services__WEBPACK_IMPORTED_MODULE_2__["SocketIoService"]])
     ], RoomModalComponent);
     return RoomModalComponent;
 }());
@@ -327,7 +339,7 @@ var RoomModalComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"paper elevate-1 container\">\r\n  <div class=\"row chat-wrapper\">\r\n      <div class=\"col-sm-3 text-center vertical-divider align-self-start side-scroll-container\">\r\n        <app-sidebar (pm)=\"onPm($event)\" [users]=\"users\"></app-sidebar>\r\n      </div>\r\n      <div class=\"col-sm-9 text-center chat-container\">\r\n        <div class=\"room-wrapper row\">\r\n          <div class=\"col-sm-12 align-self-start\">\r\n            <h4 class=\"display-5\">Room: {{room.roomName}}</h4>\r\n            <hr>\r\n          </div>\r\n        </div>\r\n        <div class=\"chat-scroll-container row\">\r\n          <div class=\"col-sm-12 align-self-end\">\r\n            <app-message (pm)=\"onPm($event)\" *ngFor=\"let msg of messages\" [msg]=\"msg\" [userName]=\"userDetails.userName\"></app-message>\r\n            <hr>\r\n            <div class=\"text-left error-container\">\r\n              <p class=\"lead\" [@fade]='receiverError' *ngIf=\"receiverError\">\r\n                No user with given name found.\r\n              </p>\r\n            </div>\r\n            <div class=\"text-right typing-container\">\r\n              <p class=\"lead\" [ngClass]=\"{'hidden': whoisTyping.userName ? false : true}\">{{whoisTyping.userName}} is typing...</p>\r\n            </div>  \r\n            <form class=\"form-inline chat-controls\">\r\n              <input type=\"text\" \r\n                #msgInput\r\n                class=\"form-control fill-parent\" \r\n                name=\"msg\" \r\n                [ngModel]=\"msg.msg\"\r\n                (ngModelChange)=\"msgChanged($event)\"\r\n                placeholder=\"Enter text.\">\r\n              <button type=\"submit\" class=\"btn btn-primary margin-left-1\" (keyup.enter)=\"send()\" (click)=\"send()\">Send</button>\r\n            </form>\r\n          </div>\r\n        </div>\r\n      </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"paper elevate-1 container\">\r\n  <div class=\"row chat-wrapper\">\r\n      <div class=\"col-sm-3 text-center vertical-divider align-self-start side-scroll-container\">\r\n        <app-sidebar (pm)=\"onPm($event)\" [userDetails]=\"userDetails\" [users]=\"users\"></app-sidebar>\r\n      </div>\r\n      <div class=\"col-sm-9 text-center chat-container\">\r\n        <div class=\"room-wrapper row\">\r\n          <div class=\"col-sm-12 align-self-start\">\r\n            <h4 class=\"display-5\">Room: {{room.roomName}}</h4>\r\n            <hr>\r\n          </div>\r\n        </div>\r\n        <div class=\"chat-scroll-container row\">\r\n          <div class=\"col-sm-12 align-self-end\">\r\n            <app-message (pm)=\"onPm($event)\" *ngFor=\"let msg of messages\" [msg]=\"msg\" [userName]=\"userDetails.userName\"></app-message>\r\n            <hr>\r\n            <div class=\"text-left error-container\">\r\n              <p class=\"lead\" [@fade]='receiverError' *ngIf=\"receiverError\">\r\n                {{errorString ? errorString : 'Error in message'}}\r\n              </p>\r\n            </div>\r\n            <div class=\"text-right typing-container\">\r\n              <p class=\"lead\" [ngClass]=\"{'hidden': whoisTyping.userName ? false : true}\">{{whoisTyping.userName}} is typing...</p>\r\n            </div>  \r\n            <form class=\"form-inline chat-controls\">\r\n              <input type=\"text\" \r\n                #msgInput\r\n                class=\"form-control fill-parent\" \r\n                name=\"msg\" \r\n                [ngModel]=\"msg.msg\"\r\n                (ngModelChange)=\"msgChanged($event)\"\r\n                placeholder=\"Enter text.\">\r\n              <button type=\"submit\" class=\"btn btn-primary margin-left-1\" (keyup.enter)=\"send()\" (click)=\"send()\">Send</button>\r\n            </form>\r\n          </div>\r\n        </div>\r\n      </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -383,6 +395,8 @@ var ChatComponent = /** @class */ (function () {
         this.typingSubscription$.unsubscribe();
         this.usersSubscription$.unsubscribe();
         this.roomSubscription$.unsubscribe();
+        this.noReceiverSubscription$.unsubscribe();
+        this.invalidReceiverSubscription$.unsubscribe();
         if (this.errorTimeout) {
             window.clearTimeout(this.errorTimeout);
         }
@@ -410,6 +424,18 @@ var ChatComponent = /** @class */ (function () {
             _this.messages = room.messages;
         });
         this.noReceiverSubscription$ = this.socketIo.noReceiver.subscribe(function (msg) {
+            _this.errorString = 'No user with given name found.';
+            _this.receiverError = true;
+            if (_this.errorTimeout) {
+                window.clearTimeout(_this.errorTimeout);
+            }
+            _this.errorTimeout = window.setTimeout(function () {
+                _this.receiverError = false;
+                _this.errorTimeout = undefined;
+            }, 4000);
+        });
+        this.invalidReceiverSubscription$ = this.socketIo.invalidReceiver.subscribe(function (msg) {
+            _this.errorString = 'Invalid receiver (do not send to self).';
             _this.receiverError = true;
             if (_this.errorTimeout) {
                 window.clearTimeout(_this.errorTimeout);
@@ -660,7 +686,7 @@ var JoinRoomModalComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"login-wrapper\">\r\n  <div class=\"container paper elevate-1\">\r\n    <div class=\"row header\">\r\n      <div>\r\n        <h1>Login</h1>\r\n      </div>\r\n      <div>\r\n        <h4 (click)=\"signup()\">Signup</h4>\r\n      </div>\r\n    </div>\r\n    <hr>\r\n    <form class=\"login-form\">\r\n      <div class=\"form-group row\">\r\n        <label for=\"userName\" class=\"col-sm-3 col-form-label\">Username</label>\r\n        <input type=\"text\" id=\"userName\" name=\"userName\" placeholder=\"Enter username\" class=\"form-control col-sm-9\" [(ngModel)]=\"userName\">\r\n      </div>\r\n      <div class=\"form-group row\">\r\n        <label for=\"password\" class=\"col-sm-3 col-form-label\">Password</label>\r\n        <input type=\"text\" id=\"password\" name=\"password\" placeholder=\"Enter password\" class=\"form-control col-sm-9\" [(ngModel)]=\"password\">\r\n      </div>\r\n      <button type=\"submit\" class=\"btn btn-primary\" (click)=\"login()\">Send</button>\r\n      <span *ngIf=\"loginFailed\" class=\"error-hint\">Error in login</span>\r\n    </form>      \r\n  </div>\r\n</div>"
+module.exports = "<div class=\"login-wrapper\">\r\n  <div class=\"container paper elevate-1\">\r\n    <div class=\"row header\">\r\n      <div>\r\n        <h1>Login</h1>\r\n      </div>\r\n      <div>\r\n        <h4 (click)=\"signup()\">Signup</h4>\r\n      </div>\r\n    </div>\r\n    <hr>\r\n    <form class=\"login-form\">\r\n      <div class=\"form-group row\">\r\n        <label for=\"userName\" class=\"col-sm-3 col-form-label\">Username</label>\r\n        <input type=\"text\" id=\"userName\" name=\"userName\" placeholder=\"Enter username\" class=\"form-control col-sm-9\" [(ngModel)]=\"userName\">\r\n      </div>\r\n      <div class=\"form-group row\">\r\n        <label for=\"password\" class=\"col-sm-3 col-form-label\">Password</label>\r\n        <input type=\"text\" id=\"password\" name=\"password\" placeholder=\"Enter password\" class=\"form-control col-sm-9\" [(ngModel)]=\"password\">\r\n      </div>\r\n      <button type=\"submit\" class=\"btn btn-primary\" (click)=\"login()\">Send</button>\r\n      <span *ngIf=\"loginFailed\" class=\"error-hint\">{{errorString ? errorString : 'Error in login.'}}</span>\r\n    </form>      \r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -711,15 +737,16 @@ var LoginComponent = /** @class */ (function () {
     };
     LoginComponent.prototype.login = function () {
         var _this = this;
-        this.apiService.login({ userName: this.userName, password: this.password }).subscribe(function (data) { return _this.handleLogin(data); }, function () { return _this.handleError(); });
+        this.apiService.login({ userName: this.userName, password: this.password }).subscribe(function (data) { return _this.handleLogin(data); }, function (err) { return _this.handleError(err); });
     };
     LoginComponent.prototype.handleLogin = function (data) {
         this.localStorageService.setToken(data.token);
         this.localStorageService.setUserName(this.userName);
         this.router.navigateByUrl('/home');
     };
-    LoginComponent.prototype.handleError = function () {
+    LoginComponent.prototype.handleError = function (err) {
         var _this = this;
+        this.errorString = err.error.msg;
         this.loginFailed = true;
         setTimeout(function () {
             _this.loginFailed = false;
@@ -824,7 +851,7 @@ var MessageComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"users-bar\">\r\n    <h3>Users</h3>\r\n    <div class=\"users-wrapper\">\r\n        <ul>\r\n            <li *ngFor=\"let user of users\">\r\n                <span class=\"user\" (click)=\"startPm(user)\">{{user.userName}}</span>\r\n                <hr class=\"user-divider\">\r\n            </li>\r\n        </ul>\r\n    </div>\r\n</div>"
+module.exports = "<div class=\"users-bar\">\r\n    <h3>Users</h3>\r\n    <div class=\"users-wrapper\">\r\n        <ul>\r\n            <li *ngFor=\"let user of users\">\r\n                <span [ngClass]=\"{'user': this.userDetails.userName === user.userName ? false : true}\" (click)=\"startPm(user)\">{{user.userName}}</span>\r\n                <hr class=\"user-divider\">\r\n            </li>\r\n        </ul>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -860,12 +887,18 @@ var SidebarComponent = /** @class */ (function () {
     SidebarComponent.prototype.ngOnInit = function () {
     };
     SidebarComponent.prototype.startPm = function (user) {
-        this.pm.emit(user.userName);
+        if (this.userDetails.userName !== user.userName) {
+            this.pm.emit(user.userName);
+        }
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], SidebarComponent.prototype, "users", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], SidebarComponent.prototype, "userDetails", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
@@ -1194,6 +1227,7 @@ var SocketIoService = /** @class */ (function () {
         this.users = this.socket.fromEvent('users');
         this.room = this.socket.fromEvent('room');
         this.noReceiver = this.socket.fromEvent('no-receiver-found');
+        this.invalidReceiver = this.socket.fromEvent('invalid-receiver');
     }
     SocketIoService.prototype.startTyping = function (typing) {
         this.socket.emit('typing', typing);
