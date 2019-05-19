@@ -25,7 +25,7 @@
             <div class="text-right typing-container">
               <p class="lead" [ngClass]="{'hidden': whoisTyping.userName ? false : true}">{{whoisTyping.userName}} is typing...</p>
             </div>  
-            <form class="form-inline chat-controls" *ngIf="!this.msg.private">
+            <form class="form-inline chat-controls" [hidden]="this.msg.private">
               <input type="text" 
                 #msgInput
                 class="form-control fill-parent" 
@@ -35,9 +35,9 @@
                 placeholder="Enter message.">
               <button type="submit" class="btn btn-primary margin-left-1" (click)="send()">Send</button>
             </form>
-            <form class="form-inline chat-controls" *ngIf="this.msg.private">
+            <form class="form-inline chat-controls" [hidden]="!this.msg.private">
               <input type="text" 
-                #msgInput
+                #pmInput
                 class="form-control fill-parent" 
                 name="msg" 
                 [ngModel]="msg.msg"
