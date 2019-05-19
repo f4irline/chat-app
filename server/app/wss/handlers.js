@@ -1,5 +1,6 @@
 'use strict'
 const { Room } = require ('../models');
+const { Message } = require ('../models');
 
 let allUsers = [];
 
@@ -23,11 +24,11 @@ module.exports  = function (io, socket) {
             }
             if (data.room) {
                 findRoom(data.room).then((newRoom) => {
-                    joinRoom(newRoom);
+                    joinRoom(newRoom, true);
                 })
             } else {
                 findRoom(1).then((newRoom) => {
-                    joinRoom(newRoom);
+                    joinRoom(newRoom, false);
                 })
             }
         },
@@ -36,6 +37,7 @@ module.exports  = function (io, socket) {
                 sendPm(data);
             } else {
                 io.to(currentRoom.id).emit('msg', data);
+                saveToRoom(currentRoom.id, data);
             }
         },
         emitTyping: (data) => {
@@ -49,7 +51,17 @@ module.exports  = function (io, socket) {
             if (io.sockets.adapter.rooms[currentRoom.id]) {
                 socket.to(currentRoom.id).broadcast.emit('users', getUsersInRoom(io.sockets.adapter.rooms[currentRoom.id].sockets));
             }
+            socket.leave(currentRoom.id);
         }
+    }
+
+    function saveToRoom(id, data) {
+        Message.create({
+            msg: data.msg,
+            userName: data.userName,
+            private: data.private,
+            roomId: id
+        });
     }
 
     function sendPm(data) {
@@ -97,14 +109,16 @@ module.exports  = function (io, socket) {
         return undefined;
     }
 
-    function joinRoom (newRoom) {
+    function joinRoom (newRoom, leaving) {
         previousRoom = currentRoom;
         currentRoom = newRoom;
         socket.join(newRoom.id);
-        if (io.sockets.adapter.rooms[previousRoom.id]) {
+        if (io.sockets.adapter.rooms[previousRoom.id] && leaving) {
             leavePreviousRoom(previousRoom.id);
         }
-        io.to(newRoom.id).emit('users', getUsersInRoom(io.sockets.adapter.rooms[newRoom.id].sockets));    
+
+        io.to(newRoom.id).emit('users', getUsersInRoom(io.sockets.adapter.rooms[newRoom.id].sockets));
+
         socket.emit('room', newRoom);
     }
 
@@ -142,7 +156,7 @@ module.exports  = function (io, socket) {
     }
 
     async function findRoom (roomId) {
-        return Room.findOne({ where: {id: roomId} });
+        return Room.findOne({ where: {id: roomId}, include: ['messages'] });
     }
 }
 

@@ -90,7 +90,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     this.roomSubscription$ = this.socketIo.room.subscribe((room) => {
       this.room = room;
-      this.messages = [];
+      this.messages = room.messages;
     });
 
     this.noReceiverSubscription$ = this.socketIo.noReceiver.subscribe((msg) => {
