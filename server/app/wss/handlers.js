@@ -67,11 +67,13 @@ module.exports  = function (io, socket) {
     function sendPm(data) {
         const receiverName = parseReceiver(data.msg).toLowerCase();
         const receiver = findReceiver(receiverName);
-        if (receiver) {
+        if (receiver && receiver.id !== socket.id) {
             const message = parseMessage(data.msg, receiverName);
             data.msg = message;
             io.to(receiver.id).emit('msg', data);
             socket.emit('msg', data);    
+        } else if (receiver && receiver.id === socket.id) {
+            socket.emit('invalid-receiver', data);
         } else {
             socket.emit('no-receiver-found', data);
         }

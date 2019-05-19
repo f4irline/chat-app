@@ -13,6 +13,7 @@ export class SocketIoService {
   users = this.socket.fromEvent<User[]>('users');
   room = this.socket.fromEvent<Room>('room');
   noReceiver = this.socket.fromEvent<Message>('no-receiver-found');
+  invalidReceiver = this.socket.fromEvent<Message>('invalid-receiver');
 
   constructor(private socket: Socket) { }
 
