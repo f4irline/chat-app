@@ -7,10 +7,20 @@ const RoomModel     = require('./room');
 const MessageModel  = require('./message');
 const UserModel     = require ('./user');
 
-const sequelize = new Sequelize(config.mysql.database, config.mysql.user, config.mysql.password, {
-    host: config.mysql.host,
-    dialect: 'mysql',
-});
+let sequelize = undefined;
+
+if (process.env.DATABASE_URL) {
+    sequelize = new Sequelize(process.env.DATABASE_URL, {
+        dialect: 'postgres',
+        protocol: 'postgres',
+        logging: false,
+    });
+} else {
+    sequelize = new Sequelize(config.mysql.database, config.mysql.user, config.mysql.password, {
+        host: config.mysql.host,
+        dialect: 'mysql',
+    });    
+}
 
 const Room = RoomModel(sequelize, Sequelize);
 const Message = MessageModel(sequelize, Sequelize);
