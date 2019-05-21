@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { User, UserDetails } from '../../models';
-import { AppState } from '../../store';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { User, UserDetails } from '../../models';
+import { AppState } from '../../store';
 
 @Component({
   selector: 'app-sidebar',

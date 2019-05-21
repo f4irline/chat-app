@@ -1,20 +1,20 @@
 import {
+  AfterViewChecked,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnInit,
-  AfterViewChecked,
   OnDestroy,
-  ViewChild,
   ElementRef,
   HostListener,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef
+  ViewChild,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Fade } from '../../animations/Fade';
-import { Message, Typing, User, Room, UserDetails } from '../../models/';
-import { SocketIoService } from '../../services';
 import { Subscription } from 'rxjs';
-import { AppState } from 'src/app/store';
+import { Fade } from '../../animations/Fade';
+import { Message, Room, Typing, User, UserDetails } from '../../models/';
+import { SocketIoService } from '../../services';
+import { AppState } from '../../store';
 
 @Component({
   selector: 'app-chat',

@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { LocalStorageService, ApiService } from '../../services';
+import { Fade } from '../../animations/Fade';
 import { Token } from '../../models/Token';
+import { ApiService, LocalStorageService } from '../../services';
 import { AppState } from '../../store';
 import * as UserDetailsActions from '../../store/actions/user-details.action';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  animations: [
+    Fade,
+  ],
 })
 export class LoginComponent implements OnInit {
 
