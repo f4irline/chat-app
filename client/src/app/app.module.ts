@@ -34,7 +34,7 @@ import {
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+const config: SocketIoConfig = { url: 'https://gentle-mesa-55326.herokuapp.com', options: {} };
 
 function getToken() {
   return localStorage.getItem('token');
