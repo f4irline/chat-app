@@ -269,7 +269,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"modal fade\" id=\"room-add-modal\" tabindex=\"-1\" role=\"dialog\">\r\n  <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"exampleModalLabel\">Add a new room</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\">\r\n          <span>&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <input type=\"text\" class=\"form-control\" placeholder=\"Room name\" [(ngModel)]=\"room.roomName\" name=\"roomName\">\r\n      </div>\r\n      <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-secondary\" #closeModal data-dismiss=\"modal\">Close</button>\r\n        <button type=\"button\" class=\"btn btn-primary\" [disabled]=\"!room.roomName\" (click)=\"saveRoom()\">Save room</button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>  "
+module.exports = "<div class=\"modal fade\" id=\"room-add-modal\" tabindex=\"-1\" role=\"dialog\">\r\n  <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"exampleModalLabel\">Add a new room</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\">\r\n          <span>&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <input type=\"text\" class=\"form-control\" placeholder=\"Room name\" [(ngModel)]=\"room.roomName\" name=\"roomName\">\r\n        <span [@fade]=\"addFailed\" *ngIf=\"addFailed\" class=\"error-hint\">Room with given name already exists.</span>\r\n      </div>\r\n      <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-secondary\" #closeModal data-dismiss=\"modal\">Close</button>\r\n        <button type=\"button\" class=\"btn btn-primary\" [disabled]=\"!room.roomName\" (click)=\"saveRoom()\">Save room</button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>  "
 
 /***/ }),
 
@@ -280,7 +280,7 @@ module.exports = "<div class=\"modal fade\" id=\"room-add-modal\" tabindex=\"-1\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvYWRkLXJvb20tbW9kYWwvYWRkLXJvb20tbW9kYWwuY29tcG9uZW50LnNjc3MifQ== */"
+module.exports = ":host .error-hint {\n  margin-left: 12px;\n  color: red; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9hZGQtcm9vbS1tb2RhbC9DOlxcVXNlcnNcXGxlcG9sXFxEb2N1bWVudHNcXE9oamVsbW9pbnRpXFxXZWJcXGNoYXQtYXBwXFxjbGllbnQvc3JjXFxhcHBcXGNvbXBvbmVudHNcXGFkZC1yb29tLW1vZGFsXFxhZGQtcm9vbS1tb2RhbC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUVRLGlCQUFpQjtFQUNqQixVQUFVLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2FkZC1yb29tLW1vZGFsL2FkZC1yb29tLW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xyXG4gICAgLmVycm9yLWhpbnQge1xyXG4gICAgICAgIG1hcmdpbi1sZWZ0OiAxMnB4O1xyXG4gICAgICAgIGNvbG9yOiByZWQ7XHJcbiAgICB9XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -296,14 +296,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RoomModalComponent", function() { return RoomModalComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services */ "./src/app/services/index.ts");
+/* harmony import */ var _animations_Fade__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../animations/Fade */ "./src/app/animations/Fade.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services */ "./src/app/services/index.ts");
+
 
 
 
 var RoomModalComponent = /** @class */ (function () {
-    function RoomModalComponent(apiService) {
+    function RoomModalComponent(apiService, ref) {
         this.apiService = apiService;
+        this.ref = ref;
         this.joinRoom = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.addFailed = false;
     }
     RoomModalComponent.prototype.ngOnInit = function () {
         this.room = {
@@ -312,11 +316,25 @@ var RoomModalComponent = /** @class */ (function () {
     };
     RoomModalComponent.prototype.saveRoom = function () {
         var _this = this;
-        this.apiService.saveRoom(this.room).subscribe(function (room) {
-            _this.room.roomName = '';
-            _this.joinRoom.emit(room.id);
-            _this.closeBtn.nativeElement.click();
-        });
+        this.apiService.saveRoom(this.room).subscribe(function (room) { return _this.handleSuccess(room); }, function (err) { return _this.handleError(err); });
+    };
+    RoomModalComponent.prototype.handleSuccess = function (room) {
+        this.room.roomName = '';
+        this.joinRoom.emit(room.id);
+        this.closeBtn.nativeElement.click();
+    };
+    RoomModalComponent.prototype.handleError = function (err) {
+        var _this = this;
+        this.addFailed = true;
+        this.ref.markForCheck();
+        if (this.errorTimeout) {
+            window.clearTimeout(this.errorTimeout);
+        }
+        this.errorTimeout = window.setTimeout(function () {
+            _this.addFailed = false;
+            _this.errorTimeout = undefined;
+            _this.ref.markForCheck();
+        }, 4000);
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('closeModal'),
@@ -330,9 +348,14 @@ var RoomModalComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-room-modal',
             template: __webpack_require__(/*! ./add-room-modal.component.html */ "./src/app/components/add-room-modal/add-room-modal.component.html"),
+            animations: [
+                _animations_Fade__WEBPACK_IMPORTED_MODULE_2__["Fade"],
+            ],
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
             styles: [__webpack_require__(/*! ./add-room-modal.component.scss */ "./src/app/components/add-room-modal/add-room-modal.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_2__["ApiService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_3__["ApiService"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
     ], RoomModalComponent);
     return RoomModalComponent;
 }());
@@ -348,7 +371,7 @@ var RoomModalComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"paper elevate-1 container\">\r\n  <div class=\"row chat-wrapper\">\r\n      <div class=\"col-sm-3 text-center vertical-divider align-self-start side-scroll-container\">\r\n        <app-sidebar (pm)=\"onPm($event)\"></app-sidebar>\r\n      </div>\r\n      <div class=\"col-sm-9 text-center chat-container\">\r\n        <div class=\"room-wrapper row\">\r\n          <div class=\"col-sm-12 align-self-start\">\r\n            <h4 class=\"display-5\">Room: {{room.roomName}}</h4>\r\n            <hr>\r\n          </div>\r\n        </div>\r\n        <div class=\"chat-scroll-container row\">\r\n          <div class=\"col-sm-12 align-self-end\">\r\n            <app-message [userDetails]=\"userDetails\" (pm)=\"onPm($event)\" *ngFor=\"let msg of messages\" [msg]=\"msg\"></app-message>\r\n            <hr>\r\n            <div class=\"text-left error-container\">\r\n              <p class=\"lead\" [@fade]='receiverError' *ngIf=\"receiverError\">\r\n                {{errorString ? errorString : 'Error in message'}}\r\n              </p>\r\n            </div>\r\n            <div class=\"text-center pm-container\">\r\n              <p class=\"lead\" [ngClass]=\"{'hidden': !this.msg.private}\">Sending pm to: {{this.msg.receiver}}</p>\r\n            </div>\r\n            <div class=\"text-right typing-container\">\r\n              <p class=\"lead\" [ngClass]=\"{'hidden': whoisTyping.userName ? false : true}\">{{whoisTyping.userName}} is typing...</p>\r\n            </div>  \r\n            <form class=\"form-inline chat-controls\" [hidden]=\"this.msg.private\">\r\n              <input type=\"text\" \r\n                #msgInput\r\n                class=\"form-control fill-parent\" \r\n                name=\"msg\" \r\n                [ngModel]=\"msg.msg\"\r\n                (ngModelChange)=\"msgChanged($event)\"\r\n                placeholder=\"Enter message.\">\r\n              <button type=\"submit\" class=\"btn btn-primary margin-left-1\" (click)=\"send()\">Send</button>\r\n            </form>\r\n            <form class=\"form-inline chat-controls\" [hidden]=\"!this.msg.private\">\r\n              <input type=\"text\" \r\n                #pmInput\r\n                class=\"form-control fill-parent\" \r\n                name=\"msg\" \r\n                [ngModel]=\"msg.msg\"\r\n                (ngModelChange)=\"msgChanged($event)\"\r\n                placeholder=\"Enter private message.\">\r\n              <span (click)=\"endPm()\" class=\"clear-pm margin-left-1\">X</span>\r\n              <button type=\"submit\" class=\"btn btn-primary margin-left-1\" (click)=\"send()\">Send</button>\r\n            </form>\r\n          </div>\r\n        </div>\r\n      </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"paper elevate-1 container\">\r\n  <div class=\"row chat-wrapper\">\r\n      <div class=\"col-sm-3 text-center vertical-divider align-self-start side-scroll-container\">\r\n        <app-sidebar (pm)=\"onPm($event)\"></app-sidebar>\r\n      </div>\r\n      <div class=\"col-sm-9 text-center chat-container\">\r\n        <div class=\"room-wrapper row\">\r\n          <div class=\"col-sm-12 align-self-start\">\r\n            <h4 class=\"display-5\">Room: {{room.roomName}}</h4>\r\n            <hr>\r\n          </div>\r\n        </div>\r\n        <div class=\"chat-scroll-container row\">\r\n          <div class=\"col-sm-12 align-self-end\">\r\n            <app-message [userDetails]=\"userDetails\" (pm)=\"onPm($event)\" *ngFor=\"let msg of messages\" [msg]=\"msg\"></app-message>\r\n            <hr>\r\n            <div class=\"text-left error-container\">\r\n              <p class=\"lead\" [@fade]=\"receiverError\" *ngIf=\"receiverError\">\r\n                {{errorString ? errorString : 'Error in message'}}\r\n              </p>\r\n            </div>\r\n            <div class=\"text-center pm-container\">\r\n              <p class=\"lead\" [ngClass]=\"{'hidden': !this.msg.private}\">Sending pm to: {{this.msg.receiver}}</p>\r\n            </div>\r\n            <div class=\"text-right typing-container\">\r\n              <p class=\"lead\" [ngClass]=\"{'hidden': whoisTyping.userName ? false : true}\">{{whoisTyping.userName}} is typing...</p>\r\n            </div>  \r\n            <form class=\"form-inline chat-controls\" [hidden]=\"this.msg.private\">\r\n              <input type=\"text\" \r\n                #msgInput\r\n                class=\"form-control fill-parent\" \r\n                name=\"msg\" \r\n                [ngModel]=\"msg.msg\"\r\n                (ngModelChange)=\"msgChanged($event)\"\r\n                placeholder=\"Enter message.\">\r\n              <button type=\"submit\" class=\"btn btn-primary margin-left-1\" (click)=\"send()\">Send</button>\r\n            </form>\r\n            <form class=\"form-inline chat-controls\" [hidden]=\"!this.msg.private\">\r\n              <input type=\"text\" \r\n                #pmInput\r\n                class=\"form-control fill-parent\" \r\n                name=\"msg\" \r\n                [ngModel]=\"msg.msg\"\r\n                (ngModelChange)=\"msgChanged($event)\"\r\n                placeholder=\"Enter private message.\">\r\n              <span (click)=\"endPm()\" class=\"clear-pm margin-left-1\">X</span>\r\n              <button type=\"submit\" class=\"btn btn-primary margin-left-1\" (click)=\"send()\">Send</button>\r\n            </form>\r\n          </div>\r\n        </div>\r\n      </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -789,7 +812,7 @@ var JoinRoomModalComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"login-wrapper\">\r\n  <div class=\"container paper elevate-1\">\r\n    <div class=\"row header\">\r\n      <div>\r\n        <h1>Login</h1>\r\n      </div>\r\n      <div>\r\n        <h4 (click)=\"signup()\">Signup</h4>\r\n      </div>\r\n    </div>\r\n    <hr>\r\n    <form class=\"login-form\">\r\n      <div class=\"form-group row\">\r\n        <label for=\"userName\" class=\"col-sm-3 col-form-label\">Username</label>\r\n        <input type=\"text\" id=\"userName\" name=\"userName\" placeholder=\"Enter username\" class=\"form-control col-sm-9\" [(ngModel)]=\"userName\">\r\n      </div>\r\n      <div class=\"form-group row\">\r\n        <label for=\"password\" class=\"col-sm-3 col-form-label\">Password</label>\r\n        <input type=\"text\" id=\"password\" name=\"password\" placeholder=\"Enter password\" class=\"form-control col-sm-9\" [(ngModel)]=\"password\">\r\n      </div>\r\n      <button type=\"submit\" class=\"btn btn-primary\" (click)=\"login()\">Send</button>\r\n      <span [@fade]='loginFailed' *ngIf=\"loginFailed\" class=\"error-hint\">{{errorString ? errorString : 'Error in login.'}}</span>\r\n    </form>      \r\n  </div>\r\n</div>"
+module.exports = "<div class=\"login-wrapper\">\r\n  <div class=\"container paper elevate-1\">\r\n    <div class=\"row header\">\r\n      <div>\r\n        <h1>Login</h1>\r\n      </div>\r\n      <div>\r\n        <h4 (click)=\"signup()\">Signup</h4>\r\n      </div>\r\n    </div>\r\n    <hr>\r\n    <form class=\"login-form\">\r\n      <div class=\"form-group row\">\r\n        <label for=\"userName\" class=\"col-sm-3 col-form-label\">Username</label>\r\n        <input type=\"text\" id=\"userName\" name=\"userName\" placeholder=\"Enter username\" class=\"form-control col-sm-9\" [(ngModel)]=\"userName\">\r\n      </div>\r\n      <div class=\"form-group row\">\r\n        <label for=\"password\" class=\"col-sm-3 col-form-label\">Password</label>\r\n        <input type=\"text\" id=\"password\" name=\"password\" placeholder=\"Enter password\" class=\"form-control col-sm-9\" [(ngModel)]=\"password\">\r\n      </div>\r\n      <button type=\"submit\" class=\"btn btn-primary\" (click)=\"login()\">Send</button>\r\n      <span [@fade]=\"loginFailed\" *ngIf=\"loginFailed\" class=\"error-hint\">{{errorString ? errorString : 'Error in login.'}}</span>\r\n    </form>      \r\n  </div>\r\n</div>"
 
 /***/ }),
 
