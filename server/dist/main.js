@@ -1190,8 +1190,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
 /* harmony import */ var _api_api_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../api/api.service */ "./src/app/services/api/api.service.ts");
 /* harmony import */ var _local_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../local-storage/local-storage.service */ "./src/app/services/local-storage/local-storage.service.ts");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _store_actions_user_details_action__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../store/actions/user-details.action */ "./src/app/store/actions/user-details.action.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _store_actions_user_details_action__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../store/actions/user-details.action */ "./src/app/store/actions/user-details.action.ts");
+
 
 
 
@@ -1212,19 +1214,19 @@ var AuthGuard = /** @class */ (function () {
     };
     AuthGuard.prototype.checkLogin = function () {
         var _this = this;
-        return this.apiService.profile().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (res) {
+        return this.apiService.profile().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["map"])(function (res) {
             return _this.profileSuccess(res);
-        }, function (err) {
-            return _this.profileError(err);
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["catchError"])(function (err) {
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_6__["of"])(_this.profileError(err));
         }));
     };
     AuthGuard.prototype.profileSuccess = function (res) {
-        this.store.dispatch(new _store_actions_user_details_action__WEBPACK_IMPORTED_MODULE_7__["UpdateUsername"](res.userName));
+        this.store.dispatch(new _store_actions_user_details_action__WEBPACK_IMPORTED_MODULE_8__["UpdateUsername"](res.userName));
         return true;
     };
     AuthGuard.prototype.profileError = function (err) {
         this.localStorageService.removeToken();
-        this.localStorageService.removeUserName();
+        this.store.dispatch(new _store_actions_user_details_action__WEBPACK_IMPORTED_MODULE_8__["UpdateUsername"](''));
         this.router.navigateByUrl('/');
         return false;
     };
