@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Action, StoreModule, ActionReducer, MetaReducer, ActionReducerMap, createFeatureSelector } from '@ngrx/store';
+import { Action, StoreModule, ActionReducer, MetaReducer, ActionReducerMap } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { JwtModule } from '@auth0/angular-jwt';
 
