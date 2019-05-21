@@ -54,10 +54,6 @@ export class HomeComponent implements OnDestroy {
 
   onJoinRoom(roomId: number) {
     this.store.dispatch(new UserDetailsActions.UpdateRoom(roomId));
-    this.socketIo.join({
-      userName: this.userDetails.userName,
-      room: roomId,
-    });
     this.ref.markForCheck();
   }
 }
