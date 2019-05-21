@@ -9,6 +9,7 @@
       </div>
       <div class="modal-body">
         <input type="text" class="form-control" placeholder="Room name" [(ngModel)]="room.roomName" name="roomName">
+        <span [@fade]="addFailed" *ngIf="addFailed" class="error-hint">Room with given name already exists.</span>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" #closeModal data-dismiss="modal">Close</button>

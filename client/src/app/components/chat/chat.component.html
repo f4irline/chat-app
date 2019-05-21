@@ -15,7 +15,7 @@
             <app-message [userDetails]="userDetails" (pm)="onPm($event)" *ngFor="let msg of messages" [msg]="msg"></app-message>
             <hr>
             <div class="text-left error-container">
-              <p class="lead" [@fade]='receiverError' *ngIf="receiverError">
+              <p class="lead" [@fade]="receiverError" *ngIf="receiverError">
                 {{errorString ? errorString : 'Error in message'}}
               </p>
             </div>
