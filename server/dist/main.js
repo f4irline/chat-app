@@ -167,18 +167,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
-/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
-/* harmony import */ var _ngrx_store_devtools__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ngrx/store-devtools */ "./node_modules/@ngrx/store-devtools/fesm5/store-devtools.js");
-/* harmony import */ var _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @auth0/angular-jwt */ "./node_modules/@auth0/angular-jwt/index.js");
+/* harmony import */ var _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @auth0/angular-jwt */ "./node_modules/@auth0/angular-jwt/index.js");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
+/* harmony import */ var _ngrx_store_devtools__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ngrx/store-devtools */ "./node_modules/@ngrx/store-devtools/fesm5/store-devtools.js");
 /* harmony import */ var ngrx_store_localstorage__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ngrx-store-localstorage */ "./node_modules/ngrx-store-localstorage/dist/index.js");
 /* harmony import */ var ngrx_store_localstorage__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(ngrx_store_localstorage__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _store_reducers_user_details_reducer__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./store/reducers/user-details.reducer */ "./src/app/store/reducers/user-details.reducer.ts");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components */ "./src/app/components/index.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./services */ "./src/app/services/index.ts");
-/* harmony import */ var ngx_socket_io__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ngx-socket-io */ "./node_modules/ngx-socket-io/index.js");
+/* harmony import */ var ngx_socket_io__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ngx-socket-io */ "./node_modules/ngx-socket-io/index.js");
+/* harmony import */ var _store_reducers_user_details_reducer__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./store/reducers/user-details.reducer */ "./src/app/store/reducers/user-details.reducer.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components */ "./src/app/components/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./services */ "./src/app/services/index.ts");
 
 
 
@@ -202,7 +202,7 @@ function getToken() {
 }
 var STORE_KEYS_TO_PERSIST = ['userDetails'];
 var reducers = {
-    userDetails: _store_reducers_user_details_reducer__WEBPACK_IMPORTED_MODULE_10__["reducer"],
+    userDetails: _store_reducers_user_details_reducer__WEBPACK_IMPORTED_MODULE_11__["reducer"],
 };
 function localStorageSyncReducer(reducer) {
     return Object(ngrx_store_localstorage__WEBPACK_IMPORTED_MODULE_9__["localStorageSync"])({
@@ -217,42 +217,42 @@ var AppModule = /** @class */ (function () {
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_13__["AppComponent"],
-                _components__WEBPACK_IMPORTED_MODULE_14__["ChatComponent"],
-                _components__WEBPACK_IMPORTED_MODULE_14__["HomeComponent"],
-                _components__WEBPACK_IMPORTED_MODULE_14__["SidebarComponent"],
-                _components__WEBPACK_IMPORTED_MODULE_14__["LoginComponent"],
-                _components__WEBPACK_IMPORTED_MODULE_14__["MessageComponent"],
-                _components__WEBPACK_IMPORTED_MODULE_14__["RoomModalComponent"],
-                _components__WEBPACK_IMPORTED_MODULE_14__["JoinRoomModalComponent"],
-                _components__WEBPACK_IMPORTED_MODULE_14__["SignupComponent"],
+                _app_component__WEBPACK_IMPORTED_MODULE_14__["AppComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_15__["ChatComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_15__["HomeComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_15__["SidebarComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_15__["LoginComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_15__["MessageComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_15__["RoomModalComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_15__["JoinRoomModalComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_15__["SignupComponent"],
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
-                _app_routing_module__WEBPACK_IMPORTED_MODULE_12__["AppRoutingModule"],
-                ngx_socket_io__WEBPACK_IMPORTED_MODULE_16__["SocketIoModule"].forRoot(config),
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_13__["AppRoutingModule"],
+                ngx_socket_io__WEBPACK_IMPORTED_MODULE_10__["SocketIoModule"].forRoot(config),
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
-                _ngrx_store__WEBPACK_IMPORTED_MODULE_6__["StoreModule"].forRoot(reducers, { metaReducers: metaReducers }),
-                _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_8__["JwtModule"].forRoot({
+                _ngrx_store__WEBPACK_IMPORTED_MODULE_7__["StoreModule"].forRoot(reducers, { metaReducers: metaReducers }),
+                _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_6__["JwtModule"].forRoot({
                     config: {
                         tokenGetter: getToken,
                         whitelistedDomains: ['gentle-mesa-55326.herokuapp.com'],
                     }
                 }),
-                _ngrx_store_devtools__WEBPACK_IMPORTED_MODULE_7__["StoreDevtoolsModule"].instrument({
+                _ngrx_store_devtools__WEBPACK_IMPORTED_MODULE_8__["StoreDevtoolsModule"].instrument({
                     maxAge: 25,
-                    logOnly: _environments_environment__WEBPACK_IMPORTED_MODULE_11__["environment"].production,
+                    logOnly: _environments_environment__WEBPACK_IMPORTED_MODULE_12__["environment"].production,
                 }),
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__["BrowserAnimationsModule"],
             ],
             providers: [
-                _services__WEBPACK_IMPORTED_MODULE_15__["ApiService"],
-                _services__WEBPACK_IMPORTED_MODULE_15__["SocketIoService"],
-                _services__WEBPACK_IMPORTED_MODULE_15__["LocalStorageService"],
-                _services__WEBPACK_IMPORTED_MODULE_15__["AuthGuardService"]
+                _services__WEBPACK_IMPORTED_MODULE_16__["ApiService"],
+                _services__WEBPACK_IMPORTED_MODULE_16__["SocketIoService"],
+                _services__WEBPACK_IMPORTED_MODULE_16__["LocalStorageService"],
+                _services__WEBPACK_IMPORTED_MODULE_16__["AuthGuardService"]
             ],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_13__["AppComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_14__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
@@ -792,7 +792,7 @@ var JoinRoomModalComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"login-wrapper\">\r\n  <div class=\"container paper elevate-1\">\r\n    <div class=\"row header\">\r\n      <div>\r\n        <h1>Login</h1>\r\n      </div>\r\n      <div>\r\n        <h4 (click)=\"signup()\">Signup</h4>\r\n      </div>\r\n    </div>\r\n    <hr>\r\n    <form class=\"login-form\">\r\n      <div class=\"form-group row\">\r\n        <label for=\"userName\" class=\"col-sm-3 col-form-label\">Username</label>\r\n        <input type=\"text\" id=\"userName\" name=\"userName\" placeholder=\"Enter username\" class=\"form-control col-sm-9\" [(ngModel)]=\"userName\">\r\n      </div>\r\n      <div class=\"form-group row\">\r\n        <label for=\"password\" class=\"col-sm-3 col-form-label\">Password</label>\r\n        <input type=\"text\" id=\"password\" name=\"password\" placeholder=\"Enter password\" class=\"form-control col-sm-9\" [(ngModel)]=\"password\">\r\n      </div>\r\n      <button type=\"submit\" class=\"btn btn-primary\" (click)=\"login()\">Send</button>\r\n      <span *ngIf=\"loginFailed\" class=\"error-hint\">{{errorString ? errorString : 'Error in login.'}}</span>\r\n    </form>      \r\n  </div>\r\n</div>"
+module.exports = "<div class=\"login-wrapper\">\r\n  <div class=\"container paper elevate-1\">\r\n    <div class=\"row header\">\r\n      <div>\r\n        <h1>Login</h1>\r\n      </div>\r\n      <div>\r\n        <h4 (click)=\"signup()\">Signup</h4>\r\n      </div>\r\n    </div>\r\n    <hr>\r\n    <form class=\"login-form\">\r\n      <div class=\"form-group row\">\r\n        <label for=\"userName\" class=\"col-sm-3 col-form-label\">Username</label>\r\n        <input type=\"text\" id=\"userName\" name=\"userName\" placeholder=\"Enter username\" class=\"form-control col-sm-9\" [(ngModel)]=\"userName\">\r\n      </div>\r\n      <div class=\"form-group row\">\r\n        <label for=\"password\" class=\"col-sm-3 col-form-label\">Password</label>\r\n        <input type=\"text\" id=\"password\" name=\"password\" placeholder=\"Enter password\" class=\"form-control col-sm-9\" [(ngModel)]=\"password\">\r\n      </div>\r\n      <button type=\"submit\" class=\"btn btn-primary\" (click)=\"login()\">Send</button>\r\n      <span [@fade]='loginFailed' *ngIf=\"loginFailed\" class=\"error-hint\">{{errorString ? errorString : 'Error in login.'}}</span>\r\n    </form>      \r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -821,8 +821,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services */ "./src/app/services/index.ts");
-/* harmony import */ var _store_actions_user_details_action__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../store/actions/user-details.action */ "./src/app/store/actions/user-details.action.ts");
+/* harmony import */ var _animations_Fade__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../animations/Fade */ "./src/app/animations/Fade.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../services */ "./src/app/services/index.ts");
+/* harmony import */ var _store_actions_user_details_action__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../store/actions/user-details.action */ "./src/app/store/actions/user-details.action.ts");
+
 
 
 
@@ -848,7 +850,7 @@ var LoginComponent = /** @class */ (function () {
     };
     LoginComponent.prototype.handleLogin = function (data) {
         this.localStorageService.setToken(data.token);
-        this.store.dispatch(new _store_actions_user_details_action__WEBPACK_IMPORTED_MODULE_5__["UpdateUsername"](this.userName));
+        this.store.dispatch(new _store_actions_user_details_action__WEBPACK_IMPORTED_MODULE_6__["UpdateUsername"](this.userName));
         this.router.navigateByUrl('/home');
     };
     LoginComponent.prototype.handleError = function (err) {
@@ -866,12 +868,15 @@ var LoginComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-login',
             template: __webpack_require__(/*! ./login.component.html */ "./src/app/components/login/login.component.html"),
+            animations: [
+                _animations_Fade__WEBPACK_IMPORTED_MODULE_4__["Fade"],
+            ],
             styles: [__webpack_require__(/*! ./login.component.scss */ "./src/app/components/login/login.component.scss")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"],
-            _services__WEBPACK_IMPORTED_MODULE_4__["LocalStorageService"],
+            _services__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
-            _services__WEBPACK_IMPORTED_MODULE_4__["ApiService"]])
+            _services__WEBPACK_IMPORTED_MODULE_5__["ApiService"]])
     ], LoginComponent);
     return LoginComponent;
 }());
