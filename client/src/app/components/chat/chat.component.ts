@@ -34,7 +34,6 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   msg: Message;
   messages: Message[];
   room: Room;
-  users: User[];
   receiverError: boolean;
 
   userDetails: UserDetails;
@@ -47,7 +46,6 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   msgSubscription$: Subscription;
   clearSubscription$: Subscription;
   typingSubscription$: Subscription;
-  usersSubscription$: Subscription;
   roomSubscription$: Subscription;
   noReceiverSubscription$: Subscription;
   invalidReceiverSubscription$: Subscription;
@@ -97,7 +95,6 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.msgSubscription$.unsubscribe();
     this.clearSubscription$.unsubscribe();
     this.typingSubscription$.unsubscribe();
-    this.usersSubscription$.unsubscribe();
     this.roomSubscription$.unsubscribe();
     this.noReceiverSubscription$.unsubscribe();
     this.invalidReceiverSubscription$.unsubscribe();
@@ -129,11 +126,6 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     this.typingSubscription$ = this.socketIo.typing.subscribe((user) => {
       this.whoisTyping = user;
-      this.ref.markForCheck();
-    });
-
-    this.usersSubscription$ = this.socketIo.users.subscribe((users) => {
-      this.users = users;
       this.ref.markForCheck();
     });
 

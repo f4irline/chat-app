@@ -29,7 +29,9 @@ export class HomeComponent implements OnDestroy {
   ) {
     this.userDetailsSubscription = this.store.select('userDetails').subscribe((details) => {
       this.userDetails = details;
-      this.socketIo.join(details);
+      if (details.userName) {
+        this.socketIo.join(details);
+      }
       this.ref.markForCheck();
     });
   }
