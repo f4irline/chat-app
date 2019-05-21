@@ -3,11 +3,14 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Action, StoreModule, ActionReducer, MetaReducer, ActionReducerMap, createFeatureSelector } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 import { JwtModule } from '@auth0/angular-jwt';
 
+import { Action, StoreModule, ActionReducer, MetaReducer, ActionReducerMap } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { localStorageSync } from 'ngrx-store-localstorage';
+
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 import * as UserDetailsReducer from './store/reducers/user-details.reducer';
 import { environment } from '../environments/environment';
@@ -32,7 +35,6 @@ import {
   AuthGuardService
 } from './services';
 
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
