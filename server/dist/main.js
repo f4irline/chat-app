@@ -196,7 +196,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var config = { url: 'http://localhost:3000', options: {} };
+var config = { url: 'https://gentle-mesa-55326.herokuapp.com', options: {} };
 function getToken() {
     return localStorage.getItem('token');
 }
