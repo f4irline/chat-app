@@ -2,19 +2,18 @@
 require('dotenv').config();
 
 // Basic express configuration
-const config    = require('./config/config');
-const express   = require('express');
-const cors      = require('cors');
-const routes    = require('./app/routes');
+const config        = require('./config/config');
+const express       = require('express');
+const cors          = require('cors');
 
-const UserUtils = require('./app/routes/userUtils');
+const UserUtils     = require('./app/routes/userUtils');
 
 // Passport and auth utils
 const passport      = require('passport');
 const passportJWT   = require('passport-jwt');
 let ExtractJwt      = passportJWT.ExtractJwt;
-let JwtStrategy = passportJWT.Strategy;
-let jwtOptions = {};
+let JwtStrategy     = passportJWT.Strategy;
+let jwtOptions      = {};
 
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 jwtOptions.secretOrKey = config.secret;
@@ -39,6 +38,8 @@ const io = require('socket.io')(server);
 require('./app/wss')(io);
 
 app.use(cors());
+
+const routes = require('./app/routes')(passport, jwtOptions);
 
 app.use(routes);
 

@@ -36,8 +36,6 @@ sequelize.sync()
         console.log('Database and tables created.');
     });
 
-
-
 module.exports = {
     Room,
     Message,
