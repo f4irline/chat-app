@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { LocalStorageService, ApiService } from '../../services';
 import { Router } from '@angular/router';
-import { Token } from 'src/app/models/Token';
-import { User } from 'src/app/models';
+import { Store } from '@ngrx/store';
+import { LocalStorageService, ApiService } from '../../services';
+import { Token } from '../../models/Token';
+import { AppState } from '../../store';
+import * as UserDetailsActions from '../../store/actions/user-details.action';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +20,7 @@ export class LoginComponent implements OnInit {
   errorString: string;
 
   constructor(
+    private store: Store<AppState>,
     private localStorageService: LocalStorageService,
     private router: Router,
     private apiService: ApiService,
@@ -25,11 +28,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.localStorageService.getToken()) {
-      this.apiService.profile().subscribe(
-        (res) => {
-        this.localStorageService.setUserName(res.userName);
-        this.router.navigateByUrl('/home');
-      });
+      this.router.navigateByUrl('/home');
     }
   }
 
@@ -43,7 +42,7 @@ export class LoginComponent implements OnInit {
 
   handleLogin(data: Token) {
     this.localStorageService.setToken(data.token);
-    this.localStorageService.setUserName(this.userName);
+    this.store.dispatch(new UserDetailsActions.UpdateUsername(this.userName));
     this.router.navigateByUrl('/home');
   }
 

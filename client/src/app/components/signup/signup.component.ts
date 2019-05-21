@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LocalStorageService, ApiService } from '../../services';
 import { Router } from '@angular/router';
-import { Token } from 'src/app/models/Token';
+import { LocalStorageService, ApiService } from '../../services';
 
 @Component({
   selector: 'app-signup',

@@ -12,7 +12,7 @@
           <li *ngFor="let room of rooms">
             <div class="room-wrapper">
               <span>{{room.roomName}}</span>
-              <button type="button" class="btn btn-primary btn-small" (click)="joinRoom(room.id)">Join</button>
+              <button type="button" class="btn btn-primary btn-small" (click)="join(room.id)">Join</button>
             </div>
             <hr>
           </li>
