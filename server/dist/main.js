@@ -348,7 +348,7 @@ var RoomModalComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"paper elevate-1 container\">\r\n  <div class=\"row chat-wrapper\">\r\n      <div class=\"col-sm-3 text-center vertical-divider align-self-start side-scroll-container\">\r\n        <app-sidebar (pm)=\"onPm($event)\" [users]=\"users\"></app-sidebar>\r\n      </div>\r\n      <div class=\"col-sm-9 text-center chat-container\">\r\n        <div class=\"room-wrapper row\">\r\n          <div class=\"col-sm-12 align-self-start\">\r\n            <h4 class=\"display-5\">Room: {{room.roomName}}</h4>\r\n            <hr>\r\n          </div>\r\n        </div>\r\n        <div class=\"chat-scroll-container row\">\r\n          <div class=\"col-sm-12 align-self-end\">\r\n            <app-message [userDetails]=\"userDetails\" (pm)=\"onPm($event)\" *ngFor=\"let msg of messages\" [msg]=\"msg\"></app-message>\r\n            <hr>\r\n            <div class=\"text-left error-container\">\r\n              <p class=\"lead\" [@fade]='receiverError' *ngIf=\"receiverError\">\r\n                {{errorString ? errorString : 'Error in message'}}\r\n              </p>\r\n            </div>\r\n            <div class=\"text-center pm-container\">\r\n              <p class=\"lead\" [ngClass]=\"{'hidden': !this.msg.private}\">Sending pm to: {{this.msg.receiver}}</p>\r\n            </div>\r\n            <div class=\"text-right typing-container\">\r\n              <p class=\"lead\" [ngClass]=\"{'hidden': whoisTyping.userName ? false : true}\">{{whoisTyping.userName}} is typing...</p>\r\n            </div>  \r\n            <form class=\"form-inline chat-controls\" [hidden]=\"this.msg.private\">\r\n              <input type=\"text\" \r\n                #msgInput\r\n                class=\"form-control fill-parent\" \r\n                name=\"msg\" \r\n                [ngModel]=\"msg.msg\"\r\n                (ngModelChange)=\"msgChanged($event)\"\r\n                placeholder=\"Enter message.\">\r\n              <button type=\"submit\" class=\"btn btn-primary margin-left-1\" (click)=\"send()\">Send</button>\r\n            </form>\r\n            <form class=\"form-inline chat-controls\" [hidden]=\"!this.msg.private\">\r\n              <input type=\"text\" \r\n                #pmInput\r\n                class=\"form-control fill-parent\" \r\n                name=\"msg\" \r\n                [ngModel]=\"msg.msg\"\r\n                (ngModelChange)=\"msgChanged($event)\"\r\n                placeholder=\"Enter private message.\">\r\n              <span (click)=\"endPm()\" class=\"clear-pm margin-left-1\">X</span>\r\n              <button type=\"submit\" class=\"btn btn-primary margin-left-1\" (click)=\"send()\">Send</button>\r\n            </form>\r\n          </div>\r\n        </div>\r\n      </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"paper elevate-1 container\">\r\n  <div class=\"row chat-wrapper\">\r\n      <div class=\"col-sm-3 text-center vertical-divider align-self-start side-scroll-container\">\r\n        <app-sidebar (pm)=\"onPm($event)\"></app-sidebar>\r\n      </div>\r\n      <div class=\"col-sm-9 text-center chat-container\">\r\n        <div class=\"room-wrapper row\">\r\n          <div class=\"col-sm-12 align-self-start\">\r\n            <h4 class=\"display-5\">Room: {{room.roomName}}</h4>\r\n            <hr>\r\n          </div>\r\n        </div>\r\n        <div class=\"chat-scroll-container row\">\r\n          <div class=\"col-sm-12 align-self-end\">\r\n            <app-message [userDetails]=\"userDetails\" (pm)=\"onPm($event)\" *ngFor=\"let msg of messages\" [msg]=\"msg\"></app-message>\r\n            <hr>\r\n            <div class=\"text-left error-container\">\r\n              <p class=\"lead\" [@fade]='receiverError' *ngIf=\"receiverError\">\r\n                {{errorString ? errorString : 'Error in message'}}\r\n              </p>\r\n            </div>\r\n            <div class=\"text-center pm-container\">\r\n              <p class=\"lead\" [ngClass]=\"{'hidden': !this.msg.private}\">Sending pm to: {{this.msg.receiver}}</p>\r\n            </div>\r\n            <div class=\"text-right typing-container\">\r\n              <p class=\"lead\" [ngClass]=\"{'hidden': whoisTyping.userName ? false : true}\">{{whoisTyping.userName}} is typing...</p>\r\n            </div>  \r\n            <form class=\"form-inline chat-controls\" [hidden]=\"this.msg.private\">\r\n              <input type=\"text\" \r\n                #msgInput\r\n                class=\"form-control fill-parent\" \r\n                name=\"msg\" \r\n                [ngModel]=\"msg.msg\"\r\n                (ngModelChange)=\"msgChanged($event)\"\r\n                placeholder=\"Enter message.\">\r\n              <button type=\"submit\" class=\"btn btn-primary margin-left-1\" (click)=\"send()\">Send</button>\r\n            </form>\r\n            <form class=\"form-inline chat-controls\" [hidden]=\"!this.msg.private\">\r\n              <input type=\"text\" \r\n                #pmInput\r\n                class=\"form-control fill-parent\" \r\n                name=\"msg\" \r\n                [ngModel]=\"msg.msg\"\r\n                (ngModelChange)=\"msgChanged($event)\"\r\n                placeholder=\"Enter private message.\">\r\n              <span (click)=\"endPm()\" class=\"clear-pm margin-left-1\">X</span>\r\n              <button type=\"submit\" class=\"btn btn-primary margin-left-1\" (click)=\"send()\">Send</button>\r\n            </form>\r\n          </div>\r\n        </div>\r\n      </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -423,7 +423,6 @@ var ChatComponent = /** @class */ (function () {
         this.msgSubscription$.unsubscribe();
         this.clearSubscription$.unsubscribe();
         this.typingSubscription$.unsubscribe();
-        this.usersSubscription$.unsubscribe();
         this.roomSubscription$.unsubscribe();
         this.noReceiverSubscription$.unsubscribe();
         this.invalidReceiverSubscription$.unsubscribe();
@@ -450,10 +449,6 @@ var ChatComponent = /** @class */ (function () {
         });
         this.typingSubscription$ = this.socketIo.typing.subscribe(function (user) {
             _this.whoisTyping = user;
-            _this.ref.markForCheck();
-        });
-        this.usersSubscription$ = this.socketIo.users.subscribe(function (users) {
-            _this.users = users;
             _this.ref.markForCheck();
         });
         this.roomSubscription$ = this.socketIo.room.subscribe(function (room) {
@@ -623,7 +618,9 @@ var HomeComponent = /** @class */ (function () {
         this.ref = ref;
         this.userDetailsSubscription = this.store.select('userDetails').subscribe(function (details) {
             _this.userDetails = details;
-            _this.socketIo.join(details);
+            if (details.userName) {
+                _this.socketIo.join(details);
+            }
             _this.ref.markForCheck();
         });
     }
@@ -995,17 +992,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services */ "./src/app/services/index.ts");
+
 
 
 
 
 var SidebarComponent = /** @class */ (function () {
-    function SidebarComponent(store) {
+    function SidebarComponent(store, ref, socketIo) {
         this.store = store;
+        this.ref = ref;
+        this.socketIo = socketIo;
         this.pm = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this.userDetails$ = this.store.select('userDetails');
     }
+    SidebarComponent.prototype.ngOnDestroy = function () {
+        this.usersSubscription$.unsubscribe();
+    };
     SidebarComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.usersSubscription$ = this.socketIo.users.subscribe(function (users) {
+            _this.users = users;
+            _this.ref.markForCheck();
+        });
     };
     SidebarComponent.prototype.startPm = function (user) {
         var _this = this;
@@ -1016,10 +1025,6 @@ var SidebarComponent = /** @class */ (function () {
         });
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], SidebarComponent.prototype, "users", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], SidebarComponent.prototype, "pm", void 0);
@@ -1027,9 +1032,12 @@ var SidebarComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-sidebar',
             template: __webpack_require__(/*! ./sidebar.component.html */ "./src/app/components/sidebar/sidebar.component.html"),
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
             styles: [__webpack_require__(/*! ./sidebar.component.scss */ "./src/app/components/sidebar/sidebar.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"],
+            _services__WEBPACK_IMPORTED_MODULE_4__["SocketIoService"]])
     ], SidebarComponent);
     return SidebarComponent;
 }());
