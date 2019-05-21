@@ -1,10 +1,10 @@
 import { Component, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { LocalStorageService, SocketIoService, ApiService } from '../../services';
-import { Room, UserDetails } from '../../models';
-import { AppState } from '../../store';
 import { Subscription } from 'rxjs';
+import { Room, UserDetails } from '../../models';
+import { ApiService, LocalStorageService, SocketIoService } from '../../services';
+import { AppState } from '../../store';
 import * as UserDetailsActions from '../../store/actions/user-details.action';
 
 @Component({

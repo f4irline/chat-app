@@ -1,7 +1,7 @@
 import {
-    trigger,
     animate,
     style,
+    trigger,
     transition
 } from '@angular/animations';
 

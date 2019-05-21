@@ -1,6 +1,13 @@
-import { Component, OnInit, ViewChild, EventEmitter, ElementRef, Output } from '@angular/core';
-import { ApiService } from '../../services';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  EventEmitter,
+  ElementRef,
+  Output } from '@angular/core';
+
 import { Room } from '../../models';
+import { ApiService } from '../../services';
 
 @Component({
   selector: 'app-room-modal',
