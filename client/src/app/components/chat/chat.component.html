@@ -1,7 +1,7 @@
 <div class="paper elevate-1 container">
   <div class="row chat-wrapper">
       <div class="col-sm-3 text-center vertical-divider align-self-start side-scroll-container">
-        <app-sidebar (pm)="onPm($event)" [userDetails]="userDetails" [users]="users"></app-sidebar>
+        <app-sidebar (pm)="onPm($event)" [users]="users"></app-sidebar>
       </div>
       <div class="col-sm-9 text-center chat-container">
         <div class="room-wrapper row">
@@ -12,7 +12,7 @@
         </div>
         <div class="chat-scroll-container row">
           <div class="col-sm-12 align-self-end">
-            <app-message [userDetails]="userDetails" (pm)="onPm($event)" *ngFor="let msg of messages" [msg]="msg" [userName]="userDetails.userName"></app-message>
+            <app-message [userDetails]="userDetails" (pm)="onPm($event)" *ngFor="let msg of messages" [msg]="msg"></app-message>
             <hr>
             <div class="text-left error-container">
               <p class="lead" [@fade]='receiverError' *ngIf="receiverError">

@@ -1,4 +1,4 @@
 export interface UserDetails {
     userName: string;
-    room: string;
+    room: number;
 }

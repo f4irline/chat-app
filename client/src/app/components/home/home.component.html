@@ -8,8 +8,8 @@
     <button class="btn btn-primary action-button" data-toggle="modal" data-target="#room-add-modal">Add room</button>
     <button class="btn btn-success action-button" data-toggle="modal" data-target="#room-join-modal" (click)="getRooms()">Join room</button>
   </div>
-  <app-chat *ngIf="userDetails" [userDetails]="userDetails"></app-chat>
+  <app-chat></app-chat>
 </div>
 
-<app-room-modal></app-room-modal>
-<app-join-room-modal [rooms]="rooms"></app-join-room-modal>
+<app-room-modal (joinRoom)="onJoinRoom($event)"></app-room-modal>
+<app-join-room-modal (joinRoom)="onJoinRoom($event)" [rooms]="rooms"></app-join-room-modal>

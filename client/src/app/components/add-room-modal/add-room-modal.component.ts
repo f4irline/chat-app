@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ApiService, LocalStorageService, SocketIoService } from 'src/app/services';
-import { Room } from 'src/app/models';
+import { Component, OnInit, ViewChild, EventEmitter, ElementRef, Output } from '@angular/core';
+import { ApiService } from '../../services';
+import { Room } from '../../models';
 
 @Component({
   selector: 'app-room-modal',
@@ -12,10 +12,10 @@ export class RoomModalComponent implements OnInit {
   @ViewChild('closeModal') closeBtn: ElementRef;
   room: Room;
 
+  @Output() joinRoom = new EventEmitter<number>();
+
   constructor(
     private apiService: ApiService,
-    private localStorageService: LocalStorageService,
-    private socketIo: SocketIoService,
     ) { }
 
   ngOnInit() {
@@ -26,16 +26,9 @@ export class RoomModalComponent implements OnInit {
 
   saveRoom() {
     this.apiService.saveRoom(this.room).subscribe((room) => {
-      this.joinRoom(room.id);
+      this.room.roomName = '';
+      this.joinRoom.emit(room.id);
+      this.closeBtn.nativeElement.click();
     });
-  }
-
-  joinRoom(id: number) {
-    this.localStorageService.setRoom(id);
-    this.socketIo.join({
-      userName: this.localStorageService.getUserName(),
-      room: id.toString(),
-    });
-    this.closeBtn.nativeElement.click();
   }
 }
