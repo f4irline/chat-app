@@ -1,10 +1,16 @@
 'use strict'
 
-const app   = module.exports = require('express')();
+const express = require('express');
 
-app.get('/api', (req, res) => {
-    res.send({msg: 'Server is up and running.'});
-});
+module.exports = function(passport, jwtOptions) {
+    const router = express.Router();
 
-app.use('/api', require('./rooms'));
-app.use('/api', require('./auth'));
+    router.get('/api', (req, res) => {
+        res.send({msg: 'Server is up and running.'});
+    });
+    
+    router.use('/api', require('./rooms')(passport));
+    router.use('/api', require('./auth')(passport, jwtOptions));    
+
+    return router;
+}
