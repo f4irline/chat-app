@@ -152,11 +152,14 @@ var AppComponent = /** @class */ (function () {
 /*!*******************************!*\
   !*** ./src/app/app.module.ts ***!
   \*******************************/
-/*! exports provided: AppModule */
+/*! exports provided: reducers, localStorageSyncReducer, metaReducers, AppModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reducers", function() { return reducers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "localStorageSyncReducer", function() { return localStorageSyncReducer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "metaReducers", function() { return metaReducers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppModule", function() { return AppModule; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
@@ -164,20 +167,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
-/* harmony import */ var _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @auth0/angular-jwt */ "./node_modules/@auth0/angular-jwt/index.js");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _components_chat_chat_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/chat/chat.component */ "./src/app/components/chat/chat.component.ts");
-/* harmony import */ var _components_home_home_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/home/home.component */ "./src/app/components/home/home.component.ts");
-/* harmony import */ var _components_sidebar_sidebar_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/sidebar/sidebar.component */ "./src/app/components/sidebar/sidebar.component.ts");
-/* harmony import */ var _components_login_login_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/login/login.component */ "./src/app/components/login/login.component.ts");
-/* harmony import */ var _components_signup_signup_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/signup/signup.component */ "./src/app/components/signup/signup.component.ts");
-/* harmony import */ var ngx_socket_io__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ngx-socket-io */ "./node_modules/ngx-socket-io/index.js");
-/* harmony import */ var _components_message_message_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/message/message.component */ "./src/app/components/message/message.component.ts");
-/* harmony import */ var _components_add_room_modal_add_room_modal_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/add-room-modal/add-room-modal.component */ "./src/app/components/add-room-modal/add-room-modal.component.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./services */ "./src/app/services/index.ts");
-/* harmony import */ var _services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./services/auth/auth.guard */ "./src/app/services/auth/auth.guard.ts");
-/* harmony import */ var _components_join_room_modal_join_room_modal_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/join-room-modal/join-room-modal.component */ "./src/app/components/join-room-modal/join-room-modal.component.ts");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
+/* harmony import */ var _ngrx_store_devtools__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ngrx/store-devtools */ "./node_modules/@ngrx/store-devtools/fesm5/store-devtools.js");
+/* harmony import */ var _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @auth0/angular-jwt */ "./node_modules/@auth0/angular-jwt/index.js");
+/* harmony import */ var ngrx_store_localstorage__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ngrx-store-localstorage */ "./node_modules/ngrx-store-localstorage/dist/index.js");
+/* harmony import */ var ngrx_store_localstorage__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(ngrx_store_localstorage__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _store_reducers_user_details_reducer__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./store/reducers/user-details.reducer */ "./src/app/store/reducers/user-details.reducer.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components */ "./src/app/components/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./services */ "./src/app/services/index.ts");
+/* harmony import */ var ngx_socket_io__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ngx-socket-io */ "./node_modules/ngx-socket-io/index.js");
 
 
 
@@ -195,50 +196,63 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-var config = { url: 'https://gentle-mesa-55326.herokuapp.com', options: {} };
+var config = { url: 'http://localhost:3000', options: {} };
 function getToken() {
     return localStorage.getItem('token');
 }
+var STORE_KEYS_TO_PERSIST = ['userDetails'];
+var reducers = {
+    userDetails: _store_reducers_user_details_reducer__WEBPACK_IMPORTED_MODULE_10__["reducer"],
+};
+function localStorageSyncReducer(reducer) {
+    return Object(ngrx_store_localstorage__WEBPACK_IMPORTED_MODULE_9__["localStorageSync"])({
+        keys: STORE_KEYS_TO_PERSIST,
+        rehydrate: true,
+    })(reducer);
+}
+var metaReducers = [localStorageSyncReducer];
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"],
-                _components_chat_chat_component__WEBPACK_IMPORTED_MODULE_9__["ChatComponent"],
-                _components_home_home_component__WEBPACK_IMPORTED_MODULE_10__["HomeComponent"],
-                _components_sidebar_sidebar_component__WEBPACK_IMPORTED_MODULE_11__["SidebarComponent"],
-                _components_login_login_component__WEBPACK_IMPORTED_MODULE_12__["LoginComponent"],
-                _components_message_message_component__WEBPACK_IMPORTED_MODULE_15__["MessageComponent"],
-                _components_add_room_modal_add_room_modal_component__WEBPACK_IMPORTED_MODULE_16__["RoomModalComponent"],
-                _components_join_room_modal_join_room_modal_component__WEBPACK_IMPORTED_MODULE_19__["JoinRoomModalComponent"],
-                _components_signup_signup_component__WEBPACK_IMPORTED_MODULE_13__["SignupComponent"],
+                _app_component__WEBPACK_IMPORTED_MODULE_13__["AppComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_14__["ChatComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_14__["HomeComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_14__["SidebarComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_14__["LoginComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_14__["MessageComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_14__["RoomModalComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_14__["JoinRoomModalComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_14__["SignupComponent"],
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
-                _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"],
-                ngx_socket_io__WEBPACK_IMPORTED_MODULE_14__["SocketIoModule"].forRoot(config),
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_12__["AppRoutingModule"],
+                ngx_socket_io__WEBPACK_IMPORTED_MODULE_16__["SocketIoModule"].forRoot(config),
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
-                _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_6__["JwtModule"].forRoot({
+                _ngrx_store__WEBPACK_IMPORTED_MODULE_6__["StoreModule"].forRoot(reducers, { metaReducers: metaReducers }),
+                _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_8__["JwtModule"].forRoot({
                     config: {
                         tokenGetter: getToken,
                         whitelistedDomains: ['gentle-mesa-55326.herokuapp.com'],
                     }
                 }),
+                _ngrx_store_devtools__WEBPACK_IMPORTED_MODULE_7__["StoreDevtoolsModule"].instrument({
+                    maxAge: 25,
+                    logOnly: _environments_environment__WEBPACK_IMPORTED_MODULE_11__["environment"].production,
+                }),
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__["BrowserAnimationsModule"],
             ],
             providers: [
-                _services__WEBPACK_IMPORTED_MODULE_17__["ApiService"],
-                _services__WEBPACK_IMPORTED_MODULE_17__["SocketIoService"],
-                _services__WEBPACK_IMPORTED_MODULE_17__["LocalStorageService"],
-                _services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_18__["AuthGuard"]
+                _services__WEBPACK_IMPORTED_MODULE_15__["ApiService"],
+                _services__WEBPACK_IMPORTED_MODULE_15__["SocketIoService"],
+                _services__WEBPACK_IMPORTED_MODULE_15__["LocalStorageService"],
+                _services__WEBPACK_IMPORTED_MODULE_15__["AuthGuardService"]
             ],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_13__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
@@ -282,15 +296,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RoomModalComponent", function() { return RoomModalComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_services__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services */ "./src/app/services/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services */ "./src/app/services/index.ts");
 
 
 
 var RoomModalComponent = /** @class */ (function () {
-    function RoomModalComponent(apiService, localStorageService, socketIo) {
+    function RoomModalComponent(apiService) {
         this.apiService = apiService;
-        this.localStorageService = localStorageService;
-        this.socketIo = socketIo;
+        this.joinRoom = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
     }
     RoomModalComponent.prototype.ngOnInit = function () {
         this.room = {
@@ -300,30 +313,26 @@ var RoomModalComponent = /** @class */ (function () {
     RoomModalComponent.prototype.saveRoom = function () {
         var _this = this;
         this.apiService.saveRoom(this.room).subscribe(function (room) {
-            _this.joinRoom(room.id);
+            _this.room.roomName = '';
+            _this.joinRoom.emit(room.id);
+            _this.closeBtn.nativeElement.click();
         });
-    };
-    RoomModalComponent.prototype.joinRoom = function (id) {
-        this.localStorageService.setRoom(id);
-        this.socketIo.join({
-            userName: this.localStorageService.getUserName(),
-            room: id.toString(),
-        });
-        this.closeBtn.nativeElement.click();
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('closeModal'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
     ], RoomModalComponent.prototype, "closeBtn", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], RoomModalComponent.prototype, "joinRoom", void 0);
     RoomModalComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-room-modal',
             template: __webpack_require__(/*! ./add-room-modal.component.html */ "./src/app/components/add-room-modal/add-room-modal.component.html"),
             styles: [__webpack_require__(/*! ./add-room-modal.component.scss */ "./src/app/components/add-room-modal/add-room-modal.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services__WEBPACK_IMPORTED_MODULE_2__["ApiService"],
-            src_app_services__WEBPACK_IMPORTED_MODULE_2__["LocalStorageService"],
-            src_app_services__WEBPACK_IMPORTED_MODULE_2__["SocketIoService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_2__["ApiService"]])
     ], RoomModalComponent);
     return RoomModalComponent;
 }());
@@ -339,7 +348,7 @@ var RoomModalComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"paper elevate-1 container\">\r\n  <div class=\"row chat-wrapper\">\r\n      <div class=\"col-sm-3 text-center vertical-divider align-self-start side-scroll-container\">\r\n        <app-sidebar (pm)=\"onPm($event)\" [userDetails]=\"userDetails\" [users]=\"users\"></app-sidebar>\r\n      </div>\r\n      <div class=\"col-sm-9 text-center chat-container\">\r\n        <div class=\"room-wrapper row\">\r\n          <div class=\"col-sm-12 align-self-start\">\r\n            <h4 class=\"display-5\">Room: {{room.roomName}}</h4>\r\n            <hr>\r\n          </div>\r\n        </div>\r\n        <div class=\"chat-scroll-container row\">\r\n          <div class=\"col-sm-12 align-self-end\">\r\n            <app-message [userDetails]=\"userDetails\" (pm)=\"onPm($event)\" *ngFor=\"let msg of messages\" [msg]=\"msg\" [userName]=\"userDetails.userName\"></app-message>\r\n            <hr>\r\n            <div class=\"text-left error-container\">\r\n              <p class=\"lead\" [@fade]='receiverError' *ngIf=\"receiverError\">\r\n                {{errorString ? errorString : 'Error in message'}}\r\n              </p>\r\n            </div>\r\n            <div class=\"text-center pm-container\">\r\n              <p class=\"lead\" [ngClass]=\"{'hidden': !this.msg.private}\">Sending pm to: {{this.msg.receiver}}</p>\r\n            </div>\r\n            <div class=\"text-right typing-container\">\r\n              <p class=\"lead\" [ngClass]=\"{'hidden': whoisTyping.userName ? false : true}\">{{whoisTyping.userName}} is typing...</p>\r\n            </div>  \r\n            <form class=\"form-inline chat-controls\" [hidden]=\"this.msg.private\">\r\n              <input type=\"text\" \r\n                #msgInput\r\n                class=\"form-control fill-parent\" \r\n                name=\"msg\" \r\n                [ngModel]=\"msg.msg\"\r\n                (ngModelChange)=\"msgChanged($event)\"\r\n                placeholder=\"Enter message.\">\r\n              <button type=\"submit\" class=\"btn btn-primary margin-left-1\" (click)=\"send()\">Send</button>\r\n            </form>\r\n            <form class=\"form-inline chat-controls\" [hidden]=\"!this.msg.private\">\r\n              <input type=\"text\" \r\n                #pmInput\r\n                class=\"form-control fill-parent\" \r\n                name=\"msg\" \r\n                [ngModel]=\"msg.msg\"\r\n                (ngModelChange)=\"msgChanged($event)\"\r\n                placeholder=\"Enter private message.\">\r\n              <span (click)=\"endPm()\" class=\"clear-pm margin-left-1\">X</span>\r\n              <button type=\"submit\" class=\"btn btn-primary margin-left-1\" (click)=\"send()\">Send</button>\r\n            </form>\r\n          </div>\r\n        </div>\r\n      </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"paper elevate-1 container\">\r\n  <div class=\"row chat-wrapper\">\r\n      <div class=\"col-sm-3 text-center vertical-divider align-self-start side-scroll-container\">\r\n        <app-sidebar (pm)=\"onPm($event)\" [users]=\"users\"></app-sidebar>\r\n      </div>\r\n      <div class=\"col-sm-9 text-center chat-container\">\r\n        <div class=\"room-wrapper row\">\r\n          <div class=\"col-sm-12 align-self-start\">\r\n            <h4 class=\"display-5\">Room: {{room.roomName}}</h4>\r\n            <hr>\r\n          </div>\r\n        </div>\r\n        <div class=\"chat-scroll-container row\">\r\n          <div class=\"col-sm-12 align-self-end\">\r\n            <app-message [userDetails]=\"userDetails\" (pm)=\"onPm($event)\" *ngFor=\"let msg of messages\" [msg]=\"msg\"></app-message>\r\n            <hr>\r\n            <div class=\"text-left error-container\">\r\n              <p class=\"lead\" [@fade]='receiverError' *ngIf=\"receiverError\">\r\n                {{errorString ? errorString : 'Error in message'}}\r\n              </p>\r\n            </div>\r\n            <div class=\"text-center pm-container\">\r\n              <p class=\"lead\" [ngClass]=\"{'hidden': !this.msg.private}\">Sending pm to: {{this.msg.receiver}}</p>\r\n            </div>\r\n            <div class=\"text-right typing-container\">\r\n              <p class=\"lead\" [ngClass]=\"{'hidden': whoisTyping.userName ? false : true}\">{{whoisTyping.userName}} is typing...</p>\r\n            </div>  \r\n            <form class=\"form-inline chat-controls\" [hidden]=\"this.msg.private\">\r\n              <input type=\"text\" \r\n                #msgInput\r\n                class=\"form-control fill-parent\" \r\n                name=\"msg\" \r\n                [ngModel]=\"msg.msg\"\r\n                (ngModelChange)=\"msgChanged($event)\"\r\n                placeholder=\"Enter message.\">\r\n              <button type=\"submit\" class=\"btn btn-primary margin-left-1\" (click)=\"send()\">Send</button>\r\n            </form>\r\n            <form class=\"form-inline chat-controls\" [hidden]=\"!this.msg.private\">\r\n              <input type=\"text\" \r\n                #pmInput\r\n                class=\"form-control fill-parent\" \r\n                name=\"msg\" \r\n                [ngModel]=\"msg.msg\"\r\n                (ngModelChange)=\"msgChanged($event)\"\r\n                placeholder=\"Enter private message.\">\r\n              <span (click)=\"endPm()\" class=\"clear-pm margin-left-1\">X</span>\r\n              <button type=\"submit\" class=\"btn btn-primary margin-left-1\" (click)=\"send()\">Send</button>\r\n            </form>\r\n          </div>\r\n        </div>\r\n      </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -366,29 +375,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChatComponent", function() { return ChatComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _animations_Fade__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../animations/Fade */ "./src/app/animations/Fade.ts");
-/* harmony import */ var src_app_services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services */ "./src/app/services/index.ts");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
+/* harmony import */ var _animations_Fade__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../animations/Fade */ "./src/app/animations/Fade.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services */ "./src/app/services/index.ts");
+
 
 
 
 
 var ChatComponent = /** @class */ (function () {
-    function ChatComponent(socketIo) {
+    function ChatComponent(socketIo, store, ref) {
+        var _this = this;
         this.socketIo = socketIo;
+        this.store = store;
+        this.ref = ref;
         this.msg = {
             userName: '',
             msg: '',
             private: false,
             receiver: undefined
         };
-        this.messages = [];
         this.whoisTyping = {
             userName: undefined,
         };
         this.room = {
             roomName: undefined,
         };
-        this.receiverError = false;
+        this.userDetailsSubscription = this.store.select('userDetails').subscribe(function (details) {
+            _this.userDetails = details;
+            _this.msg.userName = details.userName;
+            _this.ref.markForCheck();
+        });
     }
     ChatComponent.prototype.onkeydown = function (event) {
         switch (event.key) {
@@ -410,57 +427,60 @@ var ChatComponent = /** @class */ (function () {
         this.roomSubscription$.unsubscribe();
         this.noReceiverSubscription$.unsubscribe();
         this.invalidReceiverSubscription$.unsubscribe();
+        this.userDetailsSubscription.unsubscribe();
         if (this.errorTimeout) {
             window.clearTimeout(this.errorTimeout);
         }
     };
+    ChatComponent.prototype.ngAfterViewChecked = function () {
+        this.scrollToBottom();
+    };
     ChatComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.scrollToBottom();
-        this.msg.userName = this.userDetails.userName;
         this.msgSubscription$ = this.socketIo.message.subscribe(function (msg) {
             _this.messages.push(msg);
+            _this.ref.markForCheck();
         });
         this.clearSubscription$ = this.socketIo.clear.subscribe(function () {
             _this.whoisTyping = {
                 userName: undefined,
             };
+            _this.ref.markForCheck();
         });
         this.typingSubscription$ = this.socketIo.typing.subscribe(function (user) {
             _this.whoisTyping = user;
+            _this.ref.markForCheck();
         });
         this.usersSubscription$ = this.socketIo.users.subscribe(function (users) {
             _this.users = users;
+            _this.ref.markForCheck();
         });
         this.roomSubscription$ = this.socketIo.room.subscribe(function (room) {
             _this.room = room;
             _this.messages = room.messages;
+            _this.ref.markForCheck();
         });
         this.noReceiverSubscription$ = this.socketIo.noReceiver.subscribe(function (msg) {
-            _this.errorString = 'No user with given name found.';
-            _this.receiverError = true;
-            if (_this.errorTimeout) {
-                window.clearTimeout(_this.errorTimeout);
-            }
-            _this.errorTimeout = window.setTimeout(function () {
-                _this.receiverError = false;
-                _this.errorTimeout = undefined;
-            }, 4000);
+            _this.displayError('No user with given name found.');
         });
         this.invalidReceiverSubscription$ = this.socketIo.invalidReceiver.subscribe(function (msg) {
-            _this.errorString = 'Invalid receiver (do not send to self).';
-            _this.receiverError = true;
-            if (_this.errorTimeout) {
-                window.clearTimeout(_this.errorTimeout);
-            }
-            _this.errorTimeout = window.setTimeout(function () {
-                _this.receiverError = false;
-                _this.errorTimeout = undefined;
-            }, 4000);
+            _this.displayError('Invalid receiver (do not send to self.)');
         });
     };
-    ChatComponent.prototype.ngAfterViewChecked = function () {
-        this.scrollToBottom();
+    ChatComponent.prototype.displayError = function (msg) {
+        var _this = this;
+        this.errorString = msg;
+        this.receiverError = true;
+        this.ref.markForCheck();
+        if (this.errorTimeout) {
+            window.clearTimeout(this.errorTimeout);
+        }
+        this.errorTimeout = window.setTimeout(function () {
+            _this.receiverError = false;
+            _this.errorTimeout = undefined;
+            _this.ref.markForCheck();
+        }, 4000);
     };
     ChatComponent.prototype.msgChanged = function (event) {
         this.msg.msg = event;
@@ -506,17 +526,13 @@ var ChatComponent = /** @class */ (function () {
     };
     ChatComponent.prototype.onPm = function (receiver) {
         var _this = this;
-        this.msg.msg = '';
         this.msg.private = true;
         this.msg.receiver = receiver;
+        this.msg.msg = '';
         setTimeout(function () {
             _this.pmInput.nativeElement.focus();
         });
     };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], ChatComponent.prototype, "userDetails", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('msgInput'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
@@ -536,11 +552,14 @@ var ChatComponent = /** @class */ (function () {
             selector: 'app-chat',
             template: __webpack_require__(/*! ./chat.component.html */ "./src/app/components/chat/chat.component.html"),
             animations: [
-                _animations_Fade__WEBPACK_IMPORTED_MODULE_2__["Fade"],
+                _animations_Fade__WEBPACK_IMPORTED_MODULE_3__["Fade"],
             ],
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
             styles: [__webpack_require__(/*! ./chat.component.scss */ "./src/app/components/chat/chat.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services__WEBPACK_IMPORTED_MODULE_3__["SocketIoService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_4__["SocketIoService"],
+            _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
     ], ChatComponent);
     return ChatComponent;
 }());
@@ -556,7 +575,7 @@ var ChatComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container margin-vertical-2\">\r\n  <div class=\"jumbotron elevate-1\">\r\n    <h1 class=\"display-3\">Welcome to Chat, {{userDetails ? userDetails.userName : ''}}!</h1>\r\n    <p class=\"lead\">The best chat application in the whole internet!</p>\r\n    <hr>\r\n    <p>Please respect each other in the chat!</p>\r\n    <button class=\"btn btn-danger action-button\" (click)=\"logout()\">Logout</button>\r\n    <button class=\"btn btn-primary action-button\" data-toggle=\"modal\" data-target=\"#room-add-modal\">Add room</button>\r\n    <button class=\"btn btn-success action-button\" data-toggle=\"modal\" data-target=\"#room-join-modal\" (click)=\"getRooms()\">Join room</button>\r\n  </div>\r\n  <app-chat *ngIf=\"userDetails\" [userDetails]=\"userDetails\"></app-chat>\r\n</div>\r\n\r\n<app-room-modal></app-room-modal>\r\n<app-join-room-modal [rooms]=\"rooms\"></app-join-room-modal>"
+module.exports = "<div class=\"container margin-vertical-2\">\r\n  <div class=\"jumbotron elevate-1\">\r\n    <h1 class=\"display-3\">Welcome to Chat, {{userDetails ? userDetails.userName : ''}}!</h1>\r\n    <p class=\"lead\">The best chat application in the whole internet!</p>\r\n    <hr>\r\n    <p>Please respect each other in the chat!</p>\r\n    <button class=\"btn btn-danger action-button\" (click)=\"logout()\">Logout</button>\r\n    <button class=\"btn btn-primary action-button\" data-toggle=\"modal\" data-target=\"#room-add-modal\">Add room</button>\r\n    <button class=\"btn btn-success action-button\" data-toggle=\"modal\" data-target=\"#room-join-modal\" (click)=\"getRooms()\">Join room</button>\r\n  </div>\r\n  <app-chat></app-chat>\r\n</div>\r\n\r\n<app-room-modal (joinRoom)=\"onJoinRoom($event)\"></app-room-modal>\r\n<app-join-room-modal (joinRoom)=\"onJoinRoom($event)\" [rooms]=\"rooms\"></app-join-room-modal>"
 
 /***/ }),
 
@@ -583,62 +602,112 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HomeComponent", function() { return HomeComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services */ "./src/app/services/index.ts");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services */ "./src/app/services/index.ts");
+/* harmony import */ var _store_actions_user_details_action__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../store/actions/user-details.action */ "./src/app/store/actions/user-details.action.ts");
+
+
 
 
 
 
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent(localStorageService, router, socketIo, apiService) {
+    function HomeComponent(localStorageService, router, socketIo, apiService, store, ref) {
+        var _this = this;
         this.localStorageService = localStorageService;
         this.router = router;
         this.socketIo = socketIo;
         this.apiService = apiService;
+        this.store = store;
+        this.ref = ref;
+        this.userDetailsSubscription = this.store.select('userDetails').subscribe(function (details) {
+            _this.userDetails = details;
+            _this.socketIo.join(details);
+            _this.ref.markForCheck();
+        });
     }
-    HomeComponent.prototype.ngOnInit = function () {
-        this.getProfile();
-    };
-    HomeComponent.prototype.getProfile = function () {
-        var _this = this;
-        this.apiService.profile().subscribe(function (res) { return _this.profileSuccess(res); }, function (err) { return _this.profileError(err); });
-    };
-    HomeComponent.prototype.profileSuccess = function (res) {
-        this.userDetails = {
-            userName: res.userName,
-            room: this.localStorageService.getRoom()
-        };
-        this.socketIo.join(this.userDetails);
-    };
-    HomeComponent.prototype.profileError = function (err) {
-        this.localStorageService.removeToken();
-        this.localStorageService.removeUserName();
-        this.router.navigateByUrl('/login');
+    HomeComponent.prototype.ngOnDestroy = function () {
+        this.userDetailsSubscription.unsubscribe();
     };
     HomeComponent.prototype.logout = function () {
         this.socketIo.disconnect();
-        this.localStorageService.emptyLocalStorage();
+        this.store.dispatch(new _store_actions_user_details_action__WEBPACK_IMPORTED_MODULE_5__["ResetDetails"]());
+        this.localStorageService.removeToken();
         this.router.navigateByUrl('/');
     };
     HomeComponent.prototype.getRooms = function () {
         var _this = this;
         this.apiService.getRooms().subscribe(function (rooms) {
             _this.rooms = rooms;
+            _this.ref.markForCheck();
         });
+    };
+    HomeComponent.prototype.onJoinRoom = function (roomId) {
+        this.store.dispatch(new _store_actions_user_details_action__WEBPACK_IMPORTED_MODULE_5__["UpdateRoom"](roomId));
+        this.ref.markForCheck();
     };
     HomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-home',
             template: __webpack_require__(/*! ./home.component.html */ "./src/app/components/home/home.component.html"),
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
             styles: [__webpack_require__(/*! ./home.component.scss */ "./src/app/components/home/home.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_2__["LocalStorageService"],
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_4__["LocalStorageService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
-            _services__WEBPACK_IMPORTED_MODULE_2__["SocketIoService"],
-            _services__WEBPACK_IMPORTED_MODULE_2__["ApiService"]])
+            _services__WEBPACK_IMPORTED_MODULE_4__["SocketIoService"],
+            _services__WEBPACK_IMPORTED_MODULE_4__["ApiService"],
+            _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
     ], HomeComponent);
     return HomeComponent;
 }());
+
+
+
+/***/ }),
+
+/***/ "./src/app/components/index.ts":
+/*!*************************************!*\
+  !*** ./src/app/components/index.ts ***!
+  \*************************************/
+/*! exports provided: RoomModalComponent, ChatComponent, HomeComponent, JoinRoomModalComponent, LoginComponent, MessageComponent, SidebarComponent, SignupComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _add_room_modal_add_room_modal_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./add-room-modal/add-room-modal.component */ "./src/app/components/add-room-modal/add-room-modal.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RoomModalComponent", function() { return _add_room_modal_add_room_modal_component__WEBPACK_IMPORTED_MODULE_0__["RoomModalComponent"]; });
+
+/* harmony import */ var _chat_chat_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chat/chat.component */ "./src/app/components/chat/chat.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ChatComponent", function() { return _chat_chat_component__WEBPACK_IMPORTED_MODULE_1__["ChatComponent"]; });
+
+/* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./home/home.component */ "./src/app/components/home/home.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HomeComponent", function() { return _home_home_component__WEBPACK_IMPORTED_MODULE_2__["HomeComponent"]; });
+
+/* harmony import */ var _join_room_modal_join_room_modal_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./join-room-modal/join-room-modal.component */ "./src/app/components/join-room-modal/join-room-modal.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "JoinRoomModalComponent", function() { return _join_room_modal_join_room_modal_component__WEBPACK_IMPORTED_MODULE_3__["JoinRoomModalComponent"]; });
+
+/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./login/login.component */ "./src/app/components/login/login.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LoginComponent", function() { return _login_login_component__WEBPACK_IMPORTED_MODULE_4__["LoginComponent"]; });
+
+/* harmony import */ var _message_message_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./message/message.component */ "./src/app/components/message/message.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MessageComponent", function() { return _message_message_component__WEBPACK_IMPORTED_MODULE_5__["MessageComponent"]; });
+
+/* harmony import */ var _sidebar_sidebar_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./sidebar/sidebar.component */ "./src/app/components/sidebar/sidebar.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SidebarComponent", function() { return _sidebar_sidebar_component__WEBPACK_IMPORTED_MODULE_6__["SidebarComponent"]; });
+
+/* harmony import */ var _signup_signup_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./signup/signup.component */ "./src/app/components/signup/signup.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SignupComponent", function() { return _signup_signup_component__WEBPACK_IMPORTED_MODULE_7__["SignupComponent"]; });
+
+
+
+
+
+
+
+
 
 
 
@@ -651,7 +720,7 @@ var HomeComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"modal fade\" id=\"room-join-modal\" tabindex=\"-1\" role=\"dialog\">\r\n  <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"exampleModalLabel\">Join a room</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\">\r\n          <span>&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <ul class=\"rooms-list\">\r\n          <li *ngFor=\"let room of rooms\">\r\n            <div class=\"room-wrapper\">\r\n              <span>{{room.roomName}}</span>\r\n              <button type=\"button\" class=\"btn btn-primary btn-small\" (click)=\"joinRoom(room.id)\">Join</button>\r\n            </div>\r\n            <hr>\r\n          </li>\r\n        </ul>\r\n      </div>\r\n      <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-secondary\" #closeModal data-dismiss=\"modal\">Close</button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>  "
+module.exports = "<div class=\"modal fade\" id=\"room-join-modal\" tabindex=\"-1\" role=\"dialog\">\r\n  <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"exampleModalLabel\">Join a room</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\">\r\n          <span>&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <ul class=\"rooms-list\">\r\n          <li *ngFor=\"let room of rooms\">\r\n            <div class=\"room-wrapper\">\r\n              <span>{{room.roomName}}</span>\r\n              <button type=\"button\" class=\"btn btn-primary btn-small\" (click)=\"join(room.id)\">Join</button>\r\n            </div>\r\n            <hr>\r\n          </li>\r\n        </ul>\r\n      </div>\r\n      <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-secondary\" #closeModal data-dismiss=\"modal\">Close</button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>  "
 
 /***/ }),
 
@@ -678,29 +747,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JoinRoomModalComponent", function() { return JoinRoomModalComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_services__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services */ "./src/app/services/index.ts");
-
 
 
 var JoinRoomModalComponent = /** @class */ (function () {
-    function JoinRoomModalComponent(socketIo, localStorageService) {
-        this.socketIo = socketIo;
-        this.localStorageService = localStorageService;
+    function JoinRoomModalComponent() {
+        this.joinRoom = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
     }
     JoinRoomModalComponent.prototype.ngOnInit = function () {
     };
-    JoinRoomModalComponent.prototype.joinRoom = function (id) {
-        this.localStorageService.setRoom(id);
-        this.socketIo.join({
-            userName: this.localStorageService.getUserName(),
-            room: id.toString(),
-        });
+    JoinRoomModalComponent.prototype.join = function (id) {
+        this.joinRoom.emit(id);
         this.closeBtn.nativeElement.click();
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], JoinRoomModalComponent.prototype, "rooms", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], JoinRoomModalComponent.prototype, "joinRoom", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('closeModal'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
@@ -710,9 +776,7 @@ var JoinRoomModalComponent = /** @class */ (function () {
             selector: 'app-join-room-modal',
             template: __webpack_require__(/*! ./join-room-modal.component.html */ "./src/app/components/join-room-modal/join-room-modal.component.html"),
             styles: [__webpack_require__(/*! ./join-room-modal.component.scss */ "./src/app/components/join-room-modal/join-room-modal.component.scss")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services__WEBPACK_IMPORTED_MODULE_2__["SocketIoService"],
-            src_app_services__WEBPACK_IMPORTED_MODULE_2__["LocalStorageService"]])
+        })
     ], JoinRoomModalComponent);
     return JoinRoomModalComponent;
 }());
@@ -755,26 +819,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginComponent", function() { return LoginComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services */ "./src/app/services/index.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services */ "./src/app/services/index.ts");
+/* harmony import */ var _store_actions_user_details_action__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../store/actions/user-details.action */ "./src/app/store/actions/user-details.action.ts");
+
+
 
 
 
 
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(localStorageService, router, apiService) {
+    function LoginComponent(store, localStorageService, router, apiService) {
+        this.store = store;
         this.localStorageService = localStorageService;
         this.router = router;
         this.apiService = apiService;
         this.loginFailed = false;
     }
     LoginComponent.prototype.ngOnInit = function () {
-        var _this = this;
         if (this.localStorageService.getToken()) {
-            this.apiService.profile().subscribe(function (res) {
-                _this.localStorageService.setUserName(res.userName);
-                _this.router.navigateByUrl('/home');
-            });
+            this.router.navigateByUrl('/home');
         }
     };
     LoginComponent.prototype.login = function () {
@@ -783,7 +848,7 @@ var LoginComponent = /** @class */ (function () {
     };
     LoginComponent.prototype.handleLogin = function (data) {
         this.localStorageService.setToken(data.token);
-        this.localStorageService.setUserName(this.userName);
+        this.store.dispatch(new _store_actions_user_details_action__WEBPACK_IMPORTED_MODULE_5__["UpdateUsername"](this.userName));
         this.router.navigateByUrl('/home');
     };
     LoginComponent.prototype.handleError = function (err) {
@@ -803,9 +868,10 @@ var LoginComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./login.component.html */ "./src/app/components/login/login.component.html"),
             styles: [__webpack_require__(/*! ./login.component.scss */ "./src/app/components/login/login.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_2__["LocalStorageService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
-            _services__WEBPACK_IMPORTED_MODULE_2__["ApiService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"],
+            _services__WEBPACK_IMPORTED_MODULE_4__["LocalStorageService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _services__WEBPACK_IMPORTED_MODULE_4__["ApiService"]])
     ], LoginComponent);
     return LoginComponent;
 }());
@@ -821,7 +887,7 @@ var LoginComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"message-wrapper\" [ngClass]=\"{'user-message-wrapper': msg.userName === userName}\">\r\n  <div class=\"message\" [ngClass]=\"{'user-message':  msg.userName === userName, 'private': msg.private}\">\r\n    <p><span [ngClass]=\"{'user': userDetails.userName === msg.userName ? false : true}\" (click)=\"startPm(msg)\">{{msg.userName}}:</span> {{msg.msg}}</p>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"message-wrapper\" [ngClass]=\"{'user-message-wrapper': msg.userName === userDetails.userName}\">\r\n  <div class=\"message\" [ngClass]=\"{'user-message':  msg.userName === userDetails.userName, 'private': msg.private}\">\r\n    <p><span [ngClass]=\"{'user': userDetails.userName === msg.userName ? false : true}\" (click)=\"startPm(msg)\">{{msg.userName}}:</span> {{msg.msg}}</p>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -867,10 +933,6 @@ var MessageComponent = /** @class */ (function () {
     ], MessageComponent.prototype, "msg", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], MessageComponent.prototype, "userName", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], MessageComponent.prototype, "userDetails", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -899,7 +961,7 @@ var MessageComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"users-bar\">\r\n    <h3>Users</h3>\r\n    <div class=\"users-wrapper\">\r\n        <ul>\r\n            <li *ngFor=\"let user of users\">\r\n                <span [ngClass]=\"{'user': userDetails.userName === user.userName ? false : true}\" (click)=\"startPm(user)\">{{user.userName}}</span>\r\n                <hr class=\"user-divider\">\r\n            </li>\r\n        </ul>\r\n    </div>\r\n</div>"
+module.exports = "<div class=\"users-bar\">\r\n    <h3>Users</h3>\r\n    <div class=\"users-wrapper\">\r\n        <ul>\r\n            <li *ngFor=\"let user of users\">\r\n                <span [ngClass]=\"{'user': (userDetails$ | async).userName === user.userName ? false : true}\" (click)=\"startPm(user)\">{{user.userName}}</span>\r\n                <hr class=\"user-divider\">\r\n            </li>\r\n        </ul>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -926,27 +988,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SidebarComponent", function() { return SidebarComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+
+
 
 
 var SidebarComponent = /** @class */ (function () {
-    function SidebarComponent() {
+    function SidebarComponent(store) {
+        this.store = store;
         this.pm = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.userDetails$ = this.store.select('userDetails');
     }
     SidebarComponent.prototype.ngOnInit = function () {
     };
     SidebarComponent.prototype.startPm = function (user) {
-        if (this.userDetails.userName !== user.userName) {
-            this.pm.emit(user.userName);
-        }
+        var _this = this;
+        this.userDetails$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).subscribe(function (userDetails) {
+            if (userDetails.userName !== user.userName) {
+                _this.pm.emit(user.userName);
+            }
+        });
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], SidebarComponent.prototype, "users", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], SidebarComponent.prototype, "userDetails", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
@@ -957,7 +1024,7 @@ var SidebarComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./sidebar.component.html */ "./src/app/components/sidebar/sidebar.component.html"),
             styles: [__webpack_require__(/*! ./sidebar.component.scss */ "./src/app/components/sidebar/sidebar.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]])
     ], SidebarComponent);
     return SidebarComponent;
 }());
@@ -1000,8 +1067,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SignupComponent", function() { return SignupComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services */ "./src/app/services/index.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services */ "./src/app/services/index.ts");
 
 
 
@@ -1041,9 +1108,9 @@ var SignupComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./signup.component.html */ "./src/app/components/signup/signup.component.html"),
             styles: [__webpack_require__(/*! ./signup.component.scss */ "./src/app/components/signup/signup.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_2__["LocalStorageService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
-            _services__WEBPACK_IMPORTED_MODULE_2__["ApiService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_3__["LocalStorageService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _services__WEBPACK_IMPORTED_MODULE_3__["ApiService"]])
     ], SignupComponent);
     return SignupComponent;
 }());
@@ -1120,31 +1187,55 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _local_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../local-storage/local-storage.service */ "./src/app/services/local-storage/local-storage.service.ts");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
+/* harmony import */ var _api_api_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../api/api.service */ "./src/app/services/api/api.service.ts");
+/* harmony import */ var _local_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../local-storage/local-storage.service */ "./src/app/services/local-storage/local-storage.service.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _store_actions_user_details_action__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../store/actions/user-details.action */ "./src/app/store/actions/user-details.action.ts");
+
+
+
+
 
 
 
 
 var AuthGuard = /** @class */ (function () {
-    function AuthGuard(localStorageService, router) {
+    function AuthGuard(localStorageService, router, apiService, store) {
         this.localStorageService = localStorageService;
         this.router = router;
+        this.apiService = apiService;
+        this.store = store;
     }
     AuthGuard.prototype.canActivate = function () {
-        if (this.localStorageService.getToken()) {
-            return true;
-        }
-        else {
-            this.router.navigateByUrl('/');
-            return false;
-        }
+        return this.checkLogin();
+    };
+    AuthGuard.prototype.checkLogin = function () {
+        var _this = this;
+        return this.apiService.profile().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (res) {
+            return _this.profileSuccess(res);
+        }, function (err) {
+            return _this.profileError(err);
+        }));
+    };
+    AuthGuard.prototype.profileSuccess = function (res) {
+        this.store.dispatch(new _store_actions_user_details_action__WEBPACK_IMPORTED_MODULE_7__["UpdateUsername"](res.userName));
+        return true;
+    };
+    AuthGuard.prototype.profileError = function (err) {
+        this.localStorageService.removeToken();
+        this.localStorageService.removeUserName();
+        this.router.navigateByUrl('/');
+        return false;
     };
     AuthGuard = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_local_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_3__["LocalStorageService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_local_storage_local_storage_service__WEBPACK_IMPORTED_MODULE_5__["LocalStorageService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _api_api_service__WEBPACK_IMPORTED_MODULE_4__["ApiService"],
+            _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]])
     ], AuthGuard);
     return AuthGuard;
 }());
@@ -1304,6 +1395,86 @@ var SocketIoService = /** @class */ (function () {
     return SocketIoService;
 }());
 
+
+
+/***/ }),
+
+/***/ "./src/app/store/actions/user-details.action.ts":
+/*!******************************************************!*\
+  !*** ./src/app/store/actions/user-details.action.ts ***!
+  \******************************************************/
+/*! exports provided: UPDATE_USERNAME, UPDATE_ROOM, RESET_DETAILS, UpdateRoom, UpdateUsername, ResetDetails */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_USERNAME", function() { return UPDATE_USERNAME; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_ROOM", function() { return UPDATE_ROOM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RESET_DETAILS", function() { return RESET_DETAILS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateRoom", function() { return UpdateRoom; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateUsername", function() { return UpdateUsername; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ResetDetails", function() { return ResetDetails; });
+var UPDATE_USERNAME = '[USERDETAILS] Update username';
+var UPDATE_ROOM = '[USERDETAILS] Update room';
+var RESET_DETAILS = '[USERDETAILS] Reset details';
+var UpdateRoom = /** @class */ (function () {
+    function UpdateRoom(payload) {
+        this.payload = payload;
+        this.type = UPDATE_ROOM;
+    }
+    return UpdateRoom;
+}());
+
+var UpdateUsername = /** @class */ (function () {
+    function UpdateUsername(payload) {
+        this.payload = payload;
+        this.type = UPDATE_USERNAME;
+    }
+    return UpdateUsername;
+}());
+
+var ResetDetails = /** @class */ (function () {
+    function ResetDetails() {
+        this.type = RESET_DETAILS;
+    }
+    return ResetDetails;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/store/reducers/user-details.reducer.ts":
+/*!********************************************************!*\
+  !*** ./src/app/store/reducers/user-details.reducer.ts ***!
+  \********************************************************/
+/*! exports provided: reducer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reducer", function() { return reducer; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _actions_user_details_action__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/user-details.action */ "./src/app/store/actions/user-details.action.ts");
+
+
+var initialState = {
+    userName: '',
+    room: undefined,
+};
+function reducer(state, action) {
+    if (state === void 0) { state = initialState; }
+    switch (action.type) {
+        case _actions_user_details_action__WEBPACK_IMPORTED_MODULE_1__["UPDATE_USERNAME"]:
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, state, { userName: action.payload });
+        case _actions_user_details_action__WEBPACK_IMPORTED_MODULE_1__["UPDATE_ROOM"]:
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, state, { room: action.payload });
+        case _actions_user_details_action__WEBPACK_IMPORTED_MODULE_1__["RESET_DETAILS"]:
+            return initialState;
+        default:
+            return state;
+    }
+}
 
 
 /***/ }),
