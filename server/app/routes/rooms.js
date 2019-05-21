@@ -13,7 +13,7 @@ module.exports = function (passport) {
         Room.create(req.body).then((room) => {
             res.json(room);
         }).catch((err) => {
-            console.log(err);
+            res.status(400).json({err, msg: 'Room with the given name already exists.'});
         })
     });
     
