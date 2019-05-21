@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import { Message, Typing, User, Room } from 'src/app/models/';
-import { UserDetails } from 'src/app/models/UserDetails';
+import { Message, User, UserDetails, Room, Typing } from '../../models';
 
 @Injectable({
   providedIn: 'root'

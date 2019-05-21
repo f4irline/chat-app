@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Message } from 'src/app/models/Message';
-import { UserDetails } from 'src/app/models';
+import { Message, UserDetails } from '../../models';
 
 @Component({
   selector: 'app-message',
@@ -9,7 +8,6 @@ import { UserDetails } from 'src/app/models';
 })
 export class MessageComponent implements OnInit {
   @Input() msg: Message;
-  @Input() userName: string;
   @Input() userDetails: UserDetails;
   @Output() pm = new EventEmitter<string>();
 

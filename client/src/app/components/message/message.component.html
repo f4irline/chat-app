@@ -1,5 +1,5 @@
-<div class="message-wrapper" [ngClass]="{'user-message-wrapper': msg.userName === userName}">
-  <div class="message" [ngClass]="{'user-message':  msg.userName === userName, 'private': msg.private}">
+<div class="message-wrapper" [ngClass]="{'user-message-wrapper': msg.userName === userDetails.userName}">
+  <div class="message" [ngClass]="{'user-message':  msg.userName === userDetails.userName, 'private': msg.private}">
     <p><span [ngClass]="{'user': userDetails.userName === msg.userName ? false : true}" (click)="startPm(msg)">{{msg.userName}}:</span> {{msg.msg}}</p>
   </div>
 </div>

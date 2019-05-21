@@ -3,28 +3,61 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { Action, StoreModule, ActionReducer, MetaReducer, ActionReducerMap, createFeatureSelector } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { JwtModule } from '@auth0/angular-jwt';
+
+import { localStorageSync } from 'ngrx-store-localstorage';
+
+import * as UserDetailsReducer from './store/reducers/user-details.reducer';
+import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ChatComponent } from './components/chat/chat.component';
-import { HomeComponent } from './components/home/home.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { LoginComponent } from './components/login/login.component';
-import { SignupComponent } from './components/signup/signup.component';
+import {
+  ChatComponent,
+  HomeComponent,
+  JoinRoomModalComponent,
+  LoginComponent,
+  MessageComponent,
+  RoomModalComponent,
+  SidebarComponent,
+  SignupComponent,
+} from './components';
+
+import {
+  ApiService,
+  SocketIoService,
+  LocalStorageService,
+  AuthGuardService
+} from './services';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-import { MessageComponent } from './components/message/message.component';
-import { RoomModalComponent } from './components/add-room-modal/add-room-modal.component';
-import { ApiService, SocketIoService, LocalStorageService } from './services';
-import { AuthGuard } from './services/auth/auth.guard';
-import { JoinRoomModalComponent } from './components/join-room-modal/join-room-modal.component';
+
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 function getToken() {
   return localStorage.getItem('token');
 }
+
+const STORE_KEYS_TO_PERSIST = ['userDetails'];
+
+export interface AppState {
+  userDetails: UserDetailsReducer.Details;
+}
+
+export const reducers: ActionReducerMap<AppState> = {
+  userDetails: UserDetailsReducer.reducer,
+};
+
+export function localStorageSyncReducer(reducer: ActionReducer<AppState>): ActionReducer<AppState> {
+  return localStorageSync({
+    keys: STORE_KEYS_TO_PERSIST,
+    rehydrate: true,
+  })(reducer);
+}
+
+export const metaReducers: Array<MetaReducer<AppState, Action>> = [localStorageSyncReducer];
 
 @NgModule({
   declarations: [
@@ -44,11 +77,16 @@ function getToken() {
     AppRoutingModule,
     SocketIoModule.forRoot(config),
     HttpClientModule,
+    StoreModule.forRoot(reducers, {metaReducers}),
     JwtModule.forRoot({
       config: {
         tokenGetter: getToken,
         whitelistedDomains: ['localhost:3000'],
       }
+    }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
     }),
     BrowserAnimationsModule,
   ],
@@ -56,7 +94,7 @@ function getToken() {
     ApiService,
     SocketIoService,
     LocalStorageService,
-    AuthGuard
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,8 +1,20 @@
-import { Component, OnInit, Input, AfterViewChecked, OnDestroy, ViewChild, ElementRef, HostListener } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewChecked,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+  HostListener,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Fade } from '../../animations/Fade';
-import { Message, Typing, User, Room, UserDetails } from 'src/app/models/';
-import { SocketIoService } from 'src/app/services';
+import { Message, Typing, User, Room, UserDetails } from '../../models/';
+import { SocketIoService } from '../../services';
 import { Subscription } from 'rxjs';
+import { AppState } from 'src/app/store';
 
 @Component({
   selector: 'app-chat',
@@ -10,11 +22,11 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./chat.component.scss'],
   animations: [
     Fade,
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
 
-  @Input() userDetails: UserDetails;
   @ViewChild('msgInput') msgInput: ElementRef;
   @ViewChild('pmInput') pmInput: ElementRef;
 
@@ -25,10 +37,13 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   users: User[];
   receiverError: boolean;
 
+  userDetails: UserDetails;
+
   errorString: string;
 
   errorTimeout: number;
 
+  userDetailsSubscription: Subscription;
   msgSubscription$: Subscription;
   clearSubscription$: Subscription;
   typingSubscription$: Subscription;
@@ -37,15 +52,17 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   noReceiverSubscription$: Subscription;
   invalidReceiverSubscription$: Subscription;
 
-  constructor(private socketIo: SocketIoService) {
+  constructor(
+    private socketIo: SocketIoService,
+    private store: Store<AppState>,
+    private ref: ChangeDetectorRef,
+    ) {
     this.msg = {
       userName: '',
       msg: '',
       private: false,
       receiver: undefined
     };
-
-    this.messages = [];
 
     this.whoisTyping = {
       userName: undefined,
@@ -55,7 +72,11 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
       roomName: undefined,
     };
 
-    this.receiverError = false;
+    this.userDetailsSubscription = this.store.select('userDetails').subscribe((details) => {
+      this.userDetails = details;
+      this.msg.userName = details.userName;
+      this.ref.markForCheck();
+    });
   }
 
   @HostListener('document:keydown', ['$event'])
@@ -80,71 +101,71 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.roomSubscription$.unsubscribe();
     this.noReceiverSubscription$.unsubscribe();
     this.invalidReceiverSubscription$.unsubscribe();
+    this.userDetailsSubscription.unsubscribe();
 
     if (this.errorTimeout) {
       window.clearTimeout(this.errorTimeout);
     }
   }
 
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
   ngOnInit() {
     this.scrollToBottom();
 
-    this.msg.userName = this.userDetails.userName;
-
     this.msgSubscription$ = this.socketIo.message.subscribe((msg) => {
       this.messages.push(msg);
+      this.ref.markForCheck();
     });
 
     this.clearSubscription$ = this.socketIo.clear.subscribe(() => {
       this.whoisTyping = {
         userName: undefined,
       };
+      this.ref.markForCheck();
     });
 
     this.typingSubscription$ = this.socketIo.typing.subscribe((user) => {
       this.whoisTyping = user;
+      this.ref.markForCheck();
     });
 
     this.usersSubscription$ = this.socketIo.users.subscribe((users) => {
       this.users = users;
+      this.ref.markForCheck();
     });
 
     this.roomSubscription$ = this.socketIo.room.subscribe((room) => {
       this.room = room;
       this.messages = room.messages;
+      this.ref.markForCheck();
     });
 
     this.noReceiverSubscription$ = this.socketIo.noReceiver.subscribe((msg) => {
-      this.errorString = 'No user with given name found.';
-      this.receiverError = true;
-
-      if (this.errorTimeout) {
-        window.clearTimeout(this.errorTimeout);
-      }
-
-      this.errorTimeout = window.setTimeout(() => {
-        this.receiverError = false;
-        this.errorTimeout = undefined;
-      }, 4000);
+      this.displayError('No user with given name found.');
     });
 
     this.invalidReceiverSubscription$ = this.socketIo.invalidReceiver.subscribe((msg) => {
-      this.errorString = 'Invalid receiver (do not send to self).';
-      this.receiverError = true;
-
-      if (this.errorTimeout) {
-        window.clearTimeout(this.errorTimeout);
-      }
-
-      this.errorTimeout = window.setTimeout(() => {
-        this.receiverError = false;
-        this.errorTimeout = undefined;
-      }, 4000);
+      this.displayError('Invalid receiver (do not send to self.)');
     });
   }
 
-  ngAfterViewChecked() {
-    this.scrollToBottom();
+  displayError(msg: string) {
+    this.errorString = msg;
+    this.receiverError = true;
+    this.ref.markForCheck();
+
+    if (this.errorTimeout) {
+      window.clearTimeout(this.errorTimeout);
+    }
+
+    this.errorTimeout = window.setTimeout(() => {
+      this.receiverError = false;
+      this.errorTimeout = undefined;
+      this.ref.markForCheck();
+    }, 4000);
   }
 
   msgChanged(event: any) {
@@ -193,9 +214,9 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   onPm(receiver: string) {
-    this.msg.msg = '';
     this.msg.private = true;
     this.msg.receiver = receiver;
+    this.msg.msg = '';
     setTimeout(() => {
       this.pmInput.nativeElement.focus();
     });

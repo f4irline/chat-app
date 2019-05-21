@@ -1,5 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { User, UserDetails } from 'src/app/models';
+import { Store } from '@ngrx/store';
+import { User, UserDetails } from '../../models';
+import { AppState } from '../../store';
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,17 +12,23 @@ import { User, UserDetails } from 'src/app/models';
 })
 export class SidebarComponent implements OnInit {
   @Input() users: User;
-  @Input() userDetails: UserDetails;
   @Output() pm = new EventEmitter<string>();
+  userDetails$: Observable<UserDetails>;
 
-  constructor() { }
+  constructor(
+    private store: Store<AppState>,
+  ) {
+    this.userDetails$ = this.store.select('userDetails');
+  }
 
   ngOnInit() {
   }
 
   startPm(user: User) {
-    if (this.userDetails.userName !== user.userName) {
-      this.pm.emit(user.userName);
-    }
+    this.userDetails$.pipe(take(1)).subscribe((userDetails) => {
+      if (userDetails.userName !== user.userName) {
+        this.pm.emit(user.userName);
+      }
+    });
   }
 }
