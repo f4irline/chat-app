@@ -4,8 +4,8 @@ import { Store } from '@ngrx/store';
 import { ApiService } from '../api/api.service';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 import { User } from '../../models';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { AppState } from 'src/app/store';
 import * as UserDetailsActions from '../../store/actions/user-details.action';
 
@@ -25,14 +25,16 @@ export class AuthGuard implements CanActivate {
   }
 
   checkLogin(): Observable<boolean> {
-    return this.apiService.profile().pipe(map(
-      res => {
-        return this.profileSuccess(res);
-      },
-      err => {
-        return this.profileError(err);
-      },
-    ));
+    return this.apiService.profile().pipe(
+      map(
+        res => {
+          return this.profileSuccess(res);
+        },
+      ),
+      catchError((err) => {
+        return of(this.profileError(err));
+      })
+    );
 
   }
 
@@ -43,7 +45,7 @@ export class AuthGuard implements CanActivate {
 
   profileError(err: any): boolean {
     this.localStorageService.removeToken();
-    this.localStorageService.removeUserName();
+    this.store.dispatch(new UserDetailsActions.UpdateUsername(''));
     this.router.navigateByUrl('/');
     return false;
   }
