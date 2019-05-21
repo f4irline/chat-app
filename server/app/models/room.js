@@ -7,6 +7,9 @@ module.exports = (sequelize, type) => {
             primaryKey: true,
             autoIncrement: true,
         },
-        roomName: type.STRING,
+        roomName: {
+            type: type.STRING,
+            unique: true,
+        },
     });
 }
