@@ -1,0 +1,2 @@
+# Do not track SQLite database file in Git
+db.sqlite
