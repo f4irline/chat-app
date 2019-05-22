@@ -17,9 +17,8 @@ if (process.env.DATABASE_URL) {
     });
 } else {
     sequelize = new Sequelize(config.mysql.database, config.mysql.user, config.mysql.password, {
-        host: config.mysql.host,
-        dialect: 'mysql',
-        logging: false,
+        dialect: 'sqlite',
+        storage: `${__dirname}/data/db.sqlite`,
     });    
 }
 
