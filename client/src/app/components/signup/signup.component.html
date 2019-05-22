@@ -16,7 +16,7 @@
       </div>
       <div class="form-group row">
         <label for="password" class="col-sm-3 col-form-label">Password</label>
-        <input type="text" id="password" name="password" placeholder="Enter password" class="form-control col-sm-9" [(ngModel)]="password">
+        <input type="password" id="password" name="password" placeholder="Enter password" class="form-control col-sm-9" [(ngModel)]="password">
       </div>
       <button type="submit" class="btn btn-primary" (click)="signup()">Sign up!</button>
       <span *ngIf="signupFailed" class="error-hint">User with the given name already exists.</span>
