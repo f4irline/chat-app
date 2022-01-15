@@ -6,8 +6,8 @@
   "scripts": {
     "postinstall": "echo \"Installing Angular dependencies\" && cd ./client && npm install",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-server": "cd ./server && nodemon index.js",
-    "start-client": "cd ./client && ng serve -o",
+    "start-server": "cd ./server && npx nodemon index.js",
+    "start-client": "cd ./client && npx @angular/cli serve -o",
     "start": "concurrently --kill-others \"npm run start-server\" \"npm run start-client\"",
     "build": "cd ./client && ng build --output-path ../server/dist"
   },
