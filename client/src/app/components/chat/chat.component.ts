@@ -27,8 +27,8 @@ import { AppState } from '../../store';
 })
 export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
 
-  @ViewChild('msgInput') msgInput: ElementRef;
-  @ViewChild('pmInput') pmInput: ElementRef;
+  @ViewChild('msgInput', { static: true }) msgInput: ElementRef;
+  @ViewChild('pmInput', { static: true }) pmInput: ElementRef;
 
   whoisTyping: Typing;
   msg: Message;
@@ -54,7 +54,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     private socketIo: SocketIoService,
     private store: Store<AppState>,
     private ref: ChangeDetectorRef,
-    ) {
+  ) {
     this.msg = {
       userName: '',
       msg: '',
@@ -166,7 +166,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     if (this.msg.msg.length > 0) {
       if (this.msg.msg[0] !== '/') {
         if (!this.msg.private) {
-          this.socketIo.startTyping({userName: this.userDetails.userName});
+          this.socketIo.startTyping({ userName: this.userDetails.userName });
         }
       } else {
         this.checkMessageForPm();

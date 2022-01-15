@@ -9,7 +9,7 @@ import { Room } from '../../models';
 export class JoinRoomModalComponent implements OnInit {
   @Input() rooms: Room;
   @Output() joinRoom = new EventEmitter<number>();
-  @ViewChild('closeModal') closeBtn: ElementRef;
+  @ViewChild('closeModal', { static: true }) closeBtn: ElementRef;
 
   ngOnInit() {
   }

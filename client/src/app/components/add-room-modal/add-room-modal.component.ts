@@ -7,7 +7,7 @@ import {
   EventEmitter,
   ElementRef,
   Output,
-  } from '@angular/core';
+} from '@angular/core';
 
 import { Fade } from '../../animations/Fade';
 import { Room } from '../../models';
@@ -24,7 +24,7 @@ import { ApiService } from '../../services';
 })
 export class RoomModalComponent implements OnInit {
 
-  @ViewChild('closeModal') closeBtn: ElementRef;
+  @ViewChild('closeModal', { static: true }) closeBtn: ElementRef;
   room: Room;
 
   @Output() joinRoom = new EventEmitter<number>();
@@ -35,7 +35,7 @@ export class RoomModalComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private ref: ChangeDetectorRef,
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.room = {
